@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>"When should I sell my Bitcoin?" Retirement Calculator</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+
+<body>
+  <div id="inputs">
+    <form class="params">
+    
+    Current Age:  <div id="curAge">18</div>
+    18  <input type="range" name="currentAge" id="currentAge" min=18 max=100 value=18>  100
+    </br>
+
+    Current Investments:  <input type="number" name="currentInv" id="currentInv">
+    </br>
+
+    Investing Start Age:  <div id="invStr">18</div></br>
+    18  <input type="range" name="invStrAge" id="invStrAge" min=18 max=100 value=18>  100
+    </br>    
+
+    Investing End Age:  <div id="invEnd">40</div></br>
+    18  <input type="range" name="invEndAge" id="invEndAge" min=18 max=100 value=40>  100
+    </br>
+
+    Annual Investment:  <input type="number" name="annInv" id="annInv">
+    </br>
+
+    One-time Investment Age:  <div id="oneTimeAge">18</div></br>
+    18  <input type="range" name="oneTimeAgeInv" id="oneTimeAgeInv" min=18 max=100 value=18>  100
+    </br>
+
+    One-time Investment:  <input type="number" name="oneTimeInv" id="oneTimeInv">
+    </br>
+
+    Investment Return(%):  <input type="number" name="invPerc" id="invPerc" value=7>
+    </br>
+
+    Retirement Age:  <div id="retAge">50</div></br>
+    18  <input type="range" name="retireAge" id="retireAge" min=18 max=100 value=50>  100
+    </br>
+
+    Withdrawal Return(%):  <input type="number" name="withPerc" id="withPerc" value=4>
+
+    </form>
+  </div>
+  <div id="myDiv"></div>
+
+<script>
+
+// Creating dynamic labels for range inputs
+
+const updateCurAge = (e) => {document.getElementById("curAge").innerHTML = e.target.value}
+const updateRetAge = (e) => {document.getElementById("retAge").innerHTML = e.target.value}
+const updateInvStAge = (e) => {document.getElementById("invStr").innerHTML = e.target.value}
+const updateInvEndAge = (e) => {document.getElementById("invEnd").innerHTML = e.target.value}
+const updateOneTimeInvAge = (e) => {document.getElementById("oneTimeAge").innerHTML = e.target.value}
+
+document.getElementById("currentAge").addEventListener("change", updateCurAge);
+document.getElementById("retireAge").addEventListener("change", updateRetAge);
+document.getElementById("invStrAge").addEventListener("change", updateInvStAge);
+document.getElementById("invEndAge").addEventListener("change", updateInvEndAge);
+document.getElementById("oneTimeAgeInv").addEventListener("change", updateOneTimeInvAge);
+
+// pulling out form elements
+
+const inputs = document.querySelectorAll("form.params");
+const currentAge = inputs[0].elements.currentAge;
+const currentInv = inputs[0].elements.currentInv;
+const invStrAge = inputs[0].elements.invStrAge;
+const invEndAge = inputs[0].elements.invEndAge;
+const annInv = inputs[0].elements.annInv;
+const oneTimeAgeInv = inputs[0].elements.oneTimeAgeInv;
+const oneTimeInv = inputs[0].elements.oneTimeInv;
+const invPerc = inputs[0].elements.invPerc;
+const retireAge = inputs[0].elements.retireAge;
+const withPerc = inputs[0].elements.withPerc;
+
+
+// create elements for plot
+
+var xAxis = [];
+
+for(let i=18; i < 101; i++){
+  xAxis.push(i);
+}
+
+var invBal = [];
+
+
+// retirement math
+
+var age = [];
+
+for(let i=18; i < 101; i++){
+
+  age.push({"age": i, "investments": 0, "initial": 0, "annual": 0, "withdraw": 0});
+
+}
+
+
+const doCalc = () => {
+
+  invBal = [];
+
+  for(let i=0; i<83; i++){
+
+    if(age[i].age == currentAge.value){
+      age[i].initial = Number(currentInv.value);
+    } else {
+      age[i].initial = 0;
+    }
+
+    if(age[i].age >= invStrAge.value & age[i].age <= invEndAge.value){
+      age[i].annual = Number(annInv.value);
+    } else {
+      age[i].annual = 0;
+    }
+
+    if(i==0){
+    age[i].investments = age[i].initial + age[i].annual;
+    } else if(age[i].age >= retireAge.value) {
+    age[i].investments = age[i].initial + age[i].annual + ((age[i - 1].investments * (100 - withPerc.value)/100) * (1 + invPerc.value/100));
+    } else {
+    age[i].investments = age[i].initial + age[i].annual + (age[i - 1].investments * (1 + invPerc.value/100));
+    }
+
+    if(age[i].age >= retireAge.value){
+      age[i].withdraw = age[i-1].investments * withPerc.value / 100;
+    } else {
+      age[i].withdraw = 0;
+    }
+
+    invBal.push(age[i].investments);
+
+  }
+
+  var trace1 = {
+    x: xAxis,
+    y: invBal,
+    mode: 'lines',
+    line: {
+      color: 'rgb(55, 128, 191)',
+      width: 3
+    }
+  };
+
+  var data = [trace1];
+
+  var layout = {
+    title: 'Investment Balance',
+    yaxis: {range: [0, 10000000]}
+  };
+
+  Plotly.newPlot('myDiv', data, layout);
+
+}
+
+// rerun math everytime a value is changed
+
+currentAge.addEventListener("change", doCalc);
+currentInv.addEventListener("change", doCalc);
+invStrAge.addEventListener("change", doCalc);
+invEndAge.addEventListener("change", doCalc);
+annInv.addEventListener("change", doCalc);
+oneTimeAgeInv.addEventListener("change", doCalc);
+oneTimeInv.addEventListener("change", doCalc);
+invPerc.addEventListener("change", doCalc);
+retireAge.addEventListener("change", doCalc);
+withPerc.addEventListener("change", doCalc);
+
+</script>
+
+
+
+</body>
+
+</html>
+
