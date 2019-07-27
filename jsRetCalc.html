@@ -5,6 +5,17 @@
 <title>"When should I sell my Bitcoin?" Retirement Calculator</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<style>
+  #inputs {
+    float: left;
+    width: 30%;
+  }
+  
+  #chart {
+    float: right;
+    width: 65%;
+  }
+</style>
 </head>
 
 <body>
@@ -47,7 +58,7 @@
 
     </form>
   </div>
-  <div id="myDiv"></div>
+  <div id="chart"></div>
 
 <script>
 
@@ -155,7 +166,7 @@ const doCalc = () => {
     yaxis: {range: [0, 10000000]}
   };
 
-  Plotly.newPlot('myDiv', data, layout);
+  Plotly.newPlot('chart', data, layout);
 
 }
 
