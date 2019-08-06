@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>OSHA Rate Calculator</title>
+    <style>
+      background {
+        color: rgba(0,0,0,.5);
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        font-family: 'Lato', sans-serif;
+      }
+
+      .row {
+        display: flex;
+        flex-direction: row;
+        align-self: center;
+      }
+
+      .row-long {
+        display: flex;
+        flex-direction: column;
+        line-height: 0px;
+      }
+
+      .column{
+        flex: 1;
+        flex-direction: row;
+        padding: 5px 10px 5px 10px;
+
+      }
+
+      h3 {
+        text-align: center;
+        background-color: orange; 
+        color: white; 
+        font-size: 24px;
+        padding: 15px 10px 15px 10px;
+      }
+
+      #oshaRate {
+       text-align: center;
+       padding: 70px;
+       font-size: 50px; 
+       border-style: solid;
+       border-width: 1px; 
+       border-color: black;
+      }
+
+    </style>
+
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="column">
+          <h3>OSHA Rate Calculator</h3>
+        </div>
+      </div>
+      <div class="row">
+        <div class="column">
+          <form class="params">
+            <div class="row">
+              <div class="column"><label for="oshaCt">OSHA Injury Count:  </label></div><div class="column"><input type="number" name="oshaCt" id="oshaCt" value=0></div>
+            </div>
+            <div class="row">
+              <div class="column"><label for="hrsChc">Base Hours Estimate On:  </label></div>
+            </div>
+            <div class="row-long">
+              <div class="column"><input type="radio" name="hrsChc" id="hrsChc2018" checked> 2018</div>
+              <div class="column"><input type="radio" name="hrsChc" id="hrsChc3yr"> 3 Year Average (2016-18)</div>
+              <div class="column"><input type="radio" name="hrsChc" id="hrsChcOth"><label for="otherHrs">Other:  </label><input type="number" name="othHrs" id="othHrs" value=4500000></div>
+            </div>
+            <div class="row">
+              <div class="column"><label for="hrsYeOrYtd">Rate type:  </label></div>
+              <div class="column" >
+                <select name="hrsYeOrYtd" id="hrsYeOrYtd">
+                  <option value="yearEnd">Year End</option>
+                  <option value="ytd">Year to Date</option>
+                </select>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="column" style="flex-grow: 2">
+          <div id="oshaRate">0</div>
+        </div>
+      </div>
+      <div class="row" style="align: center; padding: 20px;">
+        <p><em>The OSHA rate is calculated by multiplying the number of OSHA recordable incidents by 200,000 and dividing by the hours worked by all employees.</em></p>
+      </div>
+    </div>
+
+    <script>
+
+      // pulling out form elements
+
+      const inputs = document.querySelectorAll("form.params");
+      const oshaCt = inputs[0].elements.oshaCt;
+      const hrsChc2018 = inputs[0].elements.hrsChc2018;
+      const hrsChc3yr = inputs[0].elements.hrsChc3yr;
+      const hrsChcOth = inputs[0].elements.hrsChcOth;
+      const othHrs = inputs[0].elements.othHrs;
+      const hrsYeOrYtd = inputs[0].elements.hrsYeOrYtd;
+
+
+      var oshaRt = 0;
+
+      const _MS_PER_DAY = 1000 * 60 * 60 * 24;
+      const currentDate = new Date();
+      const startOfCurYear = new Date(currentDate.getFullYear(),0,0);
+      const dayNum = (currentDate - startOfCurYear)/ _MS_PER_DAY
+
+
+      const hours2018 = 4815208;  
+      const hours2017 = 4681523;  
+      const hours2016 = 4624024;  
+
+      var hours = hours2018;
+
+      const doCalc = () => {
+
+        // logic to determine which hours to use
+
+        if(inputs[0].elements.hrsChc2018.checked){
+          hours = hours2018
+        } else if(inputs[0].elements.hrsChc3yr.checked){
+          hours = (hours2018 + hours2017 + hours2016)/3;
+        } else {
+          hours = parseFloat(inputs[0].elements.othHrs.value)
+        }
+
+       // Use YTD or Year End
+
+        if(hrsYeOrYtd.value == "yearEnd"){
+          oshaRt = oshaCt.value * 200000 / hours;
+        } else {
+          oshaRt = oshaCt.value * 200000 / (hours * dayNum / 365);
+        }
+
+        oshaRt = Math.floor(oshaRt * 1000) / 1000; 
+
+        document.getElementById("oshaRate").innerHTML = oshaRt; 
+      }        
+
+      oshaCt.addEventListener("change", doCalc);
+      hrsChc2018.addEventListener("change", doCalc);
+      hrsChc3yr.addEventListener("change", doCalc);
+      hrsChcOth.addEventListener("change", doCalc);
+      othHrs.addEventListener("change", doCalc);
+      hrsYeOrYtd.addEventListener("change", doCalc);
+
+
+    </script>
+
+
+  </body>
+
+</html>
