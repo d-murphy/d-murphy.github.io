@@ -140,6 +140,7 @@ for(let i=18; i < 101; i++){
 }
 
 var invBal = [];
+var invScens = [];
 
 const doCalc = () => {
 
@@ -176,27 +177,13 @@ const doCalc = () => {
     invBal.push(age[i].investments);
 
   }
-
-//  var trace1 = {
-//    x: xAxis,
-//    y: invBal,
-//    mode: 'lines',
-//    line: {
-//      color: 'rgb(55, 128, 191)',
-//     width: 3
-//    }
-//  };
-
-//  var data = [trace1];
-
-//  var layout = {
-//    title: 'Investment Balance',
-//    yaxis: {range: [0, 10000000]}
-//  };
-
-//  Plotly.newPlot('chart', data, layout);
   
   drawInvBal(invBal);
+  return invBal;
+}
+
+const saveScen = () => {
+  invScens.push(doCalc());
 }
 
 // rerun math everytime a value is changed
