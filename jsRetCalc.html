@@ -106,7 +106,27 @@ for(let i=18; i < 101; i++){
   xAxis.push(i);
 }
 
-var invBal = [];
+const drawInvBal = (curInvBal) => {
+  
+  var trace1 = {
+    x: xAxis,
+    y: curInvBal,
+    mode: 'lines',
+    line: {
+      color: 'rgb(55, 128, 191)',
+      width: 3
+    }
+  };
+
+  var data = [trace1];
+
+  var layout = {
+    title: 'Investment Balance',
+    yaxis: {range: [0, 10000000]}
+  };
+
+  Plotly.newPlot('chart', data, layout);
+}  
 
 
 // retirement math
@@ -119,6 +139,7 @@ for(let i=18; i < 101; i++){
 
 }
 
+var invBal = [];
 
 const doCalc = () => {
 
@@ -156,26 +177,26 @@ const doCalc = () => {
 
   }
 
-  var trace1 = {
-    x: xAxis,
-    y: invBal,
-    mode: 'lines',
-    line: {
-      color: 'rgb(55, 128, 191)',
-      width: 3
-    }
-  };
+//  var trace1 = {
+//    x: xAxis,
+//    y: invBal,
+//    mode: 'lines',
+//    line: {
+//      color: 'rgb(55, 128, 191)',
+//     width: 3
+//    }
+//  };
 
-  var data = [trace1];
+//  var data = [trace1];
 
-  var layout = {
-    title: 'Investment Balance',
-    yaxis: {range: [0, 10000000]}
-  };
+//  var layout = {
+//    title: 'Investment Balance',
+//    yaxis: {range: [0, 10000000]}
+//  };
 
-  Plotly.newPlot('chart', data, layout);
+//  Plotly.newPlot('chart', data, layout);
   
-  return invBal;
+  drawInvBal(invBal);
 }
 
 // rerun math everytime a value is changed
