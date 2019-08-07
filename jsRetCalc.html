@@ -11,6 +11,17 @@
     font-family: 'Lato', sans-serif;
   }
   
+  .row {
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+  }  
+
+   .column{
+     flex: 1;
+     flex-direction: row;
+  }
+
   #inputs {
     float: left;
     width: 30%;
@@ -28,12 +39,17 @@
 
 <body>
 <div class="container">
-  <div id="inputs">
-    <form class="params">
-    
-      <label for="currentAge">Current Age:  <div id="curAge">18</div></label>
-      18  <input type="range" name="currentAge" id="currentAge" min=18 max=100 value=18>  100
-    </br>
+  <div class="row">
+    <div class="column" id="inp">
+      <form class="params">
+      <div class="row">
+        <div class="column">
+          <label for="currentAge">Current Age:  <div id="curAge">18</div></label>
+          18  
+          <input type="range" name="currentAge" id="currentAge" min=18 max=100 value=18>  
+          100
+        </div>
+      </div>
 
     Current Investments:  <input type="number" name="currentInv" id="currentInv">
     </br>
@@ -67,8 +83,12 @@
 
     </form>
   </div>
-  <div id="chart"></div>
+  <div class="column">
+    <div id="chart"></div>
+  </div>
 </div>
+</div>
+
 <script>
 
 // Creating dynamic labels for range inputs
