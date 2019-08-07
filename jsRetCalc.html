@@ -23,9 +23,6 @@
   }
 
   #inputs {
-    float: left;
-    width: 30%;
-    padding: 10px;
     background-color: rgba(0,0,0,.1);
   }
   
@@ -40,15 +37,12 @@
 <body>
 <div class="container">
   <div class="row">
-    <div class="column" id="inp">
+    <div class="column" id="inputs">
       <form class="params">
       <div class="row">
-        <div class="column">
-          <label for="currentAge">Current Age:  <div id="curAge">18</div></label>
-          18  
-          <input type="range" name="currentAge" id="currentAge" min=18 max=100 value=18>  
-          100
-        </div>
+        <div class="column">Current Age:  </div>
+        <div class="column" id="curAge">18</div>
+        <div class="column" id="curAge"> 18 <input type="range" name="currentAge" id="currentAge" min=18 max=100 value=18>  100</div>
       </div>
 
     Current Investments:  <input type="number" name="currentInv" id="currentInv">
