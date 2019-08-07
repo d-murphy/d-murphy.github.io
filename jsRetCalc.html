@@ -169,7 +169,18 @@ for(let i=18; i < 101; i++){
   xAxis.push(i);
 }
 
-const drawInvBal = (curInvBal) => {
+var age = [];
+
+for(let i=18; i < 101; i++){
+
+  age.push({"age": i, "investments": 0, "initial": 0, "annual": 0, "withdraw": 0});
+
+}
+
+var invBal = [];
+var invScens = [];
+
+const drawInvBal = (curInvBal, invScens) => {
   
   var trace1 = {
     x: xAxis,
@@ -189,22 +200,11 @@ const drawInvBal = (curInvBal) => {
   };
 
   Plotly.newPlot('chart', data, layout);
+  
+  if(invSens.length>0){console.log("something here")else{console.log("nuthin here")}
 }  
 
-
-// retirement math
-
-var age = [];
-
-for(let i=18; i < 101; i++){
-
-  age.push({"age": i, "investments": 0, "initial": 0, "annual": 0, "withdraw": 0});
-
-}
-
-var invBal = [];
-var invScens = [];
-
+  
 const doCalc = () => {
 
   invBal = [];
