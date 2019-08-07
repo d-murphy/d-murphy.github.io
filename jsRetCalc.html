@@ -9,6 +9,7 @@
     max-width: 1200px;
     margin: 0 auto;
     font-family: 'Lato', sans-serif;
+    border: 1px solid rgba(0,0,0,.3);
   }
 
   .inputGp {
@@ -254,7 +255,7 @@ invPerc.addEventListener("change", doCalc);
 retireAge.addEventListener("change", doCalc);
 withPerc.addEventListener("change", doCalc);
 
-doCalc();
+document.addEventListener("DOMContentLoaded",doCalc);
   
 </script>
 
