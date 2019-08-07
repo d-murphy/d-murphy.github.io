@@ -3,11 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Retirement Calculator - Compare Scenarios</title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <style>
-  body {
-    padding: 10px;
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: 'Lato', sans-serif;
   }
   
   #inputs {
@@ -26,6 +27,7 @@
 </head>
 
 <body>
+<div class="container">
   <div id="inputs">
     <form class="params">
     
@@ -66,7 +68,7 @@
     </form>
   </div>
   <div id="chart"></div>
-
+</div>
 <script>
 
 // Creating dynamic labels for range inputs
