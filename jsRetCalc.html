@@ -193,9 +193,18 @@ const drawInvBal = (curInvBal, invScens) => {
   };
 
   var data = [trace1];
+  var newTraces = [];
   
   for(i=0; i<invScens.length; i++){
-    var "trace" + (i+2);
+    newTraces[i] = {
+      x: xAxis,
+      y: invScens[i],
+      mode: 'lines',
+      line: {
+        color: 'rgb(0, 0, 0)',
+        width: i
+      }
+    };
   }
 
   var layout = {
@@ -204,6 +213,7 @@ const drawInvBal = (curInvBal, invScens) => {
   };
 
   Plotly.newPlot('chart', data, layout);
+  return(newTraces);
 }  
 
   
