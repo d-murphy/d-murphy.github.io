@@ -118,7 +118,7 @@
           <div class="column"><input type="range" name="retireAge" id="retireAge" min=18 max=100 value=50></div>
         </div>
         <div class="row">
-          <div class="column">Withdrawal Return(%):</div>
+          <div class="column">Withdrawal Percentage(%):</div>
           <div class="column"><input type="number" name="withPerc" id="withPerc" value=4></div>
         </div>
       </div>
@@ -201,6 +201,7 @@ const drawInvBal = (curInvBal, invScens) => {
 
   Plotly.newPlot('chart', data, layout);
   
+  console.log(invScens.length);
 }  
 
   
@@ -240,7 +241,7 @@ const doCalc = () => {
 
   }
   
-  drawInvBal(invBal);
+  drawInvBal(invBal, invScens);
   return invBal;
 }
 
