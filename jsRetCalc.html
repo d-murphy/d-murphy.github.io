@@ -193,6 +193,10 @@ const drawInvBal = (curInvBal, invScens) => {
   };
 
   var data = [trace1];
+  
+  for(let i=0, i<invScens.length, i++){
+    console.log("run #"+i);
+  }
 
   var layout = {
     title: 'Investment Balance',
@@ -200,8 +204,6 @@ const drawInvBal = (curInvBal, invScens) => {
   };
 
   Plotly.newPlot('chart', data, layout);
-  
-  console.log(invScens.length);
 }  
 
   
