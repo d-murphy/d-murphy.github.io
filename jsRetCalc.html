@@ -122,6 +122,9 @@
           <div class="column"><input type="number" name="withPerc" id="withPerc" value=4></div>
         </div>
       </div>
+      <div class="row">
+        <div class="column"><button type="button" onclick="saveScen();">Save Scenario</button></div>
+      </div>
     </form>
   </div>
   <div class="col-large">
@@ -262,6 +265,7 @@ const doCalc = () => {
 
 const saveScen = () => {
   invScens.push(doCalc());
+  drawInvBal(invBal, invScens);
 }
 
 // rerun math everytime a value is changed
