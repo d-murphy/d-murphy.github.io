@@ -207,6 +207,8 @@ const drawInvBal = (curInvBal, invScens) => {
     };
   }
 
+  data = [...data,...newTraces];
+  
   var layout = {
     title: 'Investment Balance',
     yaxis: {range: [0, 10000000]}
