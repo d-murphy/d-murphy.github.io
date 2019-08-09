@@ -266,9 +266,13 @@ const doCalc = () => {
   return invBal;
 }
 
+var scenParams = [];
+
 const saveScen = () => {
   invScens.push(doCalc());
   drawInvBal(invBal, invScens);
+  scenParams.push("Current Age: " + currentAge.value + " | Current Inv: " + currentInv.value);
+  console.log(scenParams);
 }
 
 // rerun math everytime a value is changed
