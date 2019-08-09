@@ -129,6 +129,7 @@
   </div>
   <div class="col-large">
     <div id="chart"></div>
+    <div id="scensList"></div>
   </div>
 </div>
 </div>
@@ -225,6 +226,15 @@ const drawInvBal = (curInvBal, invScens) => {
   return(newTraces);
 }  
 
+var scenParams = [];
+
+const printScens = () => {
+  var scensHtml = "";
+  for(let i=0, i<scenParams.length; i++){
+    scensHtml =+ "<p>"+scenParams[i]+"</p>";
+  }
+  document.getElementById('scensList').innerHTML = scensHtml;
+}
   
 const doCalc = () => {
 
@@ -266,12 +276,13 @@ const doCalc = () => {
   return invBal;
 }
 
-var scenParams = [];
+
 
 const saveScen = () => {
   invScens.push(doCalc());
-  drawInvBal(invBal, invScens);
   scenParams.push("Current Age: " + currentAge.value + " | Current Inv: " + currentInv.value);
+  drawInvBal(invBal, invScens);
+  printScens();
   console.log(scenParams);
 }
 
