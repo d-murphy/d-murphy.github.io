@@ -139,7 +139,9 @@
         <center><div class="column"><button type="button" onclick="saveScen();">Save Scenario</button></div></center>
       </div>
     </form>
-    <div id="scensList"></div>
+    <div class="inputGp">
+      <div id="scensList"></div>
+      </div>
   </div>
   <div class="col-large">
     <div id="chart"></div>
@@ -293,7 +295,9 @@ const doCalc = () => {
 
 const saveScen = () => {
   invScens.push(doCalc());
-  scenParams.push("Current Age: " + currentAge.value + " | Current Inv: " + currentInv.value);
+  scenParams.push("Current Age: " + currentAge.value + " | Current Inv: " + currentInv.value + 
+                  " | Inv. Start Age: " + invStrAge.value + " | Inv. End Age: " + invEndAge.value +
+                  " | Annual Inv.: " + annInv.value);
   drawInvBal(invBal, invScens);
   printScens();
   console.log(scenParams);
