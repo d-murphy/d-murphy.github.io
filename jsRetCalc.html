@@ -68,6 +68,7 @@
   .scenParams {
     font-size: 60%;
     padding: 2px;
+    margin: 2px;
     border: 1px solid black;
   }
   
@@ -252,7 +253,7 @@ var scenParams = [];
 const printScens = () => {
   var scensHtml = "";
   for(i=0; i<scenParams.length; i++){
-    scensHtml += "<div class='scenParams' id='scen" + i +"'>" + scenParams[i] + "</div>";
+    scensHtml += "<div class='scenParams' id='scen" + i +"'><strong>Scenario " + (i+1) + "</strong></br>" + scenParams[i] + "</div>";
   }
   document.getElementById('scensList').innerHTML = scensHtml;
 }
@@ -302,12 +303,12 @@ const doCalc = () => {
 const saveScen = () => {
   invScens.push(doCalc());
   var scenStr = ""; 
-  scenStr += "Current Age: " + currentAge.value + " | Current Inv: " + currentInv.value + 
-                  "</br>Inv. Start Age: " + invStrAge.value + " | Inv. End Age: " + invEndAge.value +
-                  " | Annual Inv.: " + annInv.value + 
-                  "</br>One Time Inv. Age: "+ oneTimeAgeInv.value + " | One Time Inv.: " + oneTimeInv.value + 
-                  "</br>Inv Return (%): " + invPerc.value + 
-                  "</br>Ret Age: " + retireAge.value + " | Wdrwl %: " + withPerc.value;
+  scenStr += "Current Age: " + currentAge.value + " | Current Investment: " + currentInv.value + 
+             "</br>Investing Start Age: " + invStrAge.value + " | Investing End Age: " + invEndAge.value +
+             " | Annual Investment: " + annInv.value + 
+             "</br>One Time Investment Age: "+ oneTimeAgeInv.value + " | One Time Investment: " + oneTimeInv.value + 
+             "</br>Investment Return: " + invPerc.value + "%" + 
+             "</br>Retirement Age: " + retireAge.value + " | Withdrawal: " + withPerc.value "%";
   scenParams.push(scenStr);
   drawInvBal(invBal, invScens);
   printScens();
