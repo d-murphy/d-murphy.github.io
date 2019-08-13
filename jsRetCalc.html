@@ -69,9 +69,28 @@
     font-size: 60%;
     padding: 2px;
     margin: 2px;
-    border: 1px solid black;
   }
   
+  #scen1{
+    border: 1.5px solid rgb(128,0,0);
+  }    
+
+  #scen2{
+    border: 1.5px solid rgb(128,128,0);
+  }    
+
+  #scen3{
+    border: 1.5px solid rgb(0,128,128);
+  }
+  
+  #scen4{
+    border: 1.5px solid rgb(250,128,114);
+  }
+  
+  #scen5{
+    border: 1.5px solid rgb(184,134,11);
+  }    
+
   #chart {
    height: 400px;
   }
@@ -253,7 +272,7 @@ var scenParams = [];
 const printScens = () => {
   var scensHtml = "";
   for(i=0; i<scenParams.length; i++){
-    scensHtml += "<div class='scenParams' id='scen" + i +"'><strong>Scenario " + (i+1) + "</strong></br>" + scenParams[i] + "</div>";
+    scensHtml += "<div class='scenParams' id='scen" + (i+1) +"'><strong>Scenario " + (i+1) + "</strong></br>" + scenParams[i] + "</div>";
   }
   document.getElementById('scensList').innerHTML = scensHtml;
 }
