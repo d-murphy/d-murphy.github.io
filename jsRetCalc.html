@@ -65,6 +65,12 @@
    background-color: rgba(207, 227, 170,.8);
   }
   
+  .scenParams {
+    font-size: 60%;
+    padding: 2px;
+    border: 1px solid black;
+  }
+  
   #chart {
    height: 400px;
   }
@@ -246,7 +252,8 @@ var scenParams = [];
 const printScens = () => {
   var scensHtml = "";
   for(i=0; i<scenParams.length; i++){
-    scensHtml += "<p>"+scenParams[i]+"</p>";
+    let scenId = "scen" + i;
+    scensHtml += "<div class="scenParams" id=scenId>"+scenParams[i]+"</div>";
   }
   document.getElementById('scensList').innerHTML = scensHtml;
 }
