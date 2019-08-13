@@ -295,9 +295,13 @@ const doCalc = () => {
 
 const saveScen = () => {
   invScens.push(doCalc());
-  scenParams.push("Current Age: " + currentAge.value + " | Current Inv: " + currentInv.value + 
-                  " | Inv. Start Age: " + invStrAge.value + " | Inv. End Age: " + invEndAge.value +
-                  " | Annual Inv.: " + annInv.value);
+  var scenStr += "Current Age: " + currentAge.value + " | Current Inv: " + currentInv.value + 
+                  "</br>Inv. Start Age: " + invStrAge.value + " | Inv. End Age: " + invEndAge.value +
+                  " | Annual Inv.: " + annInv.value + 
+                  "</br>One Time Inv. Age: "+ oneTimeAgeInv.value + " | One Time Inv.: " + oneTimeInv.value + 
+                  "</br>Inv Return (%): " + invPerc.value + 
+                  "</br>Ret Age: " + retireAge.value + " | Wdrwl %: " + withPerc.value;
+  scenParams.push(scenStr);
   drawInvBal(invBal, invScens);
   printScens();
   console.log(scenParams);
