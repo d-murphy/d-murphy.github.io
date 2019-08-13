@@ -252,8 +252,7 @@ var scenParams = [];
 const printScens = () => {
   var scensHtml = "";
   for(i=0; i<scenParams.length; i++){
-    let scenId = "scen" + i;
-    scensHtml += "<div class="scenParams" id=scenId>"+scenParams[i]+"</div>";
+    scensHtml += "<div class='scenParams' id='scen" + i +"'>" + scenParams[i] + "</div>";
   }
   document.getElementById('scensList').innerHTML = scensHtml;
 }
