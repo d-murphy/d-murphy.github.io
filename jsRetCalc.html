@@ -260,7 +260,8 @@ const drawInvBal = (curInvBal, invScens) => {
   
   var layout = {
     title: 'Investment Balance',
-    yaxis: {range: [0, 10000000]}
+    yaxis: {range: [0, 10000000]},
+    font: {family: 'Lato, sans-serif'}
   };
 
   Plotly.newPlot('chart', data, layout);
