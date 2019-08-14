@@ -170,7 +170,7 @@
       </div>
   </div>
   <div class="col-large">
-    <div id="chart"></div>
+    <div id="invBalChart"></div>
   </div>
 </div>
 </div>
@@ -264,7 +264,7 @@ const drawInvBal = (curInvBal, invScens) => {
     font: {family: 'Lato, sans-serif'}
   };
 
-  Plotly.newPlot('chart', data, layout);
+  Plotly.newPlot('invBalChart', data, layout);
   return(newTraces);
 }  
 
