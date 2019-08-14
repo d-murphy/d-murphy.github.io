@@ -218,7 +218,7 @@ var age = [];
 
 for(let i=18; i < 101; i++){
 
-  age.push({"age": i, "investments": 0, "initial": 0, "annual": 0, "withdraw": 0});
+  age.push({"age": i, "investments": 0, "initial": 0, "annual": 0, "onetime": 0, "withdraw": 0});
 
 }
 
@@ -295,13 +295,21 @@ const doCalc = () => {
     } else {
       age[i].annual = 0;
     }
+    
+    if(age[i].age == oneTimeAgeInv.value){
+      age[i].onetime = Number(oneTimeInv.value);
+    } else {
+      age[i].onetime = 0;
+    }
 
     if(i==0){
-    age[i].investments = age[i].initial + age[i].annual;
+    age[i].investments = age[i].initial + age[i].annual + age[i].onetime;
     } else if(age[i].age >= retireAge.value) {
-    age[i].investments = age[i].initial + age[i].annual + ((age[i - 1].investments * (100 - withPerc.value)/100) * (1 + invPerc.value/100));
+    age[i].investments = age[i].initial + age[i].annual + 
+                         age[i].onetime + ((age[i - 1].investments * (100 - withPerc.value)/100) * (1 + invPerc.value/100));
     } else {
-    age[i].investments = age[i].initial + age[i].annual + (age[i - 1].investments * (1 + invPerc.value/100));
+    age[i].investments = age[i].initial + age[i].annual + 
+                         age[i].onetime + (age[i - 1].investments * (1 + invPerc.value/100));
     }
 
     if(age[i].age >= retireAge.value){
