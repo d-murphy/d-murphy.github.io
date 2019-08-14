@@ -259,14 +259,14 @@ const drawInvBal = (curInvBal, invScens, chartDivId) => {
 
   data = [...data,...newTraces];
   
-  var layout = if(chartDivId=="withDrawsChart"){
-    {
+if(chartDivId=="withDrawsChart"){
+  var layout =  {
       title: 'Withdrawals',
       yaxis: {range: [0, 4000000]},
       font: {family: 'Lato, sans-serif'}
     };
   } else {
-    {
+   var layout =  {
       title: 'Investment Balance',
       yaxis: {range: [0, 10000000]},
       font: {family: 'Lato, sans-serif'}
