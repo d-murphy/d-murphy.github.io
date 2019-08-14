@@ -281,7 +281,8 @@ const printScens = () => {
 const doCalc = () => {
 
   invBal = [];
-
+  withDraws = [];
+  
   for(let i=0; i<83; i++){
 
     if(age[i].age == currentAge.value){
@@ -319,12 +320,13 @@ const doCalc = () => {
     }
 
     invBal.push(age[i].investments);
+    withDraws.push(age[i].withdraw); 
 
   }
   
   drawInvBal(invBal, invScens);
   //return invBal;
-  console.log( {iBalance: invBal, withdraws: age.withdraw});
+  console.log( {iBalance: invBal, withdraws: withDraws});
 }
 
 
