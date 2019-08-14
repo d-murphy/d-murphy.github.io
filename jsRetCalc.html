@@ -92,7 +92,7 @@
   }    
 
   #chart {
-   height: 400px;
+   height: 350px;
   }
   
 </style>
@@ -259,11 +259,19 @@ const drawInvBal = (curInvBal, invScens, chartDivId) => {
 
   data = [...data,...newTraces];
   
-  var layout = {
-    title: 'Investment Balance',
-    yaxis: {range: [0, 10000000]},
-    font: {family: 'Lato, sans-serif'}
-  };
+  var layout = if(chartDivId=="withDrawsChart"){
+    {
+      title: 'Withdrawals',
+      yaxis: {range: [0, 4000000]},
+      font: {family: 'Lato, sans-serif'}
+    };
+  } else {
+    {
+      title: 'Investment Balance',
+      yaxis: {range: [0, 10000000]},
+      font: {family: 'Lato, sans-serif'}
+    };
+  }
 
   Plotly.newPlot(chartDivId, data, layout);
   return(newTraces);
