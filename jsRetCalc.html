@@ -332,7 +332,8 @@ const doCalc = () => {
 
 
 const saveScen = () => {
-  invScens.push(doCalc());
+  let curScen = doCalc();
+  invScens.push(curScen.iBalance);
   var scenStr = ""; 
   scenStr += "Current Age: " + currentAge.value + " | Current Investment: " + currentInv.value + 
              "</br>Investing Start Age: " + invStrAge.value + " | Investing End Age: " + invEndAge.value +
