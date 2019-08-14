@@ -226,7 +226,7 @@ var invBal = [];
 var invScens = [];
 var colorArr = ["rgb(128,0,0)", "rgb(128,128,0)", "rgb(0,128,128)","rgb(250,128,114)", "rgb(184,134,11)"];
 
-const drawInvBal = (curInvBal, invScens) => {
+const drawInvBal = (curInvBal, invScens, chartDivId) => {
   
   var trace1 = {
     x: xAxis,
@@ -264,7 +264,7 @@ const drawInvBal = (curInvBal, invScens) => {
     font: {family: 'Lato, sans-serif'}
   };
 
-  Plotly.newPlot('invBalChart', data, layout);
+  Plotly.newPlot(chartDivId, data, layout);
   return(newTraces);
 }  
 
@@ -324,7 +324,7 @@ const doCalc = () => {
 
   }
   
-  drawInvBal(invBal, invScens);
+  drawInvBal(invBal, invScens, "invBalChart");
   //return invBal;
   return {iBalance: invBal, withdraws: withDraws};
 }
@@ -342,7 +342,7 @@ const saveScen = () => {
              "</br>Investment Return: " + invPerc.value + "%" + 
              "</br>Retirement Age: " + retireAge.value + " | Withdrawal: " + withPerc.value + "%";
   scenParams.push(scenStr);
-  drawInvBal(invBal, invScens);
+  drawInvBal(invBal, invScens, "invBalChart");
   printScens();
 }
 
