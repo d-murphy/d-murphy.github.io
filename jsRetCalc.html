@@ -171,6 +171,7 @@
   </div>
   <div class="col-large">
     <div id="invBalChart"></div>
+    <div id="withDrawsChart"></div>
   </div>
 </div>
 </div>
@@ -325,6 +326,7 @@ const doCalc = () => {
   }
   
   drawInvBal(invBal, invScens, "invBalChart");
+  drawInvBal(withDraws, invScens, "withDrawsChart");
   //return invBal;
   return {iBalance: invBal, withdraws: withDraws};
 }
