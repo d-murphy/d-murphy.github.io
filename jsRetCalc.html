@@ -92,7 +92,7 @@
   }    
 
   #chart {
-   height: 350px;
+   height: 300px;
   }
   
 </style>
@@ -170,8 +170,8 @@
       </div>
   </div>
   <div class="col-large">
-    <div id="invBalChart"></div>
-    <div id="withDrawsChart"></div>
+    <div class="chart" id="invBalChart"></div>
+    <div class="chart" id="withDrawsChart"></div>
   </div>
 </div>
 </div>
@@ -262,7 +262,7 @@ const drawInvBal = (curInvBal, invScens, chartDivId) => {
 if(chartDivId=="withDrawsChart"){
   var layout =  {
       title: 'Withdrawals',
-      yaxis: {range: [0, 4000000]},
+      yaxis: {range: [0, 400000]},
       font: {family: 'Lato, sans-serif'}
     };
   } else {
