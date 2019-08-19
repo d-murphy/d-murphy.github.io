@@ -33,15 +33,14 @@
   
   .row {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
   }  
 
    .column{
      flex: 2;
      flex-direction: row;
-     align-self: center;
      justify-content: flex-start;
      padding: 5px 6px 5px 6px;
   }
@@ -49,7 +48,6 @@
    .col-small{
      flex: 1;
      flex-direction: row;
-     align-self: center;
      justify-content: center;
      padding: 5px 6px 5px 6px;
   }
@@ -57,7 +55,6 @@
    .col-large{
      flex: 5;
      flex-direction: row;
-     align-self: flex-start;
      justify-content: center;
   }
 
