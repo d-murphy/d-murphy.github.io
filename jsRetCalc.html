@@ -79,8 +79,6 @@
   }    
 
   .chart {
-   width: 600px;
-   height: 350px;
   }
   
 </style>
@@ -150,18 +148,18 @@
         </div>
       </div>
       <div class="row">
-        <center><div class="column"><button type="button" onclick="saveScen();">Save Scenario</button></div></center>
+        <div class="column"><button type="button" onclick="saveScen();">Save Scenario</button></div>
       </div>
-    </form>
-    <div class="inputGp">
-      <div id="scensList"></div>
+      </form>
+      <div class="inputGp">
+        <div id="scensList"></div>
       </div>
+    </div>
+    <div>
+      <div class="chart" id="invBalChart"></div>
+      <div class="chart" id="withDrawsChart"></div>
+    </div>
   </div>
-  <div>
-    <div class="chart" id="invBalChart"></div>
-    <div class="chart" id="withDrawsChart"></div>
-  </div>
-</div>
 </div>
 
 <script>
