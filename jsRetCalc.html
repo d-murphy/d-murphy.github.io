@@ -36,7 +36,11 @@
     flex-wrap: wrap;
     align-items: flex-start;
     justify-content: space-between;
-  }  
+  }
+  
+  .center {
+   justify-content: center;
+  } 
 
    .column{
      flex: 2;
@@ -79,7 +83,7 @@
   }    
 
   .chart {
-    flex: 5 2 auto;
+    flex: 5;
   }
   
 </style>
@@ -148,7 +152,7 @@
           <div class="column"><input type="number" name="withPerc" id="withPerc" value=4></div>
         </div>
       </div>
-      <div class="row">
+      <div class="row center">
         <div class="column"><button type="button" onclick="saveScen();">Save Scenario</button></div>
       </div>
       </form>
