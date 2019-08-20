@@ -47,8 +47,13 @@
      padding: 5px 6px 5px 6px;
   }
   
+   .col-large{
+     flex: 1 1 200px;
+     padding: 5px 6px 5px 6px;
+  }
+  
    .col-small{
-     flex: 1 ;
+     flex: 1 1 100px;
      padding: 5px 6px 5px 6px;
   }
   
@@ -101,55 +106,55 @@
         <div class="row">
           <div class="col-small">Current Age:  </div>
           <div class="col-small" id="curAge">18</div>
-          <div class="column"><input type="range" name="currentAge" id="currentAge" min=18 max=100 value=18></div>
+          <div class="col-large"><input type="range" name="currentAge" id="currentAge" min=18 max=100 value=18></div>
         </div>
         <div class="row">
-          <div class="column">Current Investments:</div>
-          <div class="column"><input type="number" name="currentInv" id="currentInv" value=0></div>
+          <div class="col-small">Current Investments:</div>
+          <div class="col-large"><input type="number" name="currentInv" id="currentInv" value=0></div>
         </div>
       </div>
       <div class="inputGp">
         <div class="row">
           <div class="col-small">Investing Start Age:</div> 
           <div class="col-small" id="invStr">18</div>
-          <div class="column"><input type="range" name="invStrAge" id="invStrAge" min=18 max=100 value=18></div>
+          <div class="col-large"><input type="range" name="invStrAge" id="invStrAge" min=18 max=100 value=18></div>
         </div>
         <div class="row">
           <div class="col-small">Investing End Age:</div> 
           <div class="col-small" id="invEnd">40</div>
-          <div class="column"><input type="range" name="invEndAge" id="invEndAge" min=18 max=100 value=40></div>
+          <div class="col-large"><input type="range" name="invEndAge" id="invEndAge" min=18 max=100 value=40></div>
         </div>
         <div class="row">
-          <div class="column">Annual Investment:</div> 
-          <div class="column"><input type="number" name="annInv" id="annInv" value=0></div>
+          <div class="col-small">Annual Investment:</div> 
+          <div class="col-large"><input type="number" name="annInv" id="annInv" value=0></div>
         </div>
       </div>
       <div class="inputGp">
         <div class="row">
           <div class="col-small">One-time Investment Age:</div>
           <div class="col-small" id="oneTimeAge">18</div>
-          <div class="column"><input type="range" name="oneTimeAgeInv" id="oneTimeAgeInv" min=18 max=100 value=18></div>
+          <div class="col-large"><input type="range" name="oneTimeAgeInv" id="oneTimeAgeInv" min=18 max=100 value=18></div>
         </div>
         <div class="row">
-          <div class="column">One-time Investment:</div> 
-          <div class="column"><input type="number" name="oneTimeInv" id="oneTimeInv" value=0></div>
+          <div class="col-small">One-time Investment:</div> 
+          <div class="col-large"><input type="number" name="oneTimeInv" id="oneTimeInv" value=0></div>
         </div>
       </div>
       <div class="inputGp">
         <div class="row">
-          <div class="column">Investment Return(%):</div>
-          <div class="column"><input type="number" name="invPerc" id="invPerc" value=7></div>
+          <div class="col-small">Investment Return(%):</div>
+          <div class="col-large"><input type="number" name="invPerc" id="invPerc" value=7></div>
         </div>
       </div>
       <div class="inputGp">
         <div class="row">
           <div class="col-small">Retirement Age:</div>
           <div class="col-small" id="retAge">50</div>
-          <div class="column"><input type="range" name="retireAge" id="retireAge" min=18 max=100 value=50></div>
+          <div class="col-large"><input type="range" name="retireAge" id="retireAge" min=18 max=100 value=50></div>
         </div>
         <div class="row">
-          <div class="column">Withdrawal Percentage(%):</div>
-          <div class="column"><input type="number" name="withPerc" id="withPerc" value=4></div>
+          <div class="col-small">Withdrawal Percentage(%):</div>
+          <div class="col-large"><input type="number" name="withPerc" id="withPerc" value=4></div>
         </div>
       </div>
       <div class="row" id="center">
