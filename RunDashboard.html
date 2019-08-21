@@ -147,15 +147,17 @@
             daysCount[currentDay]=1; 
           }
         }, {});
-      
-     var data = [
-       {
-         x: Object.keys(dayCounts),
-         y: Object.values(dayCounts),
-         type: 'bar'
-       }
-     ];
-    Plotly.newPlot('dayCounts', data);
+
+      console.log(dayCounts);
+
+//      var data = [
+//       {
+//         x: Object.keys(dayCounts),
+//         y: Object.values(dayCounts),
+//         type: 'bar'
+//       }
+//     ];
+//    Plotly.newPlot('dayCounts', data);
    }
 
     drawTimeLine();
