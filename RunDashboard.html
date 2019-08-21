@@ -144,12 +144,19 @@
           return tally;
         }, {});
   
-    console.log(dayCounts);
+    var dayCountsOrd = [];
+    dayCountsOrd.push(dayCounts["Sunday"]);  
+    dayCountsOrd.push(dayCounts["Monday"]);  
+    dayCountsOrd.push(dayCounts["Tuesday"]);  
+    dayCountsOrd.push(dayCounts["Wednesday"]);  
+    dayCountsOrd.push(dayCounts["Thursday"]);  
+    dayCountsOrd.push(dayCounts["Friday"]);  
+    dayCountsOrd.push(dayCounts["Saturday"]);  
 
-      var data = [
+    var data = [
        {
-         x: Object.keys(dayCounts),
-         y: Object.values(dayCounts),
+         x: ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+         y: dayCountsOrd,
          type: 'bar'
        }
      ];
