@@ -2,13 +2,14 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Retirement Calculator - Compare Inv. Scenarios</title>
+    <title>Run History Dashboard</title>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <style>
     </style>
   </head>
   <body>
     <div class="container">
+       <div id="timeline"></div>
     </div>
     <script>
 
@@ -87,8 +88,38 @@
         { 'date':'2019/06/27', 'weekday':'Thursday', 'mileage':6.5, 'pace':8.46},
         { 'date':'2019/06/28', 'weekday':'Friday', 'mileage':4, 'pace':8.54},
         { 'date':'2019/06/30', 'weekday':'Sunday', 'mileage':5.5, 'pace':8.54},
-      ];                   
+      ];    
+      
+      var dateArr = [];
+      var weekDayArr = [];
+      var milArr = [];
+      var paceArr = [];
 
+      for(i=0;i<runData.length;i++){
+        dateArr.push(runData[i].date);
+        weekDayArr.push(runData[i].weekday);
+        milArr.push(runData[i].mileage);
+        paceArr.push(runData[i].pace);
+      }
+      
+      var runDatArr = [dateArr,weekDayArr, milArr, paceArr];
+      
+      var arrOf1s = [];
+      for(i=0;i<runData.length;i++){
+        arrOf1s.push(1);
+      }
+      
+      var data = [
+        {
+          x: runDatArr[0],
+          y: arrOf1s,
+          type: 'bar'
+        }
+      ];
+
+      Plotly.newPlot('timeline', data);
+      
+      
     </script>
   </body>
 </html>
