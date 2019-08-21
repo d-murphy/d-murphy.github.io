@@ -10,6 +10,7 @@
   <body>
     <div class="container">
        <div id="timeline"></div>
+       <div id="dayCounts"></div>
     </div>
     <script>
 
@@ -144,13 +145,21 @@
             return daysCount;
           } else {
             daysCount[currentDay]=1; 
-            return daysCount;
           }
         }, {});
-      return dayCounts;
-    }
+      
+     var data = [
+       {
+         x: Object.keys(dayCounts),
+         y: Object.values(dayCounts),
+         type: 'bar'
+       }
+     ];
+    Plotly.newPlot('dayCounts', data);
+   }
 
     drawTimeLine();
+    drawDayCount(runDatArr[1]);
       
     </script>
   </body>
