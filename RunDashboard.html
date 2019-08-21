@@ -11,6 +11,7 @@
     <div class="container">
        <div id="timeline"></div>
        <div id="dayCounts"></div>
+       <div id="scatter"></div>
     </div>
     <script>
 
@@ -125,7 +126,7 @@
       ];
       
       var layout = {
-        xaxis: {range: ["2019-01-01 00:00:00.00","2019-07-01 00:00:00.00"]},          
+        xaxis: {range: ["2018-12-31 00:00:00.00","2019-07-01 00:00:00.00"]},          
         yaxis: {
           showgrid: false,
           zeroline: false,
@@ -162,9 +163,22 @@
      ];
     Plotly.newPlot('dayCounts', data);
    }
+      
+  function drawScatter(){
+    var data = [
+      {
+        x: runDatArr[2],
+        y: runDatArr[3],
+        mode: 'markers',
+        type: 'scatter'
+      }
+    Plotly.newPlot('scatter', data);    
+   }
+        
 
     drawTimeLine();
     drawDayCount(weekDayArr);
+    drawScatter();
       
     </script>
   </body>
