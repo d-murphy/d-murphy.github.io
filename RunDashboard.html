@@ -101,7 +101,7 @@
         weekDayArr.push(runData[i].weekday);
         milArr.push(runData[i].mileage);
         paceArr.push(runData[i].pace);
-        hoverArr.push(runData[i].weekday + ", " + runData[i].date + " | " + runData[i].mileage + " miles | pace: " + runData[i].pace);
+        hoverArr.push(runData[i].weekday + " | " + runData[i].mileage + " miles | pace: " + runData[i].pace);
       }
       
       var runDatArr = [dateArr,weekDayArr, milArr, paceArr, hoverArr];
@@ -117,12 +117,18 @@
           y: arrOf1s,
           text: runDatArr[4],
           hovertemplate: '%{text}',
-          hoverinfo: 'text',
           type: 'bar'
         }
       ];
+      
+      var layout = {
+        yaxis: {
+          showgrid: false,
+          zeroline: false
+        }
+      };
 
-      Plotly.newPlot('timeline', data);
+      Plotly.newPlot('timeline', data, layout);
       
       
     </script>
