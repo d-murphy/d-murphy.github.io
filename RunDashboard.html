@@ -135,16 +135,16 @@
 
       Plotly.newPlot('timeline', data, layout);
     }     
+
+    function drawDayCount(dysArray){
       
-    var dayCounts = weekDayArr
+    var dayCounts = dysArray
         .reduce( (tally,currentDay) => {
           tally[currentDay] = (tally[currentDay] || 0) + 1;
           return tally;
         }, {});
-      
- function drawDayCount(){
- 
-      console.log(dayCounts);
+  
+    console.log(dayCounts);
 
 //      var data = [
 //       {
@@ -157,7 +157,7 @@
    }
 
     drawTimeLine();
-    drawDayCount();
+    drawDayCount(weekDayArr);
       
     </script>
   </body>
