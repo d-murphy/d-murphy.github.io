@@ -94,15 +94,17 @@
       var weekDayArr = [];
       var milArr = [];
       var paceArr = [];
-
+      var hoverArr = [];
+      
       for(i=0;i<runData.length;i++){
         dateArr.push(runData[i].date + " 00:00:00.00");
         weekDayArr.push(runData[i].weekday);
         milArr.push(runData[i].mileage);
         paceArr.push(runData[i].pace);
+        hoverArr.push(runData[i].weekday + ", " + runData[i].date + " | " + runData[i].mileage + " miles | pace: " + runData[i].pace)
       }
       
-      var runDatArr = [dateArr,weekDayArr, milArr, paceArr];
+      var runDatArr = [dateArr,weekDayArr, milArr, paceArr, hoverArr];
       
       var arrOf1s = [];
       for(i=0;i<runData.length;i++){
@@ -113,6 +115,7 @@
         {
           x: runDatArr[0],
           y: arrOf1s,
+          hoverinfo: runDatArr[4]
           type: 'bar'
         }
       ];
