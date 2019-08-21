@@ -96,7 +96,7 @@
       var paceArr = [];
 
       for(i=0;i<runData.length;i++){
-        dateArr.push(runData[i].date);
+        dateArr.push(runData[i].date + "00:00:00.00");
         weekDayArr.push(runData[i].weekday);
         milArr.push(runData[i].mileage);
         paceArr.push(runData[i].pace);
