@@ -149,31 +149,7 @@
         }, {});
       return dayCounts;
     }
-      
-      
-      
-      var data = [
-        {
-          x: runDatArr[0],
-          y: arrOf1s,
-          text: runDatArr[4],
-          hovertemplate: '%{text}<extra></extra>',
-          type: 'bar'
-        }
-      ];
-      
-      var layout = {
-        xaxis: {range: ["2019-01-01 00:00:00.00","2019-07-01 00:00:00.00"]},          
-        yaxis: {
-          showgrid: false,
-          zeroline: false,
-          showticklabels: false
-        }
-      };
 
-      Plotly.newPlot('timeline', data, layout);
-    }  
-     
     drawTimeLine();
       
     </script>
