@@ -137,13 +137,9 @@
     }     
       
     var dayCounts = weekDayArr
-        .reduce(function(daysCount, currentDay){
-          if(typeof daysCount[currentDay] !== "undefined"){
-            daysCount[currentDay]++; 
-            return daysCount;
-          } else {
-            daysCount[currentDay]=1; 
-          }
+        .reduce( (tally,currentDay) => {
+          tally[currentDay] = (tally[currentDay] || 0) + 1;
+          return tally;
         }, {});
       
  function drawDayCount(){
