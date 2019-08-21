@@ -186,6 +186,12 @@
     drawDayCount(weekDayArr);
     drawScatter();
       
+  function printSelected(eventData){
+    console.log(eventData);
+  };
+      
+    document.getElementById('timeline').on('plotly_selected', printSelected(eventData));  
+      
     </script>
   </body>
 </html>
