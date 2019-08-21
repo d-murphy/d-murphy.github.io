@@ -172,7 +172,13 @@
         mode: 'markers',
         type: 'scatter'
       }];
-    Plotly.newPlot('scatter', data);    
+    
+    var layout = {
+      xaxis: {range: [2,7]},
+      yaxis: {range: [7.5,9.5]},
+      title: 'Mileage v. Pace'
+    };
+    Plotly.newPlot('scatter', data, layout);    
    }
         
 
