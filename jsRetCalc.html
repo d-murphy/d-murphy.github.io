@@ -113,7 +113,7 @@
             <div class="col-small">Current Age:  </div>
             <div class="col-small" id="curAge">18</div>
           </div>
-          <div class="col-large"><input type="range" name="currentAge" id="currentAge" min=18 max=100 value=18></div>
+          <div class="col-large"><input type="range" name="currentAge" id="currentAge" min=18 max=80 value=18></div>
         </div>
         <div class="row">
           <div class="col-large">Current Investments:</div>
@@ -126,14 +126,14 @@
             <div class="col-small">Investing Start Age:</div> 
             <div class="col-small" id="invStr">18</div>
           </div>
-          <div class="col-large"><input type="range" name="invStrAge" id="invStrAge" min=18 max=100 value=18></div>
+          <div class="col-large"><input type="range" name="invStrAge" id="invStrAge" min=18 max=80 value=18></div>
         </div>
         <div class="row">
           <div class="col-large">
             <div class="col-small">Investing End Age:</div> 
             <div class="col-small" id="invEnd">40</div>
           </div>
-          <div class="col-large"><input type="range" name="invEndAge" id="invEndAge" min=18 max=100 value=40></div>
+          <div class="col-large"><input type="range" name="invEndAge" id="invEndAge" min=18 max=80 value=40></div>
         </div>
         <div class="row">
           <div class="col-large">Annual Investment:</div> 
@@ -146,7 +146,7 @@
             <div class="col-small">One-time Investment Age:</div>
             <div class="col-small" id="oneTimeAge">18</div>
           </div>
-          <div class="col-large"><input type="range" name="oneTimeAgeInv" id="oneTimeAgeInv" min=18 max=100 value=18></div>
+          <div class="col-large"><input type="range" name="oneTimeAgeInv" id="oneTimeAgeInv" min=18 max=80 value=18></div>
         </div>
         <div class="row">
           <div class="col-large">One-time Investment:</div> 
@@ -165,7 +165,7 @@
             <div class="col-small">Retirement Age:</div>
             <div class="col-small" id="retAge">50</div>
           </div>
-          <div class="col-large"><input type="range" name="retireAge" id="retireAge" min=18 max=100 value=50></div>
+          <div class="col-large"><input type="range" name="retireAge" id="retireAge" min=18 max=80 value=50></div>
         </div>
         <div class="row">
           <div class="col-large">Withdrawal Percentage(%):</div>
@@ -275,12 +275,14 @@ const drawInvBal = (curInvBal, invScens, chartDivId) => {
 if(chartDivId=="withDrawsChart"){
   var layout =  {
       title: 'Withdrawals',
+      xaxis: {range: [18, 80]},
       yaxis: {range: [0, 400000]},
       font: {family: 'Lato, sans-serif'}
     };
   } else {
    var layout =  {
       title: 'Investment Balance',
+      xaxis: {range: [18, 80]},
       yaxis: {range: [0, 10000000]},
       font: {family: 'Lato, sans-serif'}
     };
