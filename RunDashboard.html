@@ -7,6 +7,7 @@
     <style>
       #timeline {
         border: 30px solid rgba(0, 0, 0,0.2);
+        height: 400px;
       }
       
     </style>
@@ -18,8 +19,7 @@
        <div id="scatter"></div>
     </div>
     <script>
-
-      var runData= [
+      var runData = [
         { 'date':'2019-01-01', 'weekday':'Tuesday', 'mileage':2.5, 'pace':9},
         { 'date':'2019-01-03', 'weekday':'Thursday', 'mileage':3.5, 'pace':8.74},
         { 'date':'2019-01-06', 'weekday':'Sunday', 'mileage':2.5, 'pace':8.6},
@@ -96,112 +96,118 @@
         { 'date':'2019-06-30', 'weekday':'Sunday', 'mileage':5.5, 'pace':8.54},
       ];    
       
+
+    var selectAllArr = [];
+      for(i=0;i<runData.length;i++){
+        selectAllArr.push(i);
+      }
+
+    function filterDataSet(graph1index = selectAllArr, graph2index = selectAllArr, graph3index = selectAllArr){
+
       var dateArr = [];
       var weekDayArr = [];
       var milArr = [];
       var paceArr = [];
       var hoverArr = [];
       
-      for(i=0;i<runData.length;i++){
-        dateArr.push(runData[i].date + " 00:00:00.00");
-        weekDayArr.push(runData[i].weekday);
-        milArr.push(runData[i].mileage);
-        paceArr.push(runData[i].pace);
-        hoverArr.push(runData[i].weekday + " | " + runData[i].mileage + " miles | pace: " + runData[i].pace);
-      }
-      
-      var runDatArr = [dateArr,weekDayArr, milArr, paceArr, hoverArr];
-      
-      var arrOf1s = [];
-      for(i=0;i<runData.length;i++){
-        arrOf1s.push(1);
-      }
-      
-    function drawTimeLine(){
-      
-      var data = [
-        {
-          x: runDatArr[0],
-          y: arrOf1s,
-          text: runDatArr[4],
-          hovertemplate: '%{text}<extra></extra>',
-          mode: 'markers',
-          type: 'scatter',
-          marker: {
-            symbol: 142,
-            size: 120,
-            color: 'rgb(0,0,0)',
-            line: {width: 6}
-          }
+      for(var i=0;i<runData.length;i++){
+
+	if(graph1index.includes(i) && graph2index.includes(i) && graph3index.includes(i)){
+          dateArr.push(runData[i].date + " 00:00:00.00");
+          weekDayArr.push(runData[i].weekday);
+          milArr.push(runData[i].mileage);
+          paceArr.push(runData[i].pace);
+          hoverArr.push(runData[i].weekday + " | " + runData[i].mileage + " miles | pace: " + runData[i].pace);
         }
-      ];
+      }
+		      
+        var runDatArr = [dateArr,weekDayArr, milArr, paceArr, hoverArr];
+      
+	return runDatArr;
+      }
+    
+     var curSelection = filterDataSet();
+
+     function drawTimeLine(curSelection){
+      
+       var data = [
+         {
+           x: curSelection[0],
+           y: curSelection[2],
+           text: curSelection[4],
+           hovertemplate: '%{text}<extra></extra>',
+           type: 'bar',  
+         }
+        ];
       
       var layout = {
         xaxis: {range: ["2018-12-31 00:00:00.00","2019-07-01 00:00:00.00"]},          
-        yaxis: {
-          showgrid: false,
-          zeroline: false,
-          showticklabels: false,
-          range: [.75,1.25]
-        }
-      };
-
+        };
       Plotly.newPlot('timeline', data, layout);
-    }     
+     }     
      
       
     function drawDayCount(dysArray){
       
-    var dayCounts = dysArray
+      var dayCounts = dysArray
         .reduce( (tally,currentDay) => {
           tally[currentDay] = (tally[currentDay] || 0) + 1;
           return tally;
         }, {});
   
-    var dayCountsOrd = [];
-    dayCountsOrd.push(dayCounts["Sunday"]);  
-    dayCountsOrd.push(dayCounts["Monday"]);  
-    dayCountsOrd.push(dayCounts["Tuesday"]);  
-    dayCountsOrd.push(dayCounts["Wednesday"]);  
-    dayCountsOrd.push(dayCounts["Thursday"]);  
-    dayCountsOrd.push(dayCounts["Friday"]);  
-    dayCountsOrd.push(dayCounts["Saturday"]);  
-
-    var data = [
-       {
-         x: ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
-         y: dayCountsOrd,
-         type: 'bar'
-       }
-     ];
-    Plotly.newPlot('dayCounts', data);
-   }
+      var dayCountsOrd = [];
+      dayCountsOrd.push(dayCounts["Sunday"]);  
+      dayCountsOrd.push(dayCounts["Monday"]);  
+      dayCountsOrd.push(dayCounts["Tuesday"]);  
+      dayCountsOrd.push(dayCounts["Wednesday"]);  
+      dayCountsOrd.push(dayCounts["Thursday"]);  
+      dayCountsOrd.push(dayCounts["Friday"]);  
+      dayCountsOrd.push(dayCounts["Saturday"]);  
+      var data = [
+         {
+           x: ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+           y: dayCountsOrd,
+           type: 'bar'
+         }];
+      Plotly.newPlot('dayCounts', data);
+     }
       
-  function drawScatter(){
-    var data = [
-      {
-        x: runDatArr[2],
-        y: runDatArr[3],
-        mode: 'markers',
-        type: 'scatter'
-      }];
+    function drawScatter(curSelection){
+      var data = [
+        {
+          x: curSelection[2],
+          y: curSelection[3],
+          mode: 'markers',
+          type: 'scatter'
+        }];
     
-    var layout = {
-      xaxis: {range: [2.25,7.25]},
-      yaxis: {range: [7.5,9.5]},
-      title: 'Mileage v. Pace'
-    };
-    Plotly.newPlot('scatter', data, layout);    
-   }
+      var layout = {
+        xaxis: {range: [2.25,7.25]},
+        yaxis: {range: [7.5,9.5]},
+        title: 'Mileage v. Pace'
+      };
+     Plotly.newPlot('scatter', data, layout);    
+     }
         
-
-    drawTimeLine();
-    drawDayCount(weekDayArr);
-    drawScatter();
-      
+    drawTimeLine(curSelection);
+    drawDayCount(curSelection[1]);
+    drawScatter(curSelection);
+ 
     document.getElementById('timeline').on('plotly_selected', function(eventData) {
-      console.log(eventData.points);
+      timelinePointsSelected = [];
+
+      if(eventData){
+	  temp = eventData.points;
+          for(var i=0; i<temp.length; i++){
+	    timelinePointsSelected.push(temp[i].pointIndex);
+	  }
+
+    curSelection = filterDataSet(graph1index = timelinePointsSelected);
+    drawDayCount(curSelection[1]);
+    drawScatter(curSelection);      }
     }); 
+
+     
       
     </script>
   </body>
