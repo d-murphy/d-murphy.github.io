@@ -39,6 +39,7 @@
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
+        align-items: center;
       }
 
       .column {
@@ -84,7 +85,7 @@
        <div id="timeline"></div>
        <div class="row">
          <div class="column" id="inputs">
-           <div class="row">
+           <div class="row"><form class="filters">
              <div class="inputGp">
                <div class="col-small">Distance Min:  </div>
                <div class="col-small" id="runDisMin">2</div>
@@ -99,7 +100,7 @@
              </div>
              <div class="inputGp">
                <div class="col-small">Pace Min:  </div>
-               <div class="col-small" id="runDisMin">7.5</div>
+               <div class="col-small" id="paceMin">7.5</div>
                <div class="col-lg">
                  <input type="range" id="paceMinCtrl" min=7.5 max=9.5 value=7.5>
                </div>
@@ -111,21 +112,35 @@
              </div>
              <div class="inputGp">
                <div class="col-lg">Day of Week:  </div>
-               <div class="col-lg"><input type="checkbox" name="Sunday" value="Sunday"> Sunday</div>
-               <div class="col-lg"><input type="checkbox" name="Monday" value="Monday"> Monday</div>
-               <div class="col-lg"><input type="checkbox" name="Tuesday" value="Tuesday"> Tuesday</div>
-               <div class="col-lg"><input type="checkbox" name="Wednesday" value="Wednesday"> Wednesday</div>
-               <div class="col-lg"><input type="checkbox" name="Thursday" value="Thursday"> Thursday</div>
-               <div class="col-lg"><input type="checkbox" name="Friday" value="Friday"> Friday</div>
-               <div class="col-lg"><input type="checkbox" name="Saturday" value="Saturday"> Saturday</div>
+               <div class="col-lg"><input type="checkbox" name="Sunday" value="Sunday" checked> Sunday</div>
+               <div class="col-lg"><input type="checkbox" name="Monday" value="Monday" checked> Monday</div>
+               <div class="col-lg"><input type="checkbox" name="Tuesday" value="Tuesday" checked> Tuesday</div>
+               <div class="col-lg"><input type="checkbox" name="Wednesday" value="Wednesday" > Wednesday</div>
+               <div class="col-lg"><input type="checkbox" name="Thursday" value="Thursday" checked> Thursday</div>
+               <div class="col-lg"><input type="checkbox" name="Friday" value="Friday" checked> Friday</div>
+               <div class="col-lg"><input type="checkbox" name="Saturday" value="Saturday" checked> Saturday</div>
              </div>
-           </div>
+           </form></div>
          </div>
          <div class="column" id="dayCounts"></div>
          <div class="column" id="scatter"></div>
        </div>
     </div>
     <script>
+
+      const inputs = document.querySelectorAll("form.filters");
+      const runDistMinCtrl = inputs[0].elements.runDisMinCtrl;
+      const runDistMaxCtrl = inputs[0].elements.runDisMaxCtrl;
+      const paceMinCtrl = inputs[0].elements.paceMinCtrl;
+      const paceMaxCtrl = inputs[0].elements.paceMaxCtrl;
+      const incSunday = inputs[0].elements.Sunday;
+      const incMonday = inputs[0].elements.Monday;
+      const incTuesday = inputs[0].elements.Tuesday;
+      const incWednesday = inputs[0].elements.Wednesday;
+      const incThursday = inputs[0].elements.Thursday;
+      const incFriday = inputs[0].elements.Friday;
+      const incSaturday = inputs[0].elements.Saturday;
+
       var runData = [
         { 'date':'2019-01-01', 'weekday':'Tuesday', 'mileage':2.5, 'pace':9},
         { 'date':'2019-01-03', 'weekday':'Thursday', 'mileage':3.5, 'pace':8.74},
@@ -204,36 +219,41 @@
       ];    
       
 
-    var selectAllArr = [];
-      for(i=0;i<runData.length;i++){
-        selectAllArr.push(i);
-      }
 
-    function filterDataSet(graph1index = selectAllArr, graph2index = selectAllArr, graph3index = selectAllArr){
+      function filterRunData(){
 
-      var dateArr = [];
-      var weekDayArr = [];
-      var milArr = [];
-      var paceArr = [];
-      var hoverArr = [];
-      
-      for(var i=0;i<runData.length;i++){
+        var dateArr = [];
+        var weekDayArr = [];
+        var milArr = [];
+        var paceArr = [];
+        var hoverArr = [];
 
-	if(graph1index.includes(i) && graph2index.includes(i) && graph3index.includes(i)){
-          dateArr.push(runData[i].date + " 00:00:00.00");
-          weekDayArr.push(runData[i].weekday);
-          milArr.push(runData[i].mileage);
-          paceArr.push(runData[i].pace);
-          hoverArr.push(runData[i].weekday + " | " + runData[i].mileage + " miles | pace: " + runData[i].pace);
+        for(i=0;i<runData.length;i++){
+          if(runData[i].mileage <= runDistMaxCtrl.value &&
+             runData[i].mileage >= runDistMinCtrl.value &&
+             runData[i].pace <= paceMaxCtrl.value &&
+             runData[i].pace >= paceMinCtrl.value && 
+             (runData[i].weekday == incSunday.name && incSunday.checked || 
+              runData[i].weekday == incMonday.name && incMonday.checked ||
+              runData[i].weekday == incTuesday.name && incTuesday.checked ||
+              runData[i].weekday == incWednesday.name && incWednesday.checked ||
+              runData[i].weekday == incThursday.name && incThursday.checked ||
+              runData[i].weekday == incFriday.name && incFriday.checked ||
+              runData[i].weekday == incSaturday.name && incSaturday.checked)
+             ){
+               dateArr.push(runData[i].date + " 00:00:00.00");
+               weekDayArr.push(runData[i].weekday);
+               milArr.push(runData[i].mileage);
+               paceArr.push(runData[i].pace);
+               hoverArr.push(runData[i].weekday + " | " + runData[i].mileage + " miles | pace: " + runData[i].pace);
+             }
         }
+        var runDatArr = [];
+        runDatArr = [dateArr,weekDayArr, milArr, paceArr, hoverArr];
+        drawTimeLine(runDatArr);           
       }
-		      
-        var runDatArr = [dateArr,weekDayArr, milArr, paceArr, hoverArr];
-      
-	return runDatArr;
-      }
-    
-     var curSelection = filterDataSet();
+
+
 
      function drawTimeLine(curSelection){
       
