@@ -5,17 +5,14 @@
     <title>Run History Dashboard</title>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <style>
-
       body {
        background-color: rgba(0,0,0,.1);
      }
-
       .container {
         max-width: 1200px;
         margin: 0 auto;
         font-family: 'Lato', sans-serif;
       }
-
       .top {
         width: 100%;
         margin: 0 auto;
@@ -25,38 +22,31 @@
         color: white;
         padding: 15px 0px 15px 0px;
       }
-
       #timeline {
         border: 30px solid rgba(0, 0, 0,0.2);
         height: 400px;
       }
-
       #inputs {
        background-color:rgba(0, 110, 250,0.2);
       }
-
       .row {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
         align-items: center;
       }
-
       .column {
         flex: 1 1 100%;
         height: 400px;
       }
-
       .col-small{
          flex: 1 1 20%;
   	 padding: 5px;
       }     
-
       .col-lg{
          flex: 2 1 40%;
   	 padding: 5px;
       }    
-
       .inputGp {
         border: 1px solid rgba(0,0,0,.2);
         margin: 5px;
@@ -65,9 +55,6 @@
         flex-direction: row;
         flex-wrap: wrap;
        } 
-
-
-
      @media screen and (min-width: 800px) {
       .column {
       flex: 1;
@@ -115,10 +102,16 @@
                <div class="col-lg"><input type="checkbox" name="Sunday" value="Sunday" checked> Sunday</div>
                <div class="col-lg"><input type="checkbox" name="Monday" value="Monday" checked> Monday</div>
                <div class="col-lg"><input type="checkbox" name="Tuesday" value="Tuesday" checked> Tuesday</div>
-               <div class="col-lg"><input type="checkbox" name="Wednesday" value="Wednesday" > Wednesday</div>
+               <div class="col-lg"><input type="checkbox" name="Wednesday" value="Wednesday" checked> Wednesday</div>
                <div class="col-lg"><input type="checkbox" name="Thursday" value="Thursday" checked> Thursday</div>
                <div class="col-lg"><input type="checkbox" name="Friday" value="Friday" checked> Friday</div>
                <div class="col-lg"><input type="checkbox" name="Saturday" value="Saturday" checked> Saturday</div>
+             </div>
+             <div class="inputGp">
+               <div class="col-lg">Date Range Start:  </div>
+               <div class="col-lg"><input type="date" name="dateRngStart" value="2019-01-01"></div>
+               <div class="col-lg">Date Range End:  </div>
+               <div class="col-lg"><input type="date" name="dateRngEnd" value="2019-06-30"></div>
              </div>
            </form></div>
          </div>
@@ -140,6 +133,8 @@
       const incThursday = inputs[0].elements.Thursday;
       const incFriday = inputs[0].elements.Friday;
       const incSaturday = inputs[0].elements.Saturday;
+      const dateRngStart = inputs[0].elements.dateRngStart;
+      const dateRngEnd = inputs[0].elements.dateRngEnd;
 
       var runData = [
         { 'date':'2019-01-01', 'weekday':'Tuesday', 'mileage':2.5, 'pace':9},
@@ -218,21 +213,19 @@
         { 'date':'2019-06-30', 'weekday':'Sunday', 'mileage':5.5, 'pace':8.54},
       ];    
       
-
-
       function filterRunData(){
-
         var dateArr = [];
         var weekDayArr = [];
         var milArr = [];
         var paceArr = [];
         var hoverArr = [];
-
         for(i=0;i<runData.length;i++){
           if(runData[i].mileage <= runDistMaxCtrl.value &&
              runData[i].mileage >= runDistMinCtrl.value &&
              runData[i].pace <= paceMaxCtrl.value &&
-             runData[i].pace >= paceMinCtrl.value && 
+             runData[i].pace >= paceMinCtrl.value &&
+             runData[i].date >= dateRngStart.value &&
+             runData[i].date <= dateRngEnd.value &&
              (runData[i].weekday == incSunday.name && incSunday.checked || 
               runData[i].weekday == incMonday.name && incMonday.checked ||
               runData[i].weekday == incTuesday.name && incTuesday.checked ||
@@ -250,9 +243,10 @@
         }
         var runDatArr = [];
         runDatArr = [dateArr,weekDayArr, milArr, paceArr, hoverArr];
-        drawTimeLine(runDatArr);           
+        drawTimeLine(runDatArr); 
+        drawDayCount(runDatArr[1]);
+        drawScatter(runDatArr);
       }
-
 
 
      function drawTimeLine(curSelection){
@@ -316,25 +310,23 @@
      Plotly.newPlot('scatter', data, layout);    
      }
         
-    drawTimeLine(curSelection);
-    drawDayCount(curSelection[1]);
-    drawScatter(curSelection);
- 
-    document.getElementById('timeline').on('plotly_selected', function(eventData) {
-      timelinePointsSelected = [];
+     filterRunData();
 
-      if(eventData){
-	  temp = eventData.points;
-          for(var i=0; i<temp.length; i++){
-	    timelinePointsSelected.push(temp[i].pointIndex);
-	  }
-
-    curSelection = filterDataSet(graph1index = timelinePointsSelected);
-    drawDayCount(curSelection[1]);
-    drawScatter(curSelection);      }
-    }); 
-
+     runDistMinCtrl.addEventListener("change", filterRunData);
+     runDistMaxCtrl.addEventListener("change", filterRunData);
+     paceMinCtrl.addEventListener("change", filterRunData);
+     paceMaxCtrl.addEventListener("change", filterRunData);
      
+     incSunday.addEventListener("change", filterRunData);
+     incMonday.addEventListener("change", filterRunData);
+     incTuesday.addEventListener("change", filterRunData);
+     incWednesday.addEventListener("change", filterRunData);
+     incThursday.addEventListener("change", filterRunData);
+     incFriday.addEventListener("change", filterRunData);
+     incSaturday.addEventListener("change", filterRunData);
+     dateRngStart.addEventListener("change", filterRunData);
+     dateRngEnd.addEventListener("change", filterRunData);
+
       
     </script>
   </body>
