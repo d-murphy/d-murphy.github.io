@@ -47,7 +47,7 @@
       <div class="col-small">
         <form class="params">
           <select name="contest">
-            <option>Three Man Ladder</option>
+            <option selected>Three Man Ladder</option>
             <option>B Ladder</option>
             <option>C Ladder</option>
             <option>C Hose</option>
@@ -57,12 +57,12 @@
             <option>Buckets</option>
           </select>
           <select name="top5">
+            <option selected>First Only</option>
             <option>Top 5</option>
-            <option>First Only</option>
           </select>
           <label>Stack on: </label>
           <select name="decimal">
-            <option>Tenths</option>
+            <option selected>Tenths</option>
             <option>Hundredths</option>
           </select>
         </form>
@@ -80,6 +80,7 @@
       function filterTimes(){
         let xPts = [];
         let yPts = [];
+        let hoverTxt = [];
 
         if(top5Ctrl.value=="Top 5" && decCtrl.value == "Tenths"){
           console.log("A");
@@ -87,6 +88,7 @@
             if(finishData[i].contest == contestCtrl.value){
               xPts.push(finishData[i].timeround);
               yPts.push(finishData[i].allYlocation10ths);
+              hoverTxt.push(finishData[i].year + " " + finishData[i].team + ": " + finishData[i].time); 
             }
           }
         } else if (top5Ctrl.value=="First Only" && decCtrl.value == "Tenths"){
@@ -95,6 +97,7 @@
             if(finishData[i].contest == contestCtrl.value && finishData[i].firstsYlocation10ths != "NA"){
               xPts.push(finishData[i].timeround);
               yPts.push(finishData[i].firstsYlocation10ths);
+              hoverTxt.push(finishData[i].year + " " + finishData[i].team + ": " + finishData[i].time); 
             }
           }
         } else if (top5Ctrl.value=="Top 5" && decCtrl.value == "Hundredths"){
@@ -103,6 +106,7 @@
             if(finishData[i].contest == contestCtrl.value){
               xPts.push(finishData[i].time);
               yPts.push(finishData[i].allYlocation100ths);
+              hoverTxt.push(finishData[i].year + " " + finishData[i].team + ": " + finishData[i].time); 
             }
           }
         } else if (top5Ctrl.value=="First Only" && decCtrl.value == "Hundredths"){
@@ -111,6 +115,7 @@
             if(finishData[i].contest == contestCtrl.value && finishData[i].firstsYlocation100ths != "NA"){
               xPts.push(finishData[i].time);
               yPts.push(finishData[i].firstsYlocation100ths);
+              hoverTxt.push(finishData[i].year + " " + finishData[i].team + ": " + finishData[i].time); 
             }
           }
         }
@@ -118,15 +123,24 @@
         var trace1 = {
           x: xPts,
           y: yPts,
+          hovertemplate: '%{text}' +
+                          '<extra></extra>',
           mode: 'markers',
           type: 'scatter',
           name: "firsts",
-          marker: { size: 6 }
+          marker: { size: 6 },
+          text: hoverTxt
         };
 
         var data = [trace1];
 
-        Plotly.newPlot('plot', data);
+        layout = {
+          hovermode:'closest',
+          xaxis:{title: 'Times'},
+          yaxis:{title: 'Count in Stack'}
+        };
+
+        Plotly.newPlot('plot', data, layout);
       }
 
       filterTimes();
