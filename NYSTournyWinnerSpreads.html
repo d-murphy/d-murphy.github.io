@@ -81,6 +81,7 @@
         let xPts = [];
         let yPts = [];
         let hoverTxt = [];
+        let years = [];
 
         if(top5Ctrl.value=="Top 5" && decCtrl.value == "Tenths"){
           console.log("A");
@@ -88,7 +89,8 @@
             if(finishData[i].contest == contestCtrl.value){
               xPts.push(finishData[i].timeround);
               yPts.push(finishData[i].allYlocation10ths);
-              hoverTxt.push(finishData[i].year + " " + finishData[i].team + ": " + finishData[i].time); 
+              hoverTxt.push(finishData[i].year + " " + finishData[i].team + ": " + finishData[i].time);
+              years.push(finishData[i].year);
             }
           }
         } else if (top5Ctrl.value=="First Only" && decCtrl.value == "Tenths"){
@@ -97,7 +99,8 @@
             if(finishData[i].contest == contestCtrl.value && finishData[i].firstsYlocation10ths != "NA"){
               xPts.push(finishData[i].timeround);
               yPts.push(finishData[i].firstsYlocation10ths);
-              hoverTxt.push(finishData[i].year + " " + finishData[i].team + ": " + finishData[i].time); 
+              hoverTxt.push(finishData[i].year + " " + finishData[i].team + ": " + finishData[i].time);
+              years.push(finishData[i].year);
             }
           }
         } else if (top5Ctrl.value=="Top 5" && decCtrl.value == "Hundredths"){
@@ -107,6 +110,7 @@
               xPts.push(finishData[i].time);
               yPts.push(finishData[i].allYlocation100ths);
               hoverTxt.push(finishData[i].year + " " + finishData[i].team + ": " + finishData[i].time); 
+              years.push(finishData[i].year);
             }
           }
         } else if (top5Ctrl.value=="First Only" && decCtrl.value == "Hundredths"){
@@ -116,6 +120,7 @@
               xPts.push(finishData[i].time);
               yPts.push(finishData[i].firstsYlocation100ths);
               hoverTxt.push(finishData[i].year + " " + finishData[i].team + ": " + finishData[i].time); 
+              years.push(finishData[i].year);
             }
           }
         }
@@ -129,7 +134,8 @@
           type: 'scatter',
           name: "firsts",
           marker: { size: 6 },
-          text: hoverTxt
+          text: hoverTxt,
+          color: years
         };
 
         var data = [trace1];
