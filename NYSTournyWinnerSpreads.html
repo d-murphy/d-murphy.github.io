@@ -90,7 +90,7 @@
               xPts.push(finishData[i].timeround);
               yPts.push(finishData[i].allYlocation10ths);
               hoverTxt.push(finishData[i].year + " " + finishData[i].team + ": " + finishData[i].time);
-              years.push(finishData[i].year);
+              years.push(parseInt(finishData[i].year));
             }
           }
         } else if (top5Ctrl.value=="First Only" && decCtrl.value == "Tenths"){
@@ -100,7 +100,7 @@
               xPts.push(finishData[i].timeround);
               yPts.push(finishData[i].firstsYlocation10ths);
               hoverTxt.push(finishData[i].year + " " + finishData[i].team + ": " + finishData[i].time);
-              years.push(finishData[i].year);
+              years.push(parseInt(finishData[i].year));
             }
           }
         } else if (top5Ctrl.value=="Top 5" && decCtrl.value == "Hundredths"){
@@ -110,7 +110,7 @@
               xPts.push(finishData[i].time);
               yPts.push(finishData[i].allYlocation100ths);
               hoverTxt.push(finishData[i].year + " " + finishData[i].team + ": " + finishData[i].time); 
-              years.push(finishData[i].year);
+              years.push(parseInt(finishData[i].year));
             }
           }
         } else if (top5Ctrl.value=="First Only" && decCtrl.value == "Hundredths"){
@@ -120,7 +120,7 @@
               xPts.push(finishData[i].time);
               yPts.push(finishData[i].firstsYlocation100ths);
               hoverTxt.push(finishData[i].year + " " + finishData[i].team + ": " + finishData[i].time); 
-              years.push(finishData[i].year);
+              years.push(parseInt(finishData[i].year));
             }
           }
         }
