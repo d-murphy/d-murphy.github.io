@@ -46,6 +46,7 @@
       <div id="plot"></div>
       <div class="col-small">
         <form class="params">
+          <label>Contest: </label>
           <select name="contest">
             <option selected>Three Man Ladder</option>
             <option>B Ladder</option>
@@ -56,6 +57,7 @@
             <option>Motor Pump</option>
             <option>Buckets</option>
           </select>
+          <label>Show: </label>
           <select name="top5">
             <option selected>First Only</option>
             <option>Top 5</option>
@@ -64,6 +66,11 @@
           <select name="decimal">
             <option selected>Tenths</option>
             <option>Hundredths</option>
+          </select>
+          <label>Color control: </label>
+          <select name="colorCtrl">
+            <option selected>Years</option>
+            <option>Place</option>
           </select>
         </form>
       </div>
@@ -76,54 +83,69 @@
       const contestCtrl = inputs[0].elements.contest;
       const top5Ctrl = inputs[0].elements.top5;
       const decCtrl = inputs[0].elements.decimal;
+      const colCtrl = inputs[0].elements.colorCtrl;
 
       function filterTimes(){
         let xPts = [];
         let yPts = [];
         let hoverTxt = [];
         let years = [];
+        let place = [];
 
         if(top5Ctrl.value=="Top 5" && decCtrl.value == "Tenths"){
-          console.log("A");
           for(i=0;i<finishData.length;i++){
             if(finishData[i].contest == contestCtrl.value){
               xPts.push(finishData[i].timeround);
               yPts.push(finishData[i].allYlocation10ths);
-              hoverTxt.push(finishData[i].year + " " + finishData[i].team + ": " + finishData[i].time);
+              hoverTxt.push(finishData[i].year + " " + finishData[i].team + ": "
+                + finishData[i].time);
               years.push(parseInt(finishData[i].year));
+              place.push(parseInt(finishData[i].place));
             }
           }
         } else if (top5Ctrl.value=="First Only" && decCtrl.value == "Tenths"){
-          console.log("B");
           for(i=0;i<finishData.length;i++){
-            if(finishData[i].contest == contestCtrl.value && finishData[i].firstsYlocation10ths != "NA"){
+            if(finishData[i].contest == contestCtrl.value &&
+               finishData[i].firstsYlocation10ths != "NA"){
               xPts.push(finishData[i].timeround);
               yPts.push(finishData[i].firstsYlocation10ths);
-              hoverTxt.push(finishData[i].year + " " + finishData[i].team + ": " + finishData[i].time);
+              hoverTxt.push(finishData[i].year + " " + finishData[i].team +
+                            ": " + finishData[i].time);
               years.push(parseInt(finishData[i].year));
+              place.push(parseInt(finishData[i].place));
             }
           }
         } else if (top5Ctrl.value=="Top 5" && decCtrl.value == "Hundredths"){
-          console.log("C");
           for(i=0;i<finishData.length;i++){
             if(finishData[i].contest == contestCtrl.value){
               xPts.push(finishData[i].time);
               yPts.push(finishData[i].allYlocation100ths);
-              hoverTxt.push(finishData[i].year + " " + finishData[i].team + ": " + finishData[i].time); 
+              hoverTxt.push(finishData[i].year + " " + finishData[i].team +
+                            ": " + finishData[i].time);
               years.push(parseInt(finishData[i].year));
+              place.push(parseInt(finishData[i].place));
             }
           }
-        } else if (top5Ctrl.value=="First Only" && decCtrl.value == "Hundredths"){
-          console.log("D");
+        } else if (top5Ctrl.value=="First Only" &&
+                   decCtrl.value == "Hundredths"){
           for(i=0;i<finishData.length;i++){
-            if(finishData[i].contest == contestCtrl.value && finishData[i].firstsYlocation100ths != "NA"){
+            if(finishData[i].contest == contestCtrl.value &&
+               finishData[i].firstsYlocation100ths != "NA"){
               xPts.push(finishData[i].time);
               yPts.push(finishData[i].firstsYlocation100ths);
-              hoverTxt.push(finishData[i].year + " " + finishData[i].team + ": " + finishData[i].time); 
+              hoverTxt.push(finishData[i].year + " " + finishData[i].team +
+                            ": " + finishData[i].time);
               years.push(parseInt(finishData[i].year));
+              place.push(parseInt(finishData[i].place));
             }
           }
         }
+
+        let yMax = Math.max(...yPts);
+        let markerSize = Math.min(500/yMax, 20);
+
+        let colShown = years;
+        if(colCtrl.value=="Place"){colShown = place}
 
         var trace1 = {
           x: xPts,
@@ -133,8 +155,8 @@
           mode: 'markers',
           type: 'scatter',
           name: "firsts",
-          marker: { size: 14,
-                    color: years},
+          marker: { size: markerSize,
+                    color: colShown},
           text: hoverTxt
         };
 
@@ -142,12 +164,16 @@
 
         layout = {
           hovermode:'closest',
+          height: 600,
           xaxis:{title: 'Times'},
-          yaxis:{title: 'Count in Stack'}
+          yaxis:{
+            range: [0, yMax+.5],
+            dtick: Math.round(yMax / 4),
+            title: 'Count in Stack'
+          }
         };
 
         Plotly.newPlot('plot', data, layout);
-        console.log(years);
       }
 
       filterTimes();
@@ -155,6 +181,7 @@
       contestCtrl.addEventListener("change", filterTimes);
       top5Ctrl.addEventListener("change", filterTimes);
       decCtrl.addEventListener("change", filterTimes);
+      colCtrl.addEventListener("change", filterTimes);
 
     </script>
   </body>
