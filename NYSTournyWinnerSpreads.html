@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -88,6 +87,7 @@
       const top5Ctrl = inputs[0].elements.top5;
       const decCtrl = inputs[0].elements.decimal;
       const colCtrl = inputs[0].elements.colorCtrl;
+      const tmCtrl = inputs[0].elements.teamCtrl;
 
       function hideTeams() {
         var teamDiv = document.getElementById("teamDiv");
@@ -99,10 +99,6 @@
       }
 
 
-
-
-
-
       function filterTimes(){
         let xPts = [], xPtsHighLt = [];
         let yPts = [], yPtsHighLt = [];
@@ -111,12 +107,11 @@
         let place = [], placeHighLt = [];
 
 
-        function pushPt(x, y, hv, yr, pl, decimals){
-          x.push(finishData[i].timeround);
-          if(decimals=="Tenths"){
-            y.push(finishData[i].allYlocation10ths);
+        function pushPt(x, hv, yr, pl, decLevel){
+	  if(decLevel=="Tenths"){
+            x.push(finishData[i].timeround);
           } else {
-            y.push(finishData[i].allYlocation100ths);
+            x.push(finishData[i].time);
           }
           hv.push(finishData[i].year + " " + finishData[i].team + ": " +
                   finishData[i].time);
@@ -130,35 +125,47 @@
         if(top5Ctrl.value=="Top 5" && decCtrl.value == "Tenths"){
           for(i=0;i<finishData.length;i++){
             if(finishData[i].contest == contestCtrl.value){
-              xPts.push(finishData[i].timeround);
-              yPts.push(finishData[i].allYlocation10ths);
-              hoverTxt.push(finishData[i].year + " " + finishData[i].team + ": "
-                + finishData[i].time);
-              years.push(parseInt(finishData[i].year));
-              place.push(parseInt(finishData[i].place));
+	       if(colCtrl.value != "Team"){
+                 pushPt(xPts, hoverTxt, years, place, "Tenths");
+                 yPts.push(finishData[i].allYlocation10ths);
+               } else if(finishData[i].team == tmCtrl.value){
+                 pushPt(xPtsHighLt, hoverTxtHighLt, yearsHighLt, placeHighLt, "Tenths");
+                 yPtsHighLt.push(finishData[i].allYlocation10ths);
+               } else {
+                 pushPt(xPts, hoverTxt, years, place, "Tenths");
+                 yPts.push(finishData[i].allYlocation10ths);
+               }             
             }
           }
         } else if (top5Ctrl.value=="First Only" && decCtrl.value == "Tenths"){
           for(i=0;i<finishData.length;i++){
             if(finishData[i].contest == contestCtrl.value &&
                finishData[i].firstsYlocation10ths != "NA"){
-              xPts.push(finishData[i].timeround);
-              yPts.push(finishData[i].firstsYlocation10ths);
-              hoverTxt.push(finishData[i].year + " " + finishData[i].team +
-                            ": " + finishData[i].time);
-              years.push(parseInt(finishData[i].year));
-              place.push(parseInt(finishData[i].place));
+	       if(colCtrl.value != "Team"){
+                 pushPt(xPts, hoverTxt, years, place, "Tenths");
+                 yPts.push(finishData[i].firstsYlocation10ths);
+               } else if(finishData[i].team == tmCtrl.value){
+                 pushPt(xPtsHighLt, hoverTxtHighLt, yearsHighLt, placeHighLt, "Tenths");
+                 yPtsHighLt.push(finishData[i].firstsYlocation10ths);
+               } else {
+                 pushPt(xPts, hoverTxt, years, place, "Tenths");
+                 yPts.push(finishData[i].firstsYlocation10ths);
+               }             
             }
           }
         } else if (top5Ctrl.value=="Top 5" && decCtrl.value == "Hundredths"){
           for(i=0;i<finishData.length;i++){
             if(finishData[i].contest == contestCtrl.value){
-              xPts.push(finishData[i].time);
-              yPts.push(finishData[i].allYlocation100ths);
-              hoverTxt.push(finishData[i].year + " " + finishData[i].team +
-                            ": " + finishData[i].time);
-              years.push(parseInt(finishData[i].year));
-              place.push(parseInt(finishData[i].place));
+	       if(colCtrl.value != "Team"){
+                 pushPt(xPts, hoverTxt, years, place, "Hundredths");
+                 yPts.push(finishData[i].allYlocation100ths);
+               } else if(finishData[i].team == tmCtrl.value){
+                 pushPt(xPtsHighLt, hoverTxtHighLt, yearsHighLt, placeHighLt, "Hundredths");
+                 yPtsHighLt.push(finishData[i].allYlocation100ths);
+               } else {
+                 pushPt(xPts, hoverTxt, years, place, "Hundredths");
+                 yPts.push(finishData[i].allYlocation100ths);
+               }             
             }
           }
         } else if (top5Ctrl.value=="First Only" &&
@@ -166,15 +173,21 @@
           for(i=0;i<finishData.length;i++){
             if(finishData[i].contest == contestCtrl.value &&
                finishData[i].firstsYlocation100ths != "NA"){
-              xPts.push(finishData[i].time);
-              yPts.push(finishData[i].firstsYlocation100ths);
-              hoverTxt.push(finishData[i].year + " " + finishData[i].team +
-                            ": " + finishData[i].time);
-              years.push(parseInt(finishData[i].year));
-              place.push(parseInt(finishData[i].place));
+	       if(colCtrl.value != "Team"){
+                 pushPt(xPts, hoverTxt, years, place, "Hundredths");
+                 yPts.push(finishData[i].firstsYlocation100ths);
+               } else if(finishData[i].team == tmCtrl.value){
+                 pushPt(xPtsHighLt, hoverTxtHighLt, yearsHighLt, placeHighLt, "Hundredths");
+                 yPtsHighLt.push(finishData[i].firstsYlocation100ths);
+               } else {
+                 pushPt(xPts, hoverTxt, years, place, "Hundredths");
+                 yPts.push(finishData[i].firstsYlocation100ths);
+               }             
             }
           }
         }
+        console.log(xPts);
+	console.log(xPtsHighLt);
 
         let yMax = Math.max(...yPts);
         let markerSize = Math.min(500/yMax, 20);
@@ -213,7 +226,7 @@
       top5Ctrl.addEventListener("change",() => { filterTimes(); hideTeams(); });
       decCtrl.addEventListener("change",() => { filterTimes(); hideTeams(); });
       colCtrl.addEventListener("change",() => { filterTimes(); hideTeams(); });
-
+      tmCtrl.addEventListener("change",() => { filterTimes(); hideTeams(); });
 
 
     </script>
