@@ -189,10 +189,11 @@
         console.log(xPts);
 	console.log(xPtsHighLt);
 
-        let yMax = Math.max(...yPts);
+        let yMax = Math.max(...yPts, ...yPtsHighLt);
         let markerSize = Math.min(500/yMax, 20);
         let colShown = years;
         if(colCtrl.value=="Place"){colShown = place}
+	if(colCtrl.value=="Team"){colShown = "grey"}
         var trace1 = {
           x: xPts,
           y: yPts,
