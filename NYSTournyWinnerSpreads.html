@@ -15,7 +15,6 @@
         margin: 0 auto;
         font-family: 'Lato', sans-serif;
       }
-
       .top {
         width: 100%;
         margin: 0 auto;
@@ -25,17 +24,14 @@
         color: white;
         padding: 15px 0px 15px 0px;
       }
-
       .col-small{
         flex 1 1 30%;
         padding: 5px;
       }
-
       .col-large{
         flex 2 1 65%;
         padding: 5px;
       }
-
     </style>
   </head>
   <body>
@@ -71,7 +67,15 @@
           <select name="colorCtrl">
             <option selected>Years</option>
             <option>Place</option>
+            <option>Team</option>
           </select>
+          <div id="teamDiv">
+            <select name="teamCtrl">
+              <option selected>Central Islip Hoboes</option>
+              <option>West Sayville Flying Dutchmen</option>
+              <option>Patchogue Forty Thieves</option>
+            </select>
+          </div>
         </form>
       </div>
       <div class="col-large">
@@ -85,12 +89,43 @@
       const decCtrl = inputs[0].elements.decimal;
       const colCtrl = inputs[0].elements.colorCtrl;
 
+      function hideTeams() {
+        var teamDiv = document.getElementById("teamDiv");
+	if (colCtrl.value=="Team"){
+          teamDiv.style.display = "block";
+        } else {
+          teamDiv.style.display = "none";
+        }
+      }
+
+
+
+
+
+
       function filterTimes(){
-        let xPts = [];
-        let yPts = [];
-        let hoverTxt = [];
-        let years = [];
-        let place = [];
+        let xPts = [], xPtsHighLt = [];
+        let yPts = [], yPtsHighLt = [];
+        let hoverTxt = [], hoverTxtHighLt = [];
+        let years = [], yearsHighLt = [];
+        let place = [], placeHighLt = [];
+
+
+        function pushPt(x, y, hv, yr, pl, decimals){
+          x.push(finishData[i].timeround);
+          if(decimals=="Tenths"){
+            y.push(finishData[i].allYlocation10ths);
+          } else {
+            y.push(finishData[i].allYlocation100ths);
+          }
+          hv.push(finishData[i].year + " " + finishData[i].team + ": " +
+                  finishData[i].time);
+          yr.push(parseInt(finishData[i].year));
+          pl.push(parseInt(finishData[i].place));
+        }   
+
+
+
 
         if(top5Ctrl.value=="Top 5" && decCtrl.value == "Tenths"){
           for(i=0;i<finishData.length;i++){
@@ -143,10 +178,8 @@
 
         let yMax = Math.max(...yPts);
         let markerSize = Math.min(500/yMax, 20);
-
         let colShown = years;
         if(colCtrl.value=="Place"){colShown = place}
-
         var trace1 = {
           x: xPts,
           y: yPts,
@@ -159,9 +192,7 @@
                     color: colShown},
           text: hoverTxt
         };
-
         var data = [trace1];
-
         layout = {
           hovermode:'closest',
           height: 600,
@@ -172,16 +203,18 @@
             title: 'Count in Stack'
           }
         };
-
         Plotly.newPlot('plot', data, layout);
       }
 
       filterTimes();
+      hideTeams();
 
-      contestCtrl.addEventListener("change", filterTimes);
-      top5Ctrl.addEventListener("change", filterTimes);
-      decCtrl.addEventListener("change", filterTimes);
-      colCtrl.addEventListener("change", filterTimes);
+      contestCtrl.addEventListener("change",() => { filterTimes(); hideTeams(); });
+      top5Ctrl.addEventListener("change",() => { filterTimes(); hideTeams(); });
+      decCtrl.addEventListener("change",() => { filterTimes(); hideTeams(); });
+      colCtrl.addEventListener("change",() => { filterTimes(); hideTeams(); });
+
+
 
     </script>
   </body>
