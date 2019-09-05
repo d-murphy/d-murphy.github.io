@@ -213,8 +213,7 @@
           mode: 'markers',
           type: 'scatter',
           marker: { size: markerSize,
-                    color: "dark blue",
-		    showscale: "True"},
+                    color: "dark blue"},
           text: hoverTxtHighLt
         };	      
 	      
@@ -228,7 +227,8 @@
             range: [0, yMax+.5],
             dtick: Math.round(yMax / 4),
             title: 'Count in Stack'
-          }
+          }, 
+          showlegend: true,
         };
         Plotly.newPlot('plot', data, layout);
       }
