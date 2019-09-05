@@ -201,12 +201,24 @@
                           '<extra></extra>',
           mode: 'markers',
           type: 'scatter',
-          name: "firsts",
           marker: { size: markerSize,
                     color: colShown},
           text: hoverTxt
         };
-        var data = [trace1];
+        var trace2 = {
+          x: xPtsHighLt,
+          y: yPtsHighLt,
+          hovertemplate: '%{text}' +
+                          '<extra></extra>',
+          mode: 'markers',
+          type: 'scatter',
+          marker: { size: markerSize,
+                    color: "red"},
+          text: hoverTxtHighLt
+        };	      
+	      
+	      
+        var data = [trace1, trace2];
         layout = {
           hovermode:'closest',
           height: 600,
