@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>NYS Tourny Winner Spreads</title>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>a
     <script src="NYSTournyWinnerDataLoad.js"></script>
     <style>
       body {
@@ -23,12 +23,11 @@
         color: white;
         padding: 15px 0px 15px 0px;
       }
-      .col-small{
-        flex 1 1 30%;
-        padding: 5px;
+      .fxContainer {
+        display: flex;
+        flex-direction: row;
       }
-      .col-large{
-        flex 2 1 65%;
+      .col-small{
         padding: 5px;
       }
     </style>
@@ -39,56 +38,141 @@
         <h4>NYS Tourny Winner Spreads</h4>
       </div>
       <div id="plot"></div>
-      <div class="col-small">
+      <div id="fxContainer">
         <form class="params">
-          <label>Contest: </label>
-          <select name="contest">
-            <option selected>Three Man Ladder</option>
-            <option>B Ladder</option>
-            <option>C Ladder</option>
-            <option>C Hose</option>
-            <option>B Hose</option>
-            <option>Efficiency</option>
-            <option>Motor Pump</option>
-            <option>Buckets</option>
-          </select>
-          <label>Show: </label>
-          <select name="top5">
-            <option selected>First Only</option>
-            <option>Top 5</option>
-          </select>
-          <label>Stack on: </label>
-          <select name="decimal">
-            <option selected>Tenths</option>
-            <option>Hundredths</option>
-          </select>
-          <label>Color control: </label>
-          <select name="colorCtrl">
-            <option selected>Years</option>
-            <option>Place</option>
-            <option>Team</option>
-          </select>
-          <div id="teamDiv">
-            <select name="teamCtrl">
-              <option selected>Central Islip Hoboes</option>
-              <option>West Sayville Flying Dutchmen</option>
-              <option>Patchogue Forty Thieves</option>
+          <div class="col-small">
+            <label>Contest: </label>
+            <select name="contest">
+              <option selected>Three Man Ladder</option>
+              <option>B Ladder</option>
+              <option>C Ladder</option>
+              <option>C Hose</option>
+              <option>B Hose</option>
+              <option>Efficiency</option>
+              <option>Motor Pump</option>
+              <option>Buckets</option>
             </select>
+          </div>
+          <div class="col-small">
+            <label>Show: </label>
+            <select name="top5">
+              <option selected>First Only</option>
+              <option>Top 5</option>
+            </select>
+          </div>
+          <div class="col-small">
+            <label>Stack on: </label>
+            <select name="decimal">
+              <option selected>Tenths</option>
+              <option>Hundredths</option>
+            </select>
+          </div>
+          <div class="col-small">
+            <label>Color control: </label>
+            <select name="colorCtrl">
+              <option selected>Years</option>
+              <option>Place</option>
+              <option>Team</option>
+            </select>
+          </div>
+          <div class="col-small">
+            <div id="teamDiv">
+              <label>Team: </label>
+              <select name="teamCtrl">
+                <option>Albertson</option>
+                <option>Amityville </option>
+                <option>Babylon </option>
+                <option>Bay Shore Redskins</option>
+                <option>Bayport Red Devils</option>
+                <option>Bellmore </option>
+                <option>Blue Point Mighty Midgets</option>
+                <option>Carle Place Frogs</option>
+                <option selected>Central Islip Hoboes</option>
+                <option>Copenhagen Cubs</option>
+                <option>Copiague Yellowbirds</option>
+                <option>Coram </option>
+                <option>Cutchogue  Panthers</option>
+                <option>Deer Park Bucks</option>
+                <option>East Islip Guzzlers</option>
+                <option>East Meadow</option>
+                <option>Elmont Bangtails</option>
+                <option>Elsemere </option>
+                <option>Farmingville Bandits</option>
+                <option>Floral Park</option>
+                <option>Freeport Dead End Kids</option>
+                <option>GCP </option>
+                <option>Glenwood </option>
+                <option>Great Neck</option>
+                <option>Greece-Ridge </option>
+                <option>Hagerman Gamblers</option>
+                <option>Hempstead Flukes</option>
+                <option>Hempstead Yellow Hornets</option>
+                <option>Henrietta  Ol\' Henries</option>
+                <option>Hewlett </option>
+                <option>Hicksville Hicks</option>
+                <option>HolPatent</option>
+                <option>Ilion</option>
+                <option>Inwood</option>
+                <option>Islip Terrace Schlagers</option>
+                <option>Islip Wolves</option>
+                <option>Levittown  Rebils</option>
+                <option>Lindenhurst Snails</option>
+                <option>Main Transit</option>
+                <option>Manhasset Lakeville Minute Men</option>
+                <option>Massapequa</option>
+                <option>Melville </option>
+                <option>Merrick </option>
+                <option>Mohawk</option>
+                <option>New Hyde Park Termites</option>
+                <option>North Babylon Taildraggers</option>
+                <option>North Bellmore Rinky Dinks</option>
+                <option>North Linderhurst Piston Knockers</option>
+                <option>North Massapequa</option>
+                <option>North Merrick</option>
+                <option>Norwood </option>
+                <option>Oyster Bay Rough Riders</option>
+                <option>Oyster Bay Teddy\'s Boys</option>
+                <option>Patchogue Forty Thieves</option>
+                <option>Plainview</option>
+                <option>Point Plesant Pea Pickers</option>
+                <option>Port Washington Road Runners</option>
+                <option>Rangers </option>
+                <option>Riverhead Ironmen</option>
+                <option>Roosevelt </option>
+                <option>Roslyn Highlanders</option>
+                <option>Rowdies </option>
+                <option>Runts</option>
+                <option>Sayville  Bluejays</option>
+                <option>Sea Breeze</option>
+                <option>South Hempstead</option>
+                <option>Spencerport Red Onions</option>
+                <option>St. James Wildcats</option>
+                <option>Syosset</option>
+                <option>Uniondale </option>
+                <option>UnionHose</option>
+                <option>West Carthage</option>
+                <option>West Hempstead Westerners</option>
+                <option>West Islip Raiders</option>
+                <option>West Sayville Flying Dutchmen</option>
+                <option>West. Brighton</option>
+                <option>Westbury Turtles</option>
+                <option>WillistonPk</option>
+                <option>Woodmere</option>
+                <option>Wyandanch  Indians</option>
+              </select>
+            </div>
           </div>
         </form>
       </div>
-      <div class="col-large">
-      </div>
     </div>
+  </div>
     <script>
-
       const inputs = document.querySelectorAll("form.params");
       const contestCtrl = inputs[0].elements.contest;
       const top5Ctrl = inputs[0].elements.top5;
       const decCtrl = inputs[0].elements.decimal;
       const colCtrl = inputs[0].elements.colorCtrl;
       const tmCtrl = inputs[0].elements.teamCtrl;
-
       function hideTeams() {
         var teamDiv = document.getElementById("teamDiv");
 	if (colCtrl.value=="Team"){
@@ -99,129 +183,81 @@
       }
 
 
-      function filterTimes(){
-        let xPts = [], xPtsHighLt = [];
-        let yPts = [], yPtsHighLt = [];
-        let hoverTxt = [], hoverTxtHighLt = [];
-        let years = [], yearsHighLt = [];
-        let place = [], placeHighLt = [];
-
-
-        function pushPt(x, hv, yr, pl, decLevel){
-	  if(decLevel=="Tenths"){
-            x.push(finishData[i].timeround);
+      function pushToTrace(traceObj, filteredSetOfTimes){
+        filteredSetOfTimes.forEach(function(item,index){
+          traceObj.year.push(item.year);
+          traceObj.text.push(item.year + " " + item.team + ": " + item.time + " - Place: " + item.place);
+          if(decCtrl.value == "Tenths"){
+            traceObj.x.push(item.timeround);
           } else {
-            x.push(finishData[i].time);
+            traceObj.x.push(item.time);
           }
-          hv.push(finishData[i].year + " " + finishData[i].team + ": " +
-                  finishData[i].time);
-          yr.push(parseInt(finishData[i].year));
-          pl.push(parseInt(finishData[i].place));
-        }   
-
-
-
-
-        if(top5Ctrl.value=="Top 5" && decCtrl.value == "Tenths"){
-          for(i=0;i<finishData.length;i++){
-            if(finishData[i].contest == contestCtrl.value){
-	       if(colCtrl.value != "Team"){
-                 pushPt(xPts, hoverTxt, years, place, "Tenths");
-                 yPts.push(finishData[i].allYlocation10ths);
-               } else if(finishData[i].team == tmCtrl.value){
-                 pushPt(xPtsHighLt, hoverTxtHighLt, yearsHighLt, placeHighLt, "Tenths");
-                 yPtsHighLt.push(finishData[i].allYlocation10ths);
-               } else {
-                 pushPt(xPts, hoverTxt, years, place, "Tenths");
-                 yPts.push(finishData[i].allYlocation10ths);
-               }             
+          if(decCtrl.value == "Tenths"){
+            if(top5Ctrl.value == "First Only"){
+	      traceObj.y.push(item.firstsYlocation10ths)
+            } else {
+              traceObj.y.push(item.allYlocation10ths)
+            }
+          } else {
+            if(top5Ctrl.value == "First Only"){
+	      traceObj.y.push(item.firstsYlocation100ths)
+            } else {
+              traceObj.y.push(item.allYlocation100ths)
             }
           }
-        } else if (top5Ctrl.value=="First Only" && decCtrl.value == "Tenths"){
-          for(i=0;i<finishData.length;i++){
-            if(finishData[i].contest == contestCtrl.value &&
-               finishData[i].firstsYlocation10ths != "NA"){
-	       if(colCtrl.value != "Team"){
-                 pushPt(xPts, hoverTxt, years, place, "Tenths");
-                 yPts.push(finishData[i].firstsYlocation10ths);
-               } else if(finishData[i].team == tmCtrl.value){
-                 pushPt(xPtsHighLt, hoverTxtHighLt, yearsHighLt, placeHighLt, "Tenths");
-                 yPtsHighLt.push(finishData[i].firstsYlocation10ths);
-               } else {
-                 pushPt(xPts, hoverTxt, years, place, "Tenths");
-                 yPts.push(finishData[i].firstsYlocation10ths);
-               }             
-            }
-          }
-        } else if (top5Ctrl.value=="Top 5" && decCtrl.value == "Hundredths"){
-          for(i=0;i<finishData.length;i++){
-            if(finishData[i].contest == contestCtrl.value){
-	       if(colCtrl.value != "Team"){
-                 pushPt(xPts, hoverTxt, years, place, "Hundredths");
-                 yPts.push(finishData[i].allYlocation100ths);
-               } else if(finishData[i].team == tmCtrl.value){
-                 pushPt(xPtsHighLt, hoverTxtHighLt, yearsHighLt, placeHighLt, "Hundredths");
-                 yPtsHighLt.push(finishData[i].allYlocation100ths);
-               } else {
-                 pushPt(xPts, hoverTxt, years, place, "Hundredths");
-                 yPts.push(finishData[i].allYlocation100ths);
-               }             
-            }
-          }
-        } else if (top5Ctrl.value=="First Only" &&
-                   decCtrl.value == "Hundredths"){
-          for(i=0;i<finishData.length;i++){
-            if(finishData[i].contest == contestCtrl.value &&
-               finishData[i].firstsYlocation100ths != "NA"){
-	       if(colCtrl.value != "Team"){
-                 pushPt(xPts, hoverTxt, years, place, "Hundredths");
-                 yPts.push(finishData[i].firstsYlocation100ths);
-               } else if(finishData[i].team == tmCtrl.value){
-                 pushPt(xPtsHighLt, hoverTxtHighLt, yearsHighLt, placeHighLt, "Hundredths");
-                 yPtsHighLt.push(finishData[i].firstsYlocation100ths);
-               } else {
-                 pushPt(xPts, hoverTxt, years, place, "Hundredths");
-                 yPts.push(finishData[i].firstsYlocation100ths);
-               }             
-            }
-          }
-        }
-        console.log(xPts);
-	console.log(xPtsHighLt);
+        });
+      }
 
-        let yMax = Math.max(...yPts, ...yPtsHighLt);
+    function filterTimes(){
+
+      // clear traces each time
+
+      trace1 = {
+        x: [], y: [], text: [], year: [], marker: {},
+        hovertemplate: '%{text}' + '<extra></extra>', mode: 'markers', type: 'scatter'
+      };
+      trace2 = {
+        x: [], y: [], text: [], year: [], marker: {},
+        hovertemplate: '%{text}' + '<extra></extra>', mode: 'markers', type: 'scatter'
+      };
+      trace3 = {
+        x: [], y: [], text: [], year: [], marker: {},
+        hovertemplate: '%{text}' + '<extra></extra>', mode: 'markers', type: 'scatter'
+      };
+      trace4 = {
+        x: [], y: [], text: [], year: [], marker: {},
+        hovertemplate: '%{text}' + '<extra></extra>', mode: 'markers', type: 'scatter'
+      };
+      trace5 = {
+        x: [], y: [], text: [], year: [], marker: {},
+        hovertemplate: '%{text}' + '<extra></extra>', mode: 'markers', type: 'scatter'
+      };
+
+
+      if(colCtrl.value == "Years"){
+
+        var timesForTrace = finishData.filter(function(item){
+          if(top5Ctrl.value == "First Only"){
+            return item.contest == contestCtrl.value && item.place == 1;
+          } else {
+            return item.contest == contestCtrl.value
+          }
+        });
+
+        pushToTrace(trace1, timesForTrace);
+
+//        let yMax = Math.max(...yPts, ...yPtsHighLt);
+        let yMax = Math.max(...trace1.y);
         let markerSize = Math.min(500/yMax, 20);
-        let colShown = years;
-        if(colCtrl.value=="Place"){colShown = place}
-	if(colCtrl.value=="Team"){colShown = "grey"}
-        var trace1 = {
-          x: xPts,
-          y: yPts,
-          hovertemplate: '%{text}' +
-                          '<extra></extra>',
-          mode: 'markers',
-          type: 'scatter',
-          marker: { size: markerSize,
-                    color: colShown, 
-		    colorscale: "Greens",
-		    reversescale: true, 
-		    showscale: true},
-          text: hoverTxt
-        };
-        var trace2 = {
-          x: xPtsHighLt,
-          y: yPtsHighLt,
-          hovertemplate: '%{text}' +
-                          '<extra></extra>',
-          mode: 'markers',
-          type: 'scatter',
-          marker: { size: markerSize,
-                    color: "dark blue"},
-          text: hoverTxtHighLt
-        };	      
-	      
-	      
-        var data = [trace1, trace2];
+
+      	trace1.marker.size = markerSize;
+	      trace1.marker.color = trace1.year;
+        trace1.marker.colorscale = "YIGnBu";
+        trace1.marker.showscale = true;
+        trace1.marker.reversescale = true;
+
+        var data = [trace1];
+
         layout = {
           hovermode:'closest',
           height: 600,
@@ -232,19 +268,166 @@
             title: 'Count in Stack'
           }
         };
+
         Plotly.newPlot('plot', data, layout);
+      } else if (colCtrl.value == "Place"){
+
+        var timesForTrace = finishData.filter(function(item){
+          return item.contest == contestCtrl.value && item.place == 1;
+        });
+        pushToTrace(trace1, timesForTrace);
+
+        if(top5Ctrl.value == "First Only"){
+          var timesForTrace = finishData.filter(function(item){
+            return item.contest == contestCtrl.value && item.place == 1;
+          });
+
+          pushToTrace(trace1, timesForTrace);
+          let yMax = Math.max(...trace1.y);
+          let markerSize = Math.min(500/yMax, 20);
+
+          trace1.marker.size = markerSize;
+          trace1.marker.color = "#2F4F4F";
+
+          var data = [trace1];
+
+          layout = {
+            hovermode:'closest',
+            height: 600,
+            xaxis:{title: 'Times'},
+            yaxis:{
+              range: [0, yMax+.5],
+              dtick: Math.round(yMax / 4),
+              title: 'Count in Stack'
+            }
+          };
+
+          Plotly.newPlot('plot', data, layout);
+        } else {
+          var timesForTrace = finishData.filter(function(item){
+            return item.contest == contestCtrl.value && item.place == 2;
+          });
+          pushToTrace(trace2, timesForTrace);
+
+          var timesForTrace = finishData.filter(function(item){
+            return item.contest == contestCtrl.value && item.place == 3;
+          });
+          pushToTrace(trace3, timesForTrace);
+
+          var timesForTrace = finishData.filter(function(item){
+            return item.contest == contestCtrl.value && item.place == 4;
+          });
+          pushToTrace(trace4, timesForTrace);
+
+          var timesForTrace = finishData.filter(function(item){
+            return item.contest == contestCtrl.value && item.place == 5;
+          });
+          pushToTrace(trace5, timesForTrace);
+
+          let yMax = Math.max(...trace1.y, ...trace2.y, ...trace3.y,
+                              ...trace4.y, ...trace5.y);
+          let markerSize = Math.min(500/yMax, 20);
+
+          trace1.marker.size = markerSize;
+          trace1.marker.color = "#2F4F4F";
+          trace1.name = "1st Place";
+          trace2.marker.color = "#006400";
+          trace2.marker.size = markerSize;
+          trace2.name= "2nd Place";
+          trace3.marker.color = "#228B22";
+          trace3.marker.size = markerSize;
+          trace3.name="3rd Place";
+          trace4.marker.color = "#8FBC8F";
+          trace4.marker.size = markerSize;
+          trace4.name = "4th Place";
+          trace5.marker.color = "#BDB76B";
+          trace5.marker.size = markerSize;
+          trace5.name = "5th Place";
+
+          var data = [trace1, trace2, trace3, trace4, trace5];
+
+          layout = {
+            hovermode:'closest',
+            height: 600,
+            xaxis:{title: 'Times'},
+            yaxis:{
+              range: [0, yMax+.5],
+              dtick: Math.round(yMax / 4),
+              title: 'Count in Stack'
+            }
+          };
+
+          Plotly.newPlot('plot', data, layout);
+        }
+
+      } else {
+
+        if(top5Ctrl.value == "First Only"){
+          var timesForTrace = finishData.filter(function(item){
+            return item.contest == contestCtrl.value &&
+                   item.place == 1 &&
+                   item.team != tmCtrl.value;
+          });
+          pushToTrace(trace1, timesForTrace);
+
+          var timesForTrace = finishData.filter(function(item){
+            return item.contest == contestCtrl.value &&
+                   item.place == 1 &&
+                   item.team == tmCtrl.value;
+          });
+          pushToTrace(trace2, timesForTrace);
+
+        } else {
+          var timesForTrace = finishData.filter(function(item){
+            return item.contest == contestCtrl.value &&
+                   item.team != tmCtrl.value;
+          });
+          pushToTrace(trace1, timesForTrace);
+         console.log(  trace1.x.length);
+
+          var timesForTrace = finishData.filter(function(item){
+            return item.contest == contestCtrl.value &&
+                   item.team == tmCtrl.value;
+          });
+          pushToTrace(trace2, timesForTrace);
+          console.log(trace2.x.length);
+        }
+
+        let yMax = Math.max(...trace1.y, ...trace2.y);
+        let markerSize = Math.min(500/yMax, 20);
+
+        trace1.marker.size = markerSize;
+        trace1.marker.color = "grey";
+        trace1.name = "All Others";
+        trace2.marker.size = markerSize;
+        trace2.marker.color = "orange";
+        trace2.name = tmCtrl.value;
+
+        var data = [trace1, trace2];
+
+        layout = {
+          hovermode:'closest',
+          height: 600,
+          xaxis:{title: 'Times'},
+          yaxis:{
+            range: [0, yMax+.5],
+            dtick: Math.round(yMax / 4),
+            title: 'Count in Stack'
+          }
+        };
+
+        Plotly.newPlot('plot', data, layout);
+
       }
+    }
 
       filterTimes();
       hideTeams();
-
       contestCtrl.addEventListener("change",() => { filterTimes(); hideTeams(); });
       top5Ctrl.addEventListener("change",() => { filterTimes(); hideTeams(); });
       decCtrl.addEventListener("change",() => { filterTimes(); hideTeams(); });
       colCtrl.addEventListener("change",() => { filterTimes(); hideTeams(); });
       tmCtrl.addEventListener("change",() => { filterTimes(); hideTeams(); });
-
-
     </script>
   </body>
 </html>
