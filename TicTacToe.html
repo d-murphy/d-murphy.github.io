@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tic Tac Toe</title>
+  <style>
+    body {
+     background-color: white;
+   }
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      font-family: 'Lato', sans-serif;
+      background-color: rgba(0,0,0,.1);
+    }
+
+    .board {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+
+    .row {
+      display: flex;
+      flex-direction: row;
+      flex: 1 1 100%;
+    }
+
+    .space {
+      flex: 1 1 100%;
+      padding: 25px;
+      text-align: center;
+      font-size: 30px;
+
+    }
+
+    #space1, #space2, #space4, #space5, #space7, #space8{
+      border-right: 2px solid; 
+    }
+
+    #space1, #space2, #space4, #space5, #space3, #space6{
+      border-bottom: 2px solid; 
+    }
+
+
+  </style>
+
+</head>
+<body>
+
+  <div class="container">
+  <center><h1>Tic Tac Toe</h1></center>
+
+    <div class="board">
+      <div class="row">
+        <div class="space" id="space1" value="1">&nbsp</div>
+        <div class="space" id="space2"></div>
+        <div class="space" id="space3"></div>
+      </div>
+      <div class="row">
+        <div class="space" id="space4">&nbsp</div>
+        <div class="space" id="space5"></div>
+        <div class="space" id="space6"></div>
+      </div>
+      <div class="row">
+        <div class="space" id="space7">&nbsp</div>
+        <div class="space" id="space8"></div>
+        <div class="space" id="space9"></div>
+      </div
+    </div>
+  </div>
+
+<script>
+  let xBoxes = [];
+  let oBoxes = [];
+  let clickedBoxes = [];
+  let currentTurn = "X";
+  const waysToWin = [
+    [1,2,3],
+    [1,4,7],
+    [1,5,9],
+    [2,5,8],
+    [3,6,9],
+    [3,5,7],
+    [4,5,6],
+    [7,8,9]
+  ];
+  function didPlayerWin(currentBoxes,playerName){
+    for(let i=0;i<waysToWin.length; i++){
+      if(currentBoxes.includes(waysToWin[i][0]) &&
+         currentBoxes.includes(waysToWin[i][1]) &&
+         currentBoxes.includes(waysToWin[i][2])
+        )
+        {alert("Player "+ playerName + " has won!")}
+    }
+  }
+
+  let boxClicked = 0;
+
+  for(let i=0;i<document.querySelectorAll("div.space").length;i++){
+    
+document.querySelectorAll("div.space")[i].
+    
+addEventListener("click",() => {
+      boxClicked = i+1; 
+      if(!clickedBoxes.includes(boxClicked)){
+        clickedBoxes.push(boxClicked);
+        
+document.querySelectorAll("div.space")[i].innerHTML=currentTurn;
+        if(currentTurn == "X"){
+          xBoxes.push(boxClicked);
+          currentTurn = "O";
+          didPlayerWin(xBoxes,"X");
+        } else {
+          oBoxes.push(boxClicked)
+          currentTurn = "X";
+          didPlayerWin(oBoxes,"O");
+        }
+
+      }
+      });
+  }
+
+</script>
+</body>
+</html>
