@@ -97,27 +97,23 @@
 
   let boxClicked = 0;
 
-  for(let i=0;i<document.querySelectorAll("div.space").length;i++){
-    
-document.querySelectorAll("div.space")[i].
-    
-addEventListener("click",() => {
-      boxClicked = i+1; 
-      if(!clickedBoxes.includes(boxClicked)){
-        clickedBoxes.push(boxClicked);
-        
-document.querySelectorAll("div.space")[i].innerHTML=currentTurn;
-        if(currentTurn == "X"){
-          xBoxes.push(boxClicked);
-          currentTurn = "O";
-          didPlayerWin(xBoxes,"X");
-        } else {
-          oBoxes.push(boxClicked)
-          currentTurn = "X";
-          didPlayerWin(oBoxes,"O");
+  for(let i=0;i<document.querySelectorAll("div.space").length;i++){    
+    document.querySelectorAll("div.space")[i]
+      .addEventListener("click",() => {
+        boxClicked = i+1; 
+        if(!clickedBoxes.includes(boxClicked)){
+          clickedBoxes.push(boxClicked);
+          document.querySelectorAll("div.space")[i].innerHTML=currentTurn;
+          if(currentTurn == "X"){
+            xBoxes.push(boxClicked);
+            currentTurn = "O";
+            didPlayerWin(xBoxes,"X");
+          } else {
+            oBoxes.push(boxClicked)
+            currentTurn = "X";
+            didPlayerWin(oBoxes,"O");
+          }
         }
-
-      }
       });
   }
 
