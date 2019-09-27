@@ -2,90 +2,97 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>NYS Tourny Winner Spreads</title>
+    <title>NYS Drill Teams State Tournament Contest Winner</title>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="NYSTournyWinnerDataLoad.js"></script>
     <style>
       body {
-       background-color: rgba(0,0,0,.1);
+       background-color: rgba(0,0,0,.8);
      }
       .container {
-        max-width: 1200px;
+        max-width: 1000px;
         margin: 0 auto;
         font-family: 'Lato', sans-serif;
       }
       .top {
         width: 100%;
         margin: 0 auto;
-        background-color: #868c7a;
+        background-color: #436b9c;
         text-align: center;
-        height: 60px;
+        height: 80px;
         color: white;
         padding: 15px 0px 15px 0px;
-	box-shadow: 5px 10px 8px #000000;
+        font-family: 'Lato', sans-serif;
       }
       .fxContainer {
         display: flex;
-        flex-direction: row;           
+        flex-direction: row;
       }
-      .col-small{
+      .col-small {
         padding: 15px;
-	flex: 1 1 100%;
-	text-align: left;
-	border: 2px solid black;
+      	flex: 1 1 100%;
+	      text-align: left;
+      	border: 2px solid black;
         border-radius: 5px;
-	margin: 10px;
-	background-color: white;
-        display: flex;
-        flex-direction: row;      	      
+      	margin: 10px;
+      	background-color: white;
+        line-height: 1.6;
+        box-shadow: 1px 1px 4px #436b9c;
       }
-      .col-split-left{
-	line-height: 1.6;	
-	text-align: right;
+
+      #plot {
+        margin-left:10px;
+        margin-right:10px;
+        margin-top:10px;
+        box-shadow: 1px 1px 4px #436b9c;
       }
-      .col-split-right{
-	line-height: 1.6;	
-	text-align: left;
-      }	    
-	    
+
+      label {
+        width: 60px;
+        font-weight:bold;
+        padding:10px;
+      }
+
+      select {
+        width:180px;
+        float:right;
+        border-radius: 5px;
+      }
+
     </style>
   </head>
   <body>
-    <div class="container">
       <div class="top">
-        <h4>NYS Tourny Winner Spreads</h4>
+        <h4>NYS Drill Teams<br />State Tournament Contest Winners</h4>
       </div>
+      <div class="container">
       <div id="plot"></div>
         <form class="params">
-	  <div class="fxContainer">
-          <div class="col-small-left">
-            <div class="col-split-left">
+      	  <div class="fxContainer">
+            <div class="col-small">
               <label>Contest: </label>
+	            <select name="contest">
+                <option selected>Three Man Ladder</option>
+                <option>B Ladder</option>
+                <option>C Ladder</option>
+                <option>C Hose</option>
+                <option>B Hose</option>
+                <option>Efficiency</option>
+                <option>Motor Pump</option>
+                <option>Buckets</option>
+              </select>
+              <br />
               <label>Show: </label>
-              <label>Stack on: </label>		    
-           </div>
-           <div class="col-small-right">
-	    <select name="contest">
-              <option selected>Three Man Ladder</option>
-              <option>B Ladder</option>
-              <option>C Ladder</option>
-              <option>C Hose</option>
-              <option>B Hose</option>
-              <option>Efficiency</option>
-              <option>Motor Pump</option>
-              <option>Buckets</option>
-            </select>
-            </br>
-            <select name="top5">
-              <option selected>First Only</option>
-              <option>Top 5</option>
-            </select>
-            </br>
-            <select name="decimal">
-              <option selected>Tenths</option>
-              <option>Hundredths</option>
-            </select>
-          </div>
+              <select name="top5">
+                <option selected>First Only</option>
+                <option>Top 5</option>
+              </select>
+              <br />
+              <label>Stack on: </label>
+              <select name="decimal">
+                <option selected>Tenths</option>
+                <option>Hundredths</option>
+              </select>
           </div>
           <div class="col-small">
             <label>Color control: </label>
@@ -94,7 +101,6 @@
               <option>Place</option>
               <option>Team</option>
             </select>
-          </br>
           <div id="teamDiv">
               <label>Team: </label>
               <select name="teamCtrl">
@@ -179,12 +185,11 @@
                 <option>Woodmere</option>
                 <option>Wyandanch Indians</option>
               </select>
-	    </div>
+      	    </div>
           </div>
         </div>
       </form>
     </div>
-  </div>
     <script>
       const inputs = document.querySelectorAll("form.params");
       const contestCtrl = inputs[0].elements.contest;
