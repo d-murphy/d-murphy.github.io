@@ -125,6 +125,9 @@
     </div>
     <script>
 
+      const updateDisMin = (e) => {document.getElementById("runDisMin").innerHTML = e.target.value}
+      document.getElementById("runDisMinCtrl").addEventListener("change", updateDisMin);
+      
       const inputs = document.querySelectorAll("form.filters");
       const runDistMinCtrl = inputs[0].elements.runDisMinCtrl;
       const runDistMaxCtrl = inputs[0].elements.runDisMaxCtrl;
