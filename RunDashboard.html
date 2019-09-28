@@ -127,6 +127,14 @@
 
       const updateDisMin = (e) => {document.getElementById("runDisMin").innerHTML = e.target.value}
       document.getElementById("runDisMinCtrl").addEventListener("change", updateDisMin);
+      const updateDisMax = (e) => {document.getElementById("runDisMax").innerHTML = e.target.value}
+      document.getElementById("runDisMaxCtrl").addEventListener("change", updateDisMax);
+      const updatePaceMin = (e) => {document.getElementById("paceMin").innerHTML = e.target.value}
+      document.getElementById("paceMinCtrl").addEventListener("change", updatePaceMin);
+      const updatePaceMax = (e) => {document.getElementById("paceMax").innerHTML = e.target.value}
+      document.getElementById("paceMaxCtrl").addEventListener("change", updatePaceMax);
+
+      
       
       const inputs = document.querySelectorAll("form.filters");
       const runDistMinCtrl = inputs[0].elements.runDisMinCtrl;
