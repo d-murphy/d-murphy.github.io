@@ -44,3 +44,10 @@
   color: rgb(0, 51, 153)
  }  
   
+ .circle {
+  width: 10;
+  height: 10px;
+  background: #3399ff;
+  border-radius: 50%
+}
+
