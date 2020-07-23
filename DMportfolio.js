@@ -1,15 +1,8 @@
-var slideIndex = 1;
-var slideIndex2 = 1;
-
-showSlides(slideIndex);
-showSlides2(slideIndex2);
-
 var coll = document.getElementsByClassName("collapsible");
 var j;
 
 for (j = 0; j < coll.length; j++) {
   coll[j].addEventListener("click", function() {
-    console.log('a click'); 
     this.classList.toggle("active");
     var content = this.nextElementSibling;
     if (content.style.display === "block") {
@@ -19,6 +12,12 @@ for (j = 0; j < coll.length; j++) {
     }
   });
 }
+
+var slideIndex = 1;
+var slideIndex2 = 1;
+
+showSlides(slideIndex);
+showSlides2(slideIndex2);
 
 
 function plusSlides(n) {
