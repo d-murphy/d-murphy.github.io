@@ -4,6 +4,22 @@ var slideIndex2 = 1;
 showSlides(slideIndex);
 showSlides2(slideIndex2);
 
+var coll = document.getElementsByClassName("collapsible");
+var j;
+
+for (j = 0; j < coll.length; j++) {
+  coll[j].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+
+
 function plusSlides(n) {
   showSlides(slideIndex += n);
 }
@@ -54,17 +70,4 @@ function showSlides2(n) {
 }
 
 
-var coll = document.getElementsByClassName("collapsible");
-var j;
 
-for (j = 0; j < coll.length; j++) {
-  coll[j].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var content = this.nextElementSibling;
-    if (content.style.display === "block") {
-      content.style.display = "none";
-    } else {
-      content.style.display = "block";
-    }
-  });
-}
