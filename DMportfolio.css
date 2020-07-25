@@ -17,17 +17,11 @@ body {
   margin-bottom: 200px;
 }
 
-#section2, #section3, #section4 {
+#section2, #section3, #section4, #section5, #section6 {
   background-color: #ddd;
   margin-bottom: 200px;
 }
 
-#section4 {
-/*  background-color: #ddd;
-  margin-top: 200px;
-  margin-bottom: 500px;
-  padding: 50px; */
-}
 
 
 /* Top Section  */
@@ -136,6 +130,7 @@ body {
   padding: 60px;
   min-height: 180px;
   text-align: center;
+  font-size: 14px;
 }
 
 /* Next & previous buttons */
@@ -202,7 +197,7 @@ body {
   border: none;
   text-align: left;
   outline: none;
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .active, .collapsible:hover {
@@ -211,10 +206,9 @@ body {
 
 .content {
   padding: 0 40px;
-  display: none;
+  max-height: 0;
+  transition: max-height 0.2s ease-out;
   overflow: hidden;
   background-color: #f1f1f1;
-  font-size: 12px;
+  font-size: 14px;
 }
-
-
