@@ -14,12 +14,12 @@ body {
 #section1 {
   background-color: white;
   min-height: 600px;
-  margin-bottom: 20px;
+  margin-bottom: 200px;
 }
 
 #section2, #section3, #section4 {
   background-color: #ddd;
-  margin-bottom: 100px;
+  margin-bottom: 200px;
 }
 
 #section4 {
