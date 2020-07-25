@@ -1,5 +1,6 @@
 var coll = document.getElementsByClassName("collapsible");
-var i;
+var i =0;
+console.log('hit it...this aint no country club');
 
 for (i = 0; i < coll.length; i++) {
   coll[i].addEventListener("click", function() {
