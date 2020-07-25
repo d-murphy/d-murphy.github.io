@@ -190,9 +190,6 @@ body {
   background-color: #717171;
 }
 
-/* Add an italic font style to all quotes */
-q {font-style: italic;}
-
 
 /* Collapisble buttons for Education and Experience sections */
 
@@ -213,10 +210,11 @@ q {font-style: italic;}
 }
 
 .content {
-  padding: 0 18px;
+  padding: 0 40px;
   display: none;
   overflow: hidden;
   background-color: #f1f1f1;
+  font-size: 12px;
 }
 
 
