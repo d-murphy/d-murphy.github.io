@@ -5,11 +5,11 @@ for (i = 0; i < coll.length; i++) {
   coll[i].addEventListener("click", function() {
     this.classList.toggle("active");
     var content = this.nextElementSibling;
-    if (content.style.display === "block") {
-      content.style.display = "none";
+    if (content.style.maxHeight){
+      content.style.maxHeight = null;
     } else {
-      content.style.display = "block";
-    }
+      content.style.maxHeight = content.scrollHeight + "px";
+    } 
   });
 }
 
@@ -68,6 +68,3 @@ function showSlides2(n) {
   slides[slideIndex2-1].style.display = "block";
   dots[slideIndex2-1].className += " active";
 }
-
-
-
