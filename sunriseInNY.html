@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta charset='utf-8'>
+    <title>Sunrise, Sunset in NY</title>
+    <style>
+	body {
+	  font-family: Arial, Helvetica, sans-serif;
+	  background: rgb(240,230,234);
+	  background: radial-gradient(circle, rgba(240,230,234,1) 0%, rgba(94,156,230,1) 100%);
+	}
+    </style>
+  </head>
+  <body>
+    <center>
+    <h3>Sunrise, Sunset in New York, NY</h3>
+    <div id="container"></div>
+    <p><a href="https://www.timeanddate.com/sun/usa/new-york">Data Source</a></p>
+
+
+    <p>Ideas</p>
+    <ul>
+      <li>make the rows brighter based on day length</li>
+      <li>dots on rise, set and noon</li>
+
+
+    </center>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/6.0.0/d3.min.js'></script>
+    <script src='sunriseLoadData.js'></script>
+    <script>
+      
+      var h = 550; 
+      var w = 600;
+      var padding = 20; 
+      var horizPadding = 60; 
+
+      var parseDate = d3.timeParse("%m/%d/%Y");
+      var parseTime = d3.timeParse("%I:%M %p");
+
+      yScale = d3.scaleTime()
+		 .domain([
+			d3.min(data, function(d) {return parseDate(d.date)}),
+			d3.max(data, function(d) {return parseDate(d.date)})
+			])
+		.range([h-padding,padding])
+
+      xScale = d3.scaleTime()
+		 .domain([
+			d3.min(data, function(d) {return parseTime("0:00 am")}),
+			d3.max(data, function(d) {return parseTime("11:59 pm")})
+			])
+		.range([horizPadding,(w-horizPadding)])
+
+      var xAxis = d3.axisBottom()
+		    .tickFormat(d3.timeFormat("%I:%M"))
+		    .scale(xScale)
+		    .ticks(6);
+
+      var yAxis = d3.axisLeft()
+		    .tickFormat(d3.timeFormat("%B"))
+		    .scale(yScale);
+
+      var svg = d3.select("#container").append("svg")
+		  .attr("height", h) 
+		  .attr("width", w) 
+
+      var defs = svg.append("defs");
+      var gradient = defs.append("linearGradient")
+       .attr("id", "svgGradient")
+       .attr("x1", "0%")
+       .attr("x2", "100%")
+       .attr("y1", "0%")
+       .attr("y2", "100%");
+
+     gradient.append("stop")
+      .attr('class', 'start')
+      .attr("offset", "50%")
+      .attr("stop-color", "#f0e6ea")
+      .attr("stop-opacity", 1);
+     gradient.append("stop")
+      .attr('class', 'mid')
+      .attr("offset", "75%")
+      .attr("stop-color", "#f5c133")
+      .attr("stop-opacity", 1);
+     gradient.append("stop")
+      .attr('class', 'end')
+      .attr("offset", "100%")
+      .attr("stop-color", "#f0e6ea")
+      .attr("stop-opacity", 1);
+
+      svg.selectAll("rect")
+	 .data(data)
+	 .enter()
+	 .append("rect")
+	 .attr("y", function(d,i) {
+	    return (yScale(parseDate(d.date)));
+	 })
+	 .attr("x", function(d) {
+	   return ( xScale(parseTime(d.sunrise)));
+	 })
+	 .attr("width", function(d) {
+	   return (xScale(parseTime(d.sunset)) - xScale(parseTime(d.sunrise)))
+	 })
+	 .attr("height", (h-horizPadding) / data.length)
+         .attr("stroke", "url(#svgGradient)")
+
+      svg.append("g")
+	 .attr("class", "axis")
+	 .attr("transform", "translate(0," + (h - padding) + ")")
+	 .call(xAxis);
+
+      svg.append("g")
+	 .attr("class", "axis")
+	 .attr("transform", "translate(" + horizPadding + ")")
+	 .call(yAxis);
+
+    </script>
+  </body>
+</html>
