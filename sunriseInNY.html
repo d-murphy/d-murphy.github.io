@@ -101,6 +101,10 @@
      .attr("height", (h-horizPadding) / data.length)
      .attr("stroke", "url(#svgGradient)")
      .attr("stroke-width" , "2")
+     .append("title")
+     .text(function(d) {
+         return (d.date + " - Sunrise: " + d.sunrise + " Sunset: " + d.sunset)
+     })
 
       svg.append("g")
 	 .attr("class", "axis")
