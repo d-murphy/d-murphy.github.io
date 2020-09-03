@@ -15,13 +15,13 @@
   <body>
     <center>
     <h3>Sunrise, Sunset in New York, NY</h3>
+    <button onclick="triggerTransitionPiping()">Trigger transition</button>
     <div id="container"></div>
     <p><a href="https://www.timeanddate.com/sun/usa/new-york">Data Source</a></p>
 
 
     <p>Ideas</p>
     <ul>
-      <li>make the rows brighter based on day length</li>
       <li>dots on rise, set and noon</li>
 
 
@@ -31,15 +31,23 @@
     <script src='sunriseLoadData.js'></script>
     <script>
       
-      var h = 550; 
-      var w = 600;
+      var h = 500; 
+      var w = 700;
       var padding = 20; 
       var horizPadding = 60; 
+      var showingDLS = true;
 
       var parseDate = d3.timeParse("%m/%d/%Y");
       var parseTime = d3.timeParse("%I:%M %p");
 
-      yScale = d3.scaleTime()
+      for (i = 0; i < data.length; i++) {
+        data[i].sunriseWoDLS = (parseTime(data[i].sunrise).getHours() + parseInt(data[i].daylightSavings)) + ":" + 
+                               parseTime(data[i].sunrise).getMinutes() + "am"
+        data[i].sunsetWoDLS = (parseTime(data[i].sunset).getHours() - 12 + parseInt(data[i].daylightSavings)) + ":" + 
+                               parseTime(data[i].sunset).getMinutes() + "pm"
+     }
+
+     yScale = d3.scaleTime()
 		 .domain([
 			d3.min(data, function(d) {return parseDate(d.date)}),
 			d3.max(data, function(d) {return parseDate(d.date)})
@@ -48,13 +56,13 @@
 
       xScale = d3.scaleTime()
 		 .domain([
-			d3.min(data, function(d) {return parseTime("0:00 am")}),
-			d3.max(data, function(d) {return parseTime("11:59 pm")})
+			d3.min(data, function(d) {return parseTime("3:00 am")}),
+			d3.max(data, function(d) {return parseTime("10:00 pm")})
 			])
 		.range([horizPadding,(w-horizPadding)])
 
       var xAxis = d3.axisBottom()
-		    .tickFormat(d3.timeFormat("%I:%M"))
+		    .tickFormat(d3.timeFormat("%I:%M %p"))
 		    .scale(xScale)
 		    .ticks(6);
 
@@ -70,7 +78,7 @@
       var gradient = defs.append("linearGradient")
        .attr("id", "svgGradient")
 
-     gradient.append("stop")
+      gradient.append("stop")
       .attr('class', 'start')
       .attr("offset", "0%")
       .attr("stop-color", "#f0e6ea")
@@ -85,36 +93,58 @@
       .attr("offset", "100%")
       .attr("stop-color", "#f0e6ea")
 
+    var drawPlot = function(sunriseToUse, sunsetToUse) {
+
       svg.selectAll("rect")
-	 .data(data)
-	 .enter()
-	 .append("rect")
-	 .attr("y", function(d,i) {
-	    return (yScale(parseDate(d.date)));
-	 })
-	 .attr("x", function(d) {
-	   return ( xScale(parseTime(d.sunrise)));
-	 })
-	 .attr("width", function(d) {
-	   return (xScale(parseTime(d.sunset)) - xScale(parseTime(d.sunrise)))
-	 })
-     .attr("height", (h-horizPadding) / data.length)
-     .attr("stroke", "url(#svgGradient)")
-     .attr("stroke-width" , "2")
-     .append("title")
-     .text(function(d) {
-         return (d.date + " - Sunrise: " + d.sunrise + " Sunset: " + d.sunset)
-     })
+      	 .data(data)
+	       .enter()
+	       .append("rect")
+	       .attr("y", function(d,i) {
+	        return (yScale(parseDate(d.date)));
+	      })
+	      .attr("x", function(d) {
+	        return ( xScale(parseTime(d[sunriseToUse])));
+	      })
+	      .attr("width", function(d) {
+	        return (xScale(parseTime(d[sunsetToUse])) - xScale(parseTime(d[sunriseToUse])))
+	      })
+        .attr("height", (h-horizPadding) / data.length)
+        .attr("stroke", "url(#svgGradient)")
+        .attr("stroke-width" , "2")
+        .append("title")
+        .text(function(d) {
+           return (d.date + " - Sunrise: " + d[sunriseToUse] + " Sunset: " + d[sunsetToUse])
+        })
 
-      svg.append("g")
-	 .attr("class", "axis")
-	 .attr("transform", "translate(0," + (h - padding) + ")")
-	 .call(xAxis);
+        svg.append("g")
+        	 .attr("class", "axis")
+	         .attr("transform", "translate(0," + (h - padding) + ")")
+	         .call(xAxis);
 
-      svg.append("g")
-	 .attr("class", "axis")
-	 .attr("transform", "translate(" + horizPadding + ")")
-	 .call(yAxis);
+        svg.append("g")
+	         .attr("class", "axis")
+	         .attr("transform", "translate(" + horizPadding + ")")
+           .call(yAxis);
+
+    }
+
+    var reDrawPlot = function() {
+        if(showingDLS){
+            showingDLS = false;
+            drawPlot('sunriseWoDLS', 'sunsetWoDLS')
+        } else {
+            showingDLS = true;
+            drawPlot('sunrise', 'sunset')
+        }
+    }
+
+
+     drawPlot('sunrise', 'sunset');
+
+
+
+   
+
 
     </script>
   </body>
