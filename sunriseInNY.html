@@ -41,10 +41,15 @@
       var parseTime = d3.timeParse("%I:%M %p");
 
       for (i = 0; i < data.length; i++) {
-        data[i].sunriseWoDLS = (parseTime(data[i].sunrise).getHours() + parseInt(data[i].daylightSavings)) + ":" + 
-                               parseTime(data[i].sunrise).getMinutes() + "am"
-        data[i].sunsetWoDLS = (parseTime(data[i].sunset).getHours() - 12 + parseInt(data[i].daylightSavings)) + ":" + 
-                               parseTime(data[i].sunset).getMinutes() + "pm"
+        data[i].sunriseWoDLS = String(parseTime(data[i].sunrise).getHours() + parseInt(data[i].daylightSavings)) + ":" + 
+				String(parseTime(data[i].sunrise).getMinutes() < 10 ? "0":"") + 
+                               String(parseTime(data[i].sunrise).getMinutes()) + " am"
+        data[i].sunsetWoDLS = String(parseTime(data[i].sunset).getHours() + parseInt(data[i].daylightSavings) - 12) + ":" + 
+				String(parseTime(data[i].sunset).getMinutes() < 10 ? "0":"") + 
+                               String(parseTime(data[i].sunset).getMinutes()) + " pm"
+	data[i].xStart = data[i].sunrise
+	data[i].xEnd = data[i].sunset
+
      }
 
      yScale = d3.scaleTime()
@@ -93,8 +98,6 @@
       .attr("offset", "100%")
       .attr("stop-color", "#f0e6ea")
 
-    var drawPlot = function(sunriseToUse, sunsetToUse) {
-
       svg.selectAll("rect")
       	 .data(data)
 	       .enter()
@@ -103,17 +106,17 @@
 	        return (yScale(parseDate(d.date)));
 	      })
 	      .attr("x", function(d) {
-	        return ( xScale(parseTime(d[sunriseToUse])));
+	        return ( xScale(parseTime(d.xStart)));
 	      })
 	      .attr("width", function(d) {
-	        return (xScale(parseTime(d[sunsetToUse])) - xScale(parseTime(d[sunriseToUse])))
+	        return (xScale(parseTime(d.xEnd)) - xScale(parseTime(d.xStart)))
 	      })
         .attr("height", (h-horizPadding) / data.length)
         .attr("stroke", "url(#svgGradient)")
         .attr("stroke-width" , "2")
         .append("title")
         .text(function(d) {
-           return (d.date + " - Sunrise: " + d[sunriseToUse] + " Sunset: " + d[sunsetToUse])
+           return (d.date + " - Sunrise: " + d.xStart + " Sunset: " + d.xEnd)
         })
 
         svg.append("g")
@@ -126,25 +129,58 @@
 	         .attr("transform", "translate(" + horizPadding + ")")
            .call(yAxis);
 
-    }
+
 
     var reDrawPlot = function() {
-        if(showingDLS){
-            showingDLS = false;
-            drawPlot('sunriseWoDLS', 'sunsetWoDLS')
-        } else {
-            showingDLS = true;
-            drawPlot('sunrise', 'sunset')
-        }
+
+      if(showingDLS){
+	showingDLS = false;
+	for (i = 0; i < data.length; i++) {
+	  data[i].xStart = data[i].sunriseWoDLS
+	  data[i].xEnd = data[i].sunsetWoDLS
+	}
+     } else {
+	showingDLS = true;
+	for (i = 0; i < data.length; i++) {
+	  data[i].xStart = data[i].sunrise
+	  data[i].xEnd = data[i].sunset
+	}
+     }
+
+      svg.selectAll("rect")
+      	 .data(data)
+//	 .transition()
+	       .enter()
+	       .append("rect")
+	       .attr("y", function(d,i) {
+	        return (yScale(parseDate(d.date)));
+	      })
+	      .attr("x", function(d) {
+	        return ( xScale(parseTime(d.xStart)));
+	      })
+	      .attr("width", function(d) {
+	        return (xScale(parseTime(d.xEnd)) - xScale(parseTime(d.xStart)))
+	      })
+        .attr("height", (h-horizPadding) / data.length)
+        .attr("stroke", "url(#svgGradient)")
+        .attr("stroke-width" , "2")
+        .append("title")
+        .text(function(d) {
+           return (d.date + " - Sunrise: " + d.xStart + " Sunset: " + d.xEnd)
+        })
+
+        svg.append("g")
+        	 .attr("class", "axis")
+	         .attr("transform", "translate(0," + (h - padding) + ")")
+	         .call(xAxis);
+
+        svg.append("g")
+	         .attr("class", "axis")
+	         .attr("transform", "translate(" + horizPadding + ")")
+           .call(yAxis);
+
+
     }
-
-
-     drawPlot('sunrise', 'sunset');
-
-
-
-   
-
 
     </script>
   </body>
