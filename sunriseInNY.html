@@ -15,16 +15,10 @@
   <body>
     <center>
     <h3>Sunrise, Sunset in New York, NY</h3>
-    <button onclick="triggerTransitionPiping()">Trigger transition</button>
+    <p id="statusText">Showing Sunrise and Sunset with Daylight Savings Time.</p>
+    <button id="transitionButton" onclick="reDrawPlot()">Show without DST</button>
     <div id="container"></div>
     <p><a href="https://www.timeanddate.com/sun/usa/new-york">Data Source</a></p>
-
-
-    <p>Ideas</p>
-    <ul>
-      <li>dots on rise, set and noon</li>
-
-
     </center>
 
     <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/6.0.0/d3.min.js'></script>
@@ -36,6 +30,7 @@
       var padding = 20; 
       var horizPadding = 60; 
       var showingDLS = true;
+      var textVar = "Here is the text"
 
       var parseDate = d3.timeParse("%m/%d/%Y");
       var parseTime = d3.timeParse("%I:%M %p");
@@ -139,19 +134,24 @@
 	  data[i].xStart = data[i].sunriseWoDLS
 	  data[i].xEnd = data[i].sunsetWoDLS
 	}
+  d3.select("#transitionButton").text("Show with DST");
+  d3.select("#statusText").text("Showing Sunrise and Sunset without Daylight Savings Time.");
      } else {
 	showingDLS = true;
 	for (i = 0; i < data.length; i++) {
 	  data[i].xStart = data[i].sunrise
 	  data[i].xEnd = data[i].sunset
 	}
+  d3.select("#transitionButton").text("Show without DST");
+  d3.select("#statusText").text("Showing Sunrise and Sunset with Daylight Savings Time.");
      }
 
       svg.selectAll("rect")
       	 .data(data)
-//	 .transition()
-	       .enter()
-	       .append("rect")
+      	 .transition()
+         .duration(2000)
+//	       .enter()
+//	       .append("rect")
 	       .attr("y", function(d,i) {
 	        return (yScale(parseDate(d.date)));
 	      })
@@ -164,7 +164,7 @@
         .attr("height", (h-horizPadding) / data.length)
         .attr("stroke", "url(#svgGradient)")
         .attr("stroke-width" , "2")
-        .append("title")
+//        .append("title")
         .text(function(d) {
            return (d.date + " - Sunrise: " + d.xStart + " Sunset: " + d.xEnd)
         })
