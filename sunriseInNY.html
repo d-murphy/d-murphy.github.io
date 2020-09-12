@@ -11,12 +11,36 @@
       background-repeat: no-repeat;
   }
 
-
    html {
     height: 100%;
   }
 
-	
+  #tooltip {
+    position: absolute;
+    width: 200px;
+    height: auto;
+    padding: 10px;
+    background-color: white;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 4px 4px 10px rgba(0,0,0,0.4);
+    -moz-box-shadow: 4px 4px 10px rgba(0,0,0,0.4);
+    box-shadow: 4px 4px 10px rgba(0,0,0,0.4);
+    pointer-events: none;
+  }
+
+  #tooltip.hidden {
+    display: none;
+  }
+
+  #tooltip p {
+    margin: 0;
+    font-family: sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: left;
+  }	
     </style>
   </head>
   <body>
@@ -26,6 +50,13 @@
     <button id="transitionButton" onclick="reDrawPlot()">Show without DST</button>
     <div id="container"></div>
     <p><a href="https://www.timeanddate.com/sun/usa/new-york">Data Source</a></p>
+    <div id="tooltip" class="hidden">
+      <p><strong>Date: </strong><span id="dateValue"></span></p>
+      <p><strong>Sunrise: </strong><span id="sunriseValue"></span></p>
+      <p><strong>Sunset: </strong><span id="sunsetValue"></span></p>
+    </div>
+
+
     </center>
 
     <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/6.0.0/d3.min.js'></script>
@@ -60,6 +91,7 @@
 			d3.max(data, function(d) {return parseDate(d.date)})
 			])
 		.range([h-padding,padding])
+
 
       xScale = d3.scaleTime()
 		 .domain([
@@ -116,9 +148,19 @@
         .attr("height", (h-horizPadding) / data.length)
         .attr("stroke", "url(#svgGradient)")
         .attr("stroke-width" , "2")
-        .append("title")
-        .text(function(d) {
-           return (d.date + " - Sunrise: " + d.xStart + " Sunset: " + d.xEnd)
+        .on("mouseover", function(d){
+          var yPosition = parseFloat(d3.select(this).attr("y"));
+
+          d3.select("#tooltip")
+            .style("left", 600 + "px")
+            .style("top", yPosition + (padding * 2) + "px")
+//            .select("#dateValue")
+//            .text(d.date)
+
+          d3.select("#tooltip").classed("hidden", false);
+        })
+        .on("mouseout", function(){
+          d3.select("#tooltip").classed("hidden", true);
         })
 
         svg.append("g")
@@ -157,8 +199,6 @@
       	 .data(data)
       	 .transition()
          .duration(2000)
-//	       .enter()
-//	       .append("rect")
 	       .attr("y", function(d,i) {
 	        return (yScale(parseDate(d.date)));
 	      })
