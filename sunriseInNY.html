@@ -17,7 +17,7 @@
 
   #tooltip {
     position: absolute;
-    width: 200px;
+    width: 120px;
     height: auto;
     padding: 10px;
     background-color: white;
@@ -32,6 +32,12 @@
 
   #tooltip.hidden {
     display: none;
+  }
+
+  #dateValue, 
+  #sunriseValue, 
+  #sunsetValue {
+    float: right;
   }
 
   #tooltip p {
@@ -68,7 +74,6 @@
       var padding = 20; 
       var horizPadding = 60; 
       var showingDLS = true;
-      var textVar = "Here is the text"
 
       var parseDate = d3.timeParse("%m/%d/%Y");
       var parseTime = d3.timeParse("%I:%M %p");
@@ -148,14 +153,19 @@
         .attr("height", (h-horizPadding) / data.length)
         .attr("stroke", "url(#svgGradient)")
         .attr("stroke-width" , "2")
-        .on("mouseover", function(d){
+        .on("mouseover", function(d, i){
           var yPosition = parseFloat(d3.select(this).attr("y"));
-
           d3.select("#tooltip")
             .style("left", 600 + "px")
             .style("top", yPosition + (padding * 2) + "px")
-//            .select("#dateValue")
-//            .text(d.date)
+            .select("#dateValue")
+            .text(i.date)
+          d3.select("#tooltip")
+            .select("#sunriseValue")
+            .text(i.xStart)
+          d3.select("#tooltip")
+            .select("#sunsetValue")
+            .text(i.xEnd)
 
           d3.select("#tooltip").classed("hidden", false);
         })
@@ -211,7 +221,6 @@
         .attr("height", (h-horizPadding) / data.length)
         .attr("stroke", "url(#svgGradient)")
         .attr("stroke-width" , "2")
-//        .append("title")
         .text(function(d) {
            return (d.date + " - Sunrise: " + d.xStart + " Sunset: " + d.xEnd)
         })
