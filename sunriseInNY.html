@@ -17,6 +17,7 @@
 
   #tooltip {
     position: absolute;
+    left: 60%;
     width: 120px;
     height: auto;
     padding: 10px;
@@ -156,7 +157,6 @@
         .on("mouseover", function(d, i){
           var yPosition = parseFloat(d3.select(this).attr("y"));
           d3.select("#tooltip")
-            .style("left", 600 + "px")
             .style("top", yPosition + (padding * 2) + "px")
             .select("#dateValue")
             .text(i.date)
