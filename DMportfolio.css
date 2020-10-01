@@ -1,4 +1,4 @@
-/* Page Organization  */
+
 
 html {
   scroll-behavior: smooth;
@@ -11,21 +11,10 @@ body {
 }
 
 
-#section1 {
-  background-color: white;
-  min-height: 600px;
-  margin-bottom: 200px;
-}
-
-#section2, #section3, #section4, #section5, #section6 {
-  background-color: #ddd;
-  margin-bottom: 200px;
-}
 
 
 
-/* Top Section  */
-
+/* Portfolio Image and Resume Link  */
 
 .row {
     display: flex;
@@ -45,29 +34,7 @@ body {
     margin-right: 50px;
   }
 
-.cardRight {
-    flex: 1 1 70%;
-    text-align: center;
-    display: flex;
-    flex-wrap:  wrap;
-}
-
-.cardRightTop {
-    flex: 1 1 100%;
-    margin-top: 30px;
-    margin-bottom: 250px;
-}
-
-.cardRightBot1 {
-  flex: 1 1 40%;
-}
-
-.cardRightBot2 {
-  flex: 1 1 25%;
-}
-
-
-.profileButton {
+  .profileButton {
     border: none;
     outline: 0;
     display: inline-block;
@@ -108,107 +75,114 @@ body {
     background-color: rgb(17, 79, 116);
     color: white;
   }
+
+
+.cardRight {
+    flex: 1 1 68%;
+    display: flex;
+    flex-direction: column;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
   
-/* Slideshow section  */
+/* Portfolio List */
 
-.sectionTitle {
-  text-align: center;
-  font-size: 16px;
-  padding: 10px;
+.Heading {
+  border-bottom: solid;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
 }
 
-
-  /* Slideshow container */
-.slideshow-container {
-  position: relative;
-  background: #f1f1f1f1;
+.ClearFilter {
+  margin-right: 10px; 
+  margin-bottom: 20px;
+  font-size: 12px;
+  font-style: italic;
+  cursor: pointer;
 }
 
-/* Slides */
-.mySlides, .mySlides2 {
+/*
+ .PortfolioEntry:hover {
+  background: #f5f5f5;
+  border-radius: 10px;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+*/
+
+.PortfolioEntry {
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.hidden {
   display: none;
-  padding: 60px;
-  min-height: 180px;
-  text-align: center;
-  font-size: 14px;
 }
 
-/* Next & previous buttons */
-.prev, .next {
+.Date {
+  color: #9e9e9e;
+  margin-bottom: 4px;
+  font-size: 12px;
+}
+
+.PortEntryTitleLine {
+  display: flex;
+  flex-direction: row;
+}
+
+.PortEntryTitle {
+  font-size: 18px;
+  padding-top: 4px;
+}
+
+.iconWrapper {
+  margin-top: 5px;
+  margin-left: 20px;
+}
+
+
+.PortEntryTags {
+  display: flex;
+  flex-direction: row;
+  font-size: 12px;
+}
+
+.skillPill {
+  border-radius: 4px;
+  padding: 10px;
+  margin: 5px;
   cursor: pointer;
-  position: absolute;
-  top: 50%;
-  width: auto;
-  margin-top: -30px;
-  padding: 16px;
-  color: #888;
-  font-weight: bold;
-  font-size: 20px;
-  border-radius: 0 3px 3px 0;
-  user-select: none;
 }
 
-/* Position the "next button" to the right */
-.next {
-  position: absolute;
-  right: 0;
-  border-radius: 3px 0 0 3px;
+.type {
+  background: lightblue;
 }
 
-/* On hover, add a black background color with a little bit see-through */
-.prev:hover, .next:hover {
-  background-color: rgba(0,0,0,0.8);
+.type:hover {
+  background: rgb(84, 144, 180);
   color: white;
 }
 
-/* The dot/bullet/indicator container */
-.dot-container {
-  text-align: center;
-  padding: 20px;
-  background: #ddd;
+.language {
+  background: rgb(173, 230, 211);
 }
 
-/* The dots/bullets/indicators */
-.dot, .dot2 {
-  cursor: pointer;
-  height: 15px;
-  width: 15px;
-  margin: 0 2px;
-  background-color: #bbb;
-  border-radius: 50%;
-  display: inline-block;
-  transition: background-color 0.6s ease;
-}
-
-/* Add a background color to the active dot/circle */
-.active, .dot:hover {
-  background-color: #717171;
-}
-
-
-/* Collapisble buttons for Education and Experience sections */
-
-.collapsible {
-  background-color: #777;
+.language:hover {
+  background: rgb(103, 136, 125);
   color: white;
-  cursor: pointer;
-  padding: 18px;
-  width: 100%;
-  border: none;
-  text-align: left;
-  outline: none;
-  font-size: 14px;
 }
 
-.active, .collapsible:hover {
-  background-color: #555;
+.library {
+  background: rgb(230, 210, 173);
 }
 
-.content {
-  padding: 0 40px;
-  max-height: 0;
-  transition: max-height 0.2s ease-out;
-  overflow: hidden;
-  background-color: #f1f1f1;
-  font-size: 14px;
+.library:hover {
+  background: rgb(163, 134, 79);
+  color: white;
 }
