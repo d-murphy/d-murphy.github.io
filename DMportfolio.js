@@ -1,70 +1,50 @@
-var coll = document.getElementsByClassName("collapsible");
-var i =0;
+var currentFilter = ""
 
-for (i = 0; i < coll.length; i++) {
-  coll[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var content = this.nextElementSibling;
-    if (content.style.maxHeight){
-      content.style.maxHeight = null;
-    } else {
-      content.style.maxHeight = content.scrollHeight + "px";
-    } 
-  });
+const filterPortEntries = (e) => {
+  currentFilter = e.target.innerHTML;
+  hidePortEntries(currentFilter);
 }
 
-var slideIndex = 1;
-var slideIndex2 = 1;
+const hidePortEntries = (currentFilter) => {
 
-showSlides(slideIndex);
-showSlides2(slideIndex2);
+  var portEntries = document.querySelectorAll("div.PortfolioEntry")
+  var clearFilter = document.querySelectorAll("div.ClearFilter")
 
+  clearFilter[0].classList.remove('hidden')
+  clearFilter[0].innerHTML = "Remove filter for " + currentFilter
 
-function plusSlides(n) {
-  showSlides(slideIndex += n);
+  for(i=0; portEntries.length; i++) {
+    if( currentFilter == portEntries[i].dataset.type || 
+        currentFilter == portEntries[i].dataset.language ||
+        currentFilter == portEntries[i].dataset.library
+      ) {
+        portEntries[i].classList.remove('hidden'); 
+      } else {
+        portEntries[i].classList.add('hidden'); 
+      }
+  }
 }
 
-function currentSlide(n) {
-  showSlides(slideIndex = n);
+const showPortEntries = () => {
+
+  var portEntries = document.querySelectorAll("div.PortfolioEntry")
+  var clearFilter = document.querySelectorAll("div.ClearFilter")
+
+  clearFilter[0].classList.add('hidden')
+
+  for(i=0; portEntries.length; i++) {
+    portEntries[i].classList.remove('hidden'); 
+  }
 }
 
-function showSlides(n) {
-  var i;
-  var slides = document.getElementsByClassName("mySlides");
-  var dots = document.getElementsByClassName("dot");
-  if (n > slides.length) {slideIndex = 1}
-    if (n < 1) {slideIndex = slides.length}
-    for (i = 0; i < slides.length; i++) {
-      slides[i].style.display = "none";
-    }
-    for (i = 0; i < dots.length; i++) {
-      dots[i].className = dots[i].className.replace(" active", "");
-    }
-  slides[slideIndex-1].style.display = "block";
-  dots[slideIndex-1].className += " active";
+const addListeners = () => {
+
+  var skillPills = document.querySelectorAll("div.skillPill")
+
+  for(let i=0; skillPills.length; i++){
+    skillPills[i].
+      addEventListener("click", filterPortEntries, false);
+  }
+  
 }
 
-function plusSlides2(n) {
-  showSlides2(slideIndex2 += n);
-}
-
-function currentSlide2(n) {
-  showSlides2(slideIndex2 = n);
-}
-
-function showSlides2(n) {
-
-  var i;
-  var slides = document.getElementsByClassName("mySlides2");
-  var dots = document.getElementsByClassName("dot2");
-  if (n > slides.length) {slideIndex2 = 1}
-    if (n < 1) {slideIndex2 = slides.length}
-    for (i = 0; i < slides.length; i++) {
-      slides[i].style.display = "none";
-    }
-    for (i = 0; i < dots.length; i++) {
-      dots[i].className = dots[i].className.replace(" active", "");
-    }
-  slides[slideIndex2-1].style.display = "block";
-  dots[slideIndex2-1].className += " active";
-}
