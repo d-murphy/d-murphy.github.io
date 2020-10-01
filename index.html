@@ -10,261 +10,178 @@
 
   gtag('config', 'UA-153692793-2');
 </script>
-<title>Dan Murphy Portfolio</title>
+<title>Dan Murphy</title>
 <link rel="stylesheet" href="DMportfolio.css">
-<script src="DMportfolio.js" type="text/javascript" defer></script>
-<style>
-</style>
+<script src="DMportfolio.js"></script>
 </head>
-<body>
-
+<body onload="addListeners()">
 
 <div class="row" id="section1">
-    <div class="card">
-      <img src="DMpicture.jpg" alt="Dan" style="width:100%">
-      <h2>Dan Murphy</h2>
-      <p class="title"> </p>
-      <br />
-      <br />
-      <p><button class="profileButton" 
-        onclick="window.location.href='https://d-murphy.github.io/resume.html';">Resume</button></p>
+
+  <div class="card">
+    <img src="DMpicture.jpg" alt="Dan" style="width:100%">
+    <h2>Dan Murphy</h2>
+    <p><button class="profileButton" 
+      onclick="window.location.href='https://d-murphy.github.io/resume.html';">Resume</button></p>
+  </div>
+
+  <div class="cardRight">
+
+    <div class="Heading">
+      <h2>Projects</h2>
+      <div class="ClearFilter hidden"
+        onclick="showPortEntries()">Remove Filter for </div>
     </div>
-    <div class="cardRight">
-      <div class="cardRightTop">
-        <p><em>Scroll or click to learn about some of Dan’s best work.</em></p>  
+
+    <div class="PortfolioEntry" data-type="Data Visualization" 
+                                data-language="JavaScript"
+                                data-library="D3">
+      <div class="PortEntryText">
+        <div class="Date">September 2020</div>
+        <div class="PortEntryTitleLine">
+          <div class="PortEntryTitle"><a href="https://d-murphy.github.io/sunriseInNY.html">Sunrise, Sunset Times in NY</a></div> 
+          <div class="iconWrapper">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+              <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+              <circle cx="8" cy="4.5" r="1"/>
+            </svg>        
+          </div>
+        </div>
       </div>
-      <button class="cardRightBot1 btn" onclick="window.location.href='#section2';">
-        Projects - Data Analytics
-      </button>
-      <button class="cardRightBot1 btn" onclick="window.location.href='#section3';">
-        Projects - Web Development
-      </button>
-      <button class="cardRightBot2 btn" onclick="window.location.href='#section4';">
-        Experience
-      </button>
-      <button class="cardRightBot2 btn" onclick="window.location.href='#section5';">
-        Education
-      </button>
-      <button class="cardRightBot2 btn" onclick="window.location.href='#section6';">
-        Extra-curriculars
-      </button>
+      <div class="PortEntryTags">
+        <div class="skillPill type" >Data Visualization</div>
+        <div class="skillPill language">JavaScript</div>
+        <div class="skillPill library">D3</div>
+      </div>
     </div>
+
+    <div class="PortfolioEntry" data-type="Web Dev" 
+                                data-language="JavaScript"
+                                data-library="Express.js">
+      <div class="PortEntryText">
+        <div class="Date">February 2020</div>
+        <div class="PortEntryTitleLine">
+          <div class="PortEntryTitle"><a href="https://libproauth0.glitch.me/">Suffolk Library Programs</a></div> 
+          <div class="iconWrapper">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+              <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+              <circle cx="8" cy="4.5" r="1"/>
+            </svg>        
+          </div>
+        </div>
+      </div>
+      <div class="PortEntryTags">
+        <div class="skillPill type">Web Dev</div>
+        <div class="skillPill language">JavaScript</div>
+        <div class="skillPill library">Express.js</div>
+      </div>
+    </div>
+
+
+    <div class="PortfolioEntry" data-type="Data Wrangling" 
+                                data-language="R"
+                                data-library="Dplyr">
+      <div class="PortEntryText">
+        <div class="Date">June 2019</div>
+        <div class="PortEntryTitleLine">
+          <div class="PortEntryTitle"><a href="https://www.kaggle.com/murphydan/checking-in-on-checks-and-other-nhl-data">NHL Game Data Review</a></div> 
+          <div class="iconWrapper">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+              <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+              <circle cx="8" cy="4.5" r="1"/>
+            </svg>        
+          </div>
+        </div>
+      </div>
+      <div class="PortEntryTags">
+        <div class="skillPill type">Data Wrangling</div>
+        <div class="skillPill language">R</div>
+        <div class="skillPill library">Dplyr</div>
+      </div>
+    </div>
+
+    <div class="PortfolioEntry" data-type="Data Visualization" 
+                                data-language="R"
+                                data-library="ggplot">
+      <div class="PortEntryText">
+        <div class="Date">June 2019</div>
+        <div class="PortEntryTitleLine">
+          <div class="PortEntryTitle"><a href="https://www.kaggle.com/murphydan/craigslist-cars-eda">Craigslist Car Ads</a></div> 
+          <div class="iconWrapper">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+              <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+              <circle cx="8" cy="4.5" r="1"/>
+            </svg>        
+          </div>
+        </div>
+      </div>
+      <div class="PortEntryTags">
+        <div class="skillPill type">Data Visualization</div>
+        <div class="skillPill language">R</div>
+        <div class="skillPill library">ggplot</div>
+      </div>
+    </div>
+
+
+    <div class="PortfolioEntry" data-type="Data Visualization" 
+                                data-language="R"
+                                data-library="ggplot">
+      <div class="PortEntryText">
+        <div class="Date">June 2019</div>
+        <div class="PortEntryTitleLine">
+          <div class="PortEntryTitle"><a href="https://www.kaggle.com/murphydan/conference-realignment-and-tourny-winners">NCAA Basketball Conference Realignment</a></div> 
+          <div class="iconWrapper">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+              <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+              <circle cx="8" cy="4.5" r="1"/>
+            </svg>        
+          </div>
+        </div>
+      </div>
+      <div class="PortEntryTags">
+        <div class="skillPill type">Data Visualization</div>
+        <div class="skillPill language">R</div>
+        <div class="skillPill library">ggplot</div>
+      </div>
+    </div>
+
+
+    <div class="PortfolioEntry" data-type="Data Science" 
+                                data-language="R"
+                                data-library="Shiny">
+      <div class="PortEntryText">
+        <div class="Date">January 2018</div>
+        <div class="PortEntryTitleLine">
+          <div class="PortEntryTitle"><a href="https://murphydans.shinyapps.io/SimilarLib/">Public Library Statistical Peers</a></div> 
+          <div class="iconWrapper">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+              <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+              <circle cx="8" cy="4.5" r="1"/>
+            </svg>        
+          </div>
+        </div>
+      </div>
+      <div class="PortEntryTags">
+        <div class="skillPill type">Data Science</div>
+        <div class="skillPill language">R</div>
+        <div class="skillPill library">Shiny</div>
+      </div>
+    </div>
+
+
+
+    
+  </div>
+
 </div>
 
 
-<div id="section2">
-  <div class="sectionTitle">
-    <p>Data Analytics Projects</p>
-  </div>
-  <!-- Slideshow container -->
-  <div class="slideshow-container">
-
-    <!-- Full-width slides/quotes -->
-    <div class="mySlides" style="display: block;">
-      <h4>PSEG Long Island Driver Scorecard</h4>
-      <p>Authored python script to pull and reshape API data for consumption
-         with a Tableau dashboard.  Dashboard provides aggregated company data 
-         and also filterable results for departments and individual drivers. 
-      </p>
-    </div>
-
-    <div class="mySlides">
-      <h4>Public Library Statistical Peers</h4>
-      <p>Used R's Shiny library to map and display the statistical peers
-         of each public library in New York.  Peer libraries selected with a 
-         nearest neighbor approach calculated in an R script.  
-      </p>
-      <button class="cardRightBot1 btn" 
-              onclick="window.location.href='https://murphydans.shinyapps.io/SimilarLib/';">
-        Link to Project
-      </button>
-    </div>
-
-    <div class="mySlides">
-      <h4>Data Visualization on Kaggle</h4>
-      <p>Demonstrated data visualiztion skill set in R with ggplot and plotly
-         on the Kaggle platform.    
-      </p>
-      <button class="cardRightBot1 btn" 
-              onclick="window.location.href='https://www.kaggle.com/murphydan/craigslist-cars-eda';">
-              Craiglist Car Ads
-      </button>
-      <button class="cardRightBot1 btn" 
-              onclick="window.location.href='https://www.kaggle.com/murphydan/checking-in-on-checks-and-other-nhl-data';">
-              NHL Game Data
-      </button>
-      <button class="cardRightBot1 btn" 
-              onclick="window.location.href='https://www.kaggle.com/murphydan/conference-realignment-and-tourny-winners';">
-              NCAA Conference Realignment
-      </button>
-    </div>
-
-    <div class="mySlides">
-      <h4>The PAT Index</h4>
-      <p>Created a statistical model to determine the likelihood of outcomes at a 
-         NY firefighter contest.  Results presented in a web app built with R's 
-         Shiny library and a wordpress blog.    
-      </p>
-      <button class="cardRightBot1 btn" 
-              onclick="window.location.href='https://patindex.wordpress.com/';">
-              Link to Project
-      </button>
-    </div>
-
-    <!-- Next/prev buttons -->
-    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-    <a class="next" onclick="plusSlides(1)">&#10095;</a>
-  </div>
-
-  <!-- Dots/bullets/indicators -->
-  <div class="dot-container">
-    <span class="dot active" onclick="currentSlide(1)"></span>
-    <span class="dot" onclick="currentSlide(2)"></span>
-    <span class="dot" onclick="currentSlide(3)"></span>
-    <span class="dot" onclick="currentSlide(4)"></span>
-  </div>
-</div>
-
-<div id="section3">
-  <div class="sectionTitle">
-    <p>Web Development Projects</p>
-  </div>
-  <!-- Slideshow container -->
-  <div class="slideshow-container">
-
-    <!-- Full-width slides/quotes -->
-        <div class="mySlides2" style="display: block;">
-      <h4>Data Viz - Sunrise in NY</h4>
-      <p>Interactive data visualization emphasizing the effect of daylight savings time 
-         on NY's sunrise and sunset times throughout the year.  Made with d3.js.  
-      </p>
-      <button class="cardRightBot1 btn" 
-              onclick="window.location.href='https://d-murphy.github.io/sunriseInNY.html';">
-        Link to Project
-      </button>
-    </div>
-
-    <div class="mySlides2">
-      <h4>Suffolk County Library Programs</h4>
-      <p>A clearinghouse website where libraries can post programs with 
-         additional capacity to share with patrons from neighboring towns.  
-         Built using Express with a VanillaJS front end and integrated with AuthO
-         for user authentication. 
-      </p>
-      <button class="cardRightBot1 btn" 
-              onclick="window.location.href='https://libproauth0.glitch.me/';">
-        Link to Project
-      </button>
-    </div>
-    <div class="mySlides2">
-      <h4>Retirement Calculator</h4>
-      <p>Created a retirement calculator with React which allows the user to 
-         compare investment strategies and the effect of a one-time contribution.
-      </p>
-      <button class="cardRightBot1 btn" 
-              onclick="window.location.href='https://d-murphy.github.io/reactRetCalc/';">
-        Link to Project
-      </button>
-    </div>
-    <div class="mySlides2">
-      <h4>FD Tournament Contest Winners</h4>
-      <p>Data visualization with plotly to show the distribution of winning times 
-         at a NYS FD tournament.    
-      </p>
-      <button class="cardRightBot1 btn" 
-              onclick="window.location.href='https://d-murphy.github.io/NYSTournyWinnerSpreads.html;">
-              Link to Project
-      </button>
-    </div>
-    <!-- Next/prev buttons -->
-    <a class="prev" onclick="plusSlides2(-1)">&#10094;</a>
-    <a class="next" onclick="plusSlides2(1)">&#10095;</a>
-  </div>
-
-  <!-- Dots/bullets/indicators -->
-  <div class="dot-container">
-    <span class="dot2 active" onclick="currentSlide2(1)"></span>
-    <span class="dot2" onclick="currentSlide2(2)"></span>
-    <span class="dot2" onclick="currentSlide2(3)"></span>
-    <span class="dot2" onclick="currentSlide2(4)"></span>
-  </div>
-</div>
-
-<div id="section4">
-  <div class="sectionTitle">
-    <p>Experience</p>
-  </div>
-  <button type="button" class="collapsible">Lead Analyst - Employee Safety @ PSEG Long Island</button>
-  <div class="content">
-    <p>2016 - 2020</p>
-    <p>Responsible for all reporting, analysis, and data visualization related to employee safety</p>
-    <p>Authored R and Python scripts to wrangle data from disparate sources (APIs, CSVs) and automate reporting processes</p>
-    <p>Using Tableau, created dashboards to allow interactive exploration of injury and motor vehicle accident data</p>
-    <p>Presentation of results to senior leaders</p>
-  </div>
-  <button type="button" class="collapsible">Librarian and Trainer @ West Islip Public Library and St. Joseph's College</button>
-  <div class="content">
-    <p>2015 - 2020</p>
-    <p>Evening side hustle at two Long Island libaries</p>
-    <p>Provided reference service to community members, faculty and students</p>
-    <p>Virtual and in-person training on Excel, PowerPoint, Google Apps</p>
-    <p>At St. Joseph's College, authored an R script to assess overlap in academic journal subscriptions</p>
-  </div>
-  <button type="button" class="collapsible">Information Specialist @ Cleary Gottlieb Steen & Hamilton</button>
-  <div class="content">
-    <p>2010 - 2014</p>
-    <p>Managed a client-facing website tracking the regulatory implementation of the Dodd-Frank financial reforms</p>
-    <p>Trained attorneys on Knowledge Management tools via formal presentations and interactions on the KM Help Desk.</p>
-    <p>Solved ad hoc challenges requiring project management, data analysis, and general technical understanding of KM software</p>
-  </div>
-</div>
-
-<div id="section5">
-  <div class="sectionTitle">
-    <p>Education</p>
-  </div>
-  <button type="button" class="collapsible">B.A. Economics, Providence College</button>
-  <div class="content">
-    <p>2003 - 2007, GPA:  3.68</p>
-    <p>Honors program, scholarship recepient</p>
-  </div>
-  <button type="button" class="collapsible">M.S. Quantitative Modeling, Baruch College</button>
-  <div class="content">
-    <p>2014 - 2016, GPA:  3.54</p>
-    <p>Courses Completed: Advanced Statistical Computing, 
-                          Object-Oriented Programming in C++ (2 semesters), 
-                          Data Mining for Business Analysis, 
-                          Quantitative Modeling, 
-                          Modern Regression Analysis , 
-                          Simulation Modeling and Analysis</p>
-
-  </div>
-  <button type="button" class="collapsible">M. Library Science, St John's University</button>
-  <div class="content">
-    <p>2008 - 2010, GPA: 3.86</p>
-    <p>Concentration in information technology</p>
-  </div>
-</div>
-
-
-<div id="section6">
-  <div class="sectionTitle">
-    <p>Extracurriculars</p>
-  </div>
-  <button type="button" class="collapsible">2015 Suffolk County Marathon Finisher</button>
-  <div class="content">
-    <p>Finish time: 4:22:42</p>
-  </div>
-  <button type="button" class="collapsible">Midnight Hockey League</button>
-  <div class="content">
-    <p>As a member of the Irish Exit, two time winners of the E division championship</p>
-  </div>
-  <button type="button" class="collapsible">Central Islip FD Volunteer</button>
-  <div class="content">
-    <p>2002 - 2015</p>
-    <p>Volunteered for the Central Islip FD for 13 years starting as a senior in high school.</p>
-  </div>
-</div>
 
 
 </body>
