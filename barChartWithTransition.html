@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Horizontal Bar Chart with Transition</title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/6.2.0/d3.min.js"></script>
+  </head>
+  <body>
+    <div>
+      <h2>Horizontal Bar Chart with Transitions</h2>
+    </div>
+    <div id="chartDiv"></div>
+    <script>
+      var data = [
+            {group: 1, stage: 1, value: 4}, 
+            {group: 1, stage: 2, value: 8}, 
+            {group: 2, stage: 1, value: 1}, 
+            {group: 2, stage: 2, value: 8}, 
+            {group: 3, stage: 1, value: 5}, 
+            {group: 3, stage: 2, value: 11}, 
+            {group: 4, stage: 1, value: 3}, 
+            {group: 4, stage: 2, value: 6}, 
+            {group: 5, stage: 1, value: 3}, 
+            {group: 5, stage: 2, value: 9}, 
+          ]
+
+      var filterData = function(originalData, stage){
+        var returnArr = [];
+        originalData.map(function(d, i){if(d.stage==stage){returnArr.push(d)}})
+        return(returnArr)
+      }
+
+      var dataToDisplay = filterData(data,1)
+
+      chartHt = 800
+      chartWd = 500
+      chartOutPad = 4
+      chartInsPad = 2
+
+      svg=d3.select("#chartDiv")
+          .append("svg")
+          .attr("width", chartHt)
+          .attr("height", chartWd)
+
+      svg.selectAll("rect")
+         .data(dataToDisplay)
+         .enter()
+         .append("rect")
+         .attr("y", function(d,i) {
+             return i * 52;
+         })
+         .attr("x", chartOutPad)
+         .attr("width", function(d){
+             return d.value * 50
+         })
+         .attr("height", 50)
+         .attr("fill", "orange")
+
+      </script>
+    </body>
+</html>
