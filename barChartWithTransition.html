@@ -30,31 +30,56 @@
         return(returnArr)
       }
 
+      // consider using filter instead?
+
+// reduce function wasn't necessary - there are d3 helpers
+
+//      var findMax = function(currentData){
+//          var maxToReturn = currentData.reduce(function(previous, d){
+//                              return(previous > d.value ? previous : d.value)
+//                              }, 0)
+//          return(maxToReturn)
+//        }
+
+
+
+
+
       var dataToDisplay = filterData(data,1)
 
-      chartHt = 800
-      chartWd = 500
-      chartOutPad = 4
-      chartInsPad = 2
+      var chartHt = 200
+      var chartWd = 500
+      var chartOutPad = 4
+
+      var yScale = d3.scaleBand()
+                     .domain(d3.range(dataToDisplay.length))     
+                     .rangeRound([chartOutPad, chartHt-chartOutPad])
+                     .paddingInner(0.05)
+
+      var xScale = d3.scaleLinear()
+                     .domain([0,
+                         d3.max(dataToDisplay, function(d) {return d.value; })
+                        ])
+                     .range([chartOutPad, chartWd - chartOutPad])
 
       svg=d3.select("#chartDiv")
           .append("svg")
-          .attr("width", chartHt)
-          .attr("height", chartWd)
+          .attr("width", chartWd)
+          .attr("height", chartHt)
 
       svg.selectAll("rect")
          .data(dataToDisplay)
          .enter()
          .append("rect")
          .attr("y", function(d,i) {
-             return i * 52;
+             return yScale(i); 
          })
          .attr("x", chartOutPad)
+         .attr("height", yScale.bandwidth())
          .attr("width", function(d){
-             return d.value * 50
+             return xScale(d.value)
          })
-         .attr("height", 50)
-         .attr("fill", "orange")
+         .attr("fill", "#AAF0D1")
 
       </script>
     </body>
