@@ -4,31 +4,55 @@
     <meta charset="utf-8">
     <title>Horizontal Bar Chart with Transition</title>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/6.2.0/d3.min.js"></script>
+    <style>
+      .axisX path, 
+      .axisX line, 
+      .axisY path,
+      .axisY line {
+        display: none;
+      }
+
+      .axisY text {
+        font-size: 20px;
+      }
+    </style>
   </head>
   <body>
     <div>
       <h2>Horizontal Bar Chart with Transitions</h2>
     </div>
+    <div id="Inc">Increment</div>
     <div id="chartDiv"></div>
     <script>
       var data = [
-            {group: 1, stage: 1, value: 4}, 
-            {group: 1, stage: 2, value: 8}, 
-            {group: 2, stage: 1, value: 1}, 
-            {group: 2, stage: 2, value: 8}, 
-            {group: 3, stage: 1, value: 5}, 
-            {group: 3, stage: 2, value: 11}, 
-            {group: 4, stage: 1, value: 3}, 
-            {group: 4, stage: 2, value: 6}, 
-            {group: 5, stage: 1, value: 3}, 
-            {group: 5, stage: 2, value: 9}, 
+            {group: "A", stage: 1, value: 40}, 
+            {group: "A", stage: 2, value: 80}, 
+            {group: "B", stage: 1, value: 10}, 
+            {group: "B", stage: 2, value: 80}, 
+            {group: "C", stage: 1, value: 50}, 
+            {group: "C", stage: 2, value: 110}, 
+            {group: "D", stage: 1, value: 30}, 
+            {group: "D", stage: 2, value: 60}, 
+            {group: "E", stage: 1, value: 30}, 
+            {group: "E", stage: 2, value: 90}, 
+            {group: "F", stage: 1, value: 50}, 
+            {group: "F", stage: 2, value: 50}, 
+            {group: "G", stage: 1, value: 70}, 
+            {group: "G", stage: 2, value: 90}, 
+            {group: "H", stage: 1, value: 10}, 
+            {group: "H", stage: 2, value: 20}, 
+
           ]
 
       var filterData = function(originalData, stage){
         var returnArr = [];
         originalData.map(function(d, i){if(d.stage==stage){returnArr.push(d)}})
         return(returnArr)
-      }
+      };
+
+      var key = function(d) {
+        return d.group;
+      };
 
       // consider using filter instead?
 
@@ -42,44 +66,140 @@
 //        }
 
 
-
-
-
-      var dataToDisplay = filterData(data,1)
+// reference later:  https://stackoverflow.com/questions/46205118/how-to-sort-a-d3-bar-chart-based-on-an-array-of-objects-by-value-or-key
 
       var chartHt = 200
       var chartWd = 500
-      var chartOutPad = 4
+      var chartOutPad = 20
+
+      var dataToDisplay = filterData(data,1)
+
+      dataToDisplay.sort(function(a,b){
+        return d3.descending(a.value, b.value)
+      })
 
       var yScale = d3.scaleBand()
-                     .domain(d3.range(dataToDisplay.length))     
+//                     .domain(d3.range(dataToDisplay.length))     // used to create domain [0,1,2,...]
+                     .domain(dataToDisplay.map(function(d) {
+                       return d.group
+                     }))
                      .rangeRound([chartOutPad, chartHt-chartOutPad])
-                     .paddingInner(0.05)
+                     .paddingInner(0.05);
+      
+      var yAxis = d3.axisLeft()
+                    .scale(yScale)
 
       var xScale = d3.scaleLinear()
                      .domain([0,
                          d3.max(dataToDisplay, function(d) {return d.value; })
                         ])
-                     .range([chartOutPad, chartWd - chartOutPad])
+                     .range([0, chartWd - (3*chartOutPad)]);
+
+      var xAxis = d3.axisBottom()
+                    .scale(xScale)
+                    .ticks(5);
 
       svg=d3.select("#chartDiv")
           .append("svg")
           .attr("width", chartWd)
-          .attr("height", chartHt)
+          .attr("height", chartHt);
 
       svg.selectAll("rect")
-         .data(dataToDisplay)
+         .data(dataToDisplay, key)
          .enter()
          .append("rect")
-         .attr("y", function(d,i) {
-             return yScale(i); 
+         .attr("y", function(d) {
+             return yScale(d.group); 
          })
          .attr("x", chartOutPad)
          .attr("height", yScale.bandwidth())
          .attr("width", function(d){
              return xScale(d.value)
          })
-         .attr("fill", "#AAF0D1")
+         .attr("fill", "#AAF0D1");
+
+      svg.selectAll("text")
+         .data(dataToDisplay, key)
+         .enter()
+         .append("text")
+         .text(function(d) {
+           return(d.value)
+         })
+         .attr("y", function(d) {
+           return(yScale(d.group) + (yScale.bandwidth()/1.5) )
+         })
+         .attr("x", function(d) {
+           return(xScale(d.value) + 30)
+         })
+         .attr("font-family", "sans-serif")
+         .attr("font-size", "16px");
+         
+      svg.append("g")
+         .attr("class", "axisY")
+         .attr("transform", "translate(" + chartOutPad + ", 0)")
+         .call(yAxis)
+
+      svg.append("g")
+         .attr("class", "axisX")
+         .attr("transform", "translate(" + chartOutPad + ",0)")
+         .call(xAxis)
+
+      var updateChart = function(){
+
+        var dataToDisplay = filterData(data,2)
+
+        dataToDisplay.sort(function(a,b){
+          return d3.descending(a.value, b.value)
+        })
+
+        var yScale = d3.scaleBand()
+                     .domain(dataToDisplay.map(function(d) {
+                       return d.group
+                     }))
+                     .rangeRound([chartOutPad, chartHt-chartOutPad])
+                     .paddingInner(0.05);
+      
+//        var yAxis = d3.axisLeft()
+//                    .scale(yScale)
+
+        var xScale = d3.scaleLinear()
+                     .domain([0,
+                         d3.max(dataToDisplay, function(d) {return d.value; })
+                        ])
+                     .range([0, chartWd - (3*chartOutPad)]);
+
+//        var xAxis = d3.axisBottom()
+//                      .scale(xScale)
+//                      .ticks(5);
+
+
+        svg.selectAll("rect")
+         .data(dataToDisplay, key)
+         .transition()
+         .duration(2000)
+         .attr("y", function(d) {
+             return yScale(d.group); 
+         })
+         .attr("width", function(d){
+             return xScale(d.value)
+         })
+
+//         svg.append("g")
+//         .attr("class", "axisY")
+//         .attr("transform", "translate(" + chartOutPad + ", 0)")
+//         .call(yAxis)
+
+//       svg.append("g")
+//         .attr("class", "axisX")
+//         .attr("transform", "translate(" + chartOutPad + ",0)")
+//         .call(xAxis)
+
+
+
+      }
+
+      d3.select("#Inc")
+        .on("click", updateChart)
 
       </script>
     </body>
