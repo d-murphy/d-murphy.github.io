@@ -70,7 +70,7 @@
 
       var chartHt = 200
       var chartWd = 500
-      var chartOutPad = 20
+      var chartOutPad = 30
 
       var dataToDisplay = filterData(data,1)
 
@@ -152,12 +152,15 @@
           return d3.descending(a.value, b.value)
         })
 
-        var yScale = d3.scaleBand()
-                     .domain(dataToDisplay.map(function(d) {
+        yScale.domain(dataToDisplay.map(function(d) {
                        return d.group
                      }))
-                     .rangeRound([chartOutPad, chartHt-chartOutPad])
-                     .paddingInner(0.05);
+        
+        svg.select(".axisY")
+           .transition()
+           .duration(2000)
+//           .ease(d3.easeLinear)
+           .call(yAxis)
       
 //        var yAxis = d3.axisLeft()
 //                    .scale(yScale)
@@ -177,6 +180,7 @@
          .data(dataToDisplay, key)
          .transition()
          .duration(2000)
+//         .ease(d3.easeLinear)
          .attr("y", function(d) {
              return yScale(d.group); 
          })
