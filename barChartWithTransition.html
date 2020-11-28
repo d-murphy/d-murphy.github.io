@@ -25,22 +25,22 @@
     <div id="chartDiv"></div>
     <script>
       var data = [
-            {group: "A", stage: 1, value: 40}, 
-            {group: "A", stage: 2, value: 80}, 
-            {group: "B", stage: 1, value: 10}, 
-            {group: "B", stage: 2, value: 80}, 
-            {group: "C", stage: 1, value: 50}, 
-            {group: "C", stage: 2, value: 110}, 
-            {group: "D", stage: 1, value: 30}, 
-            {group: "D", stage: 2, value: 60}, 
-            {group: "E", stage: 1, value: 30}, 
-            {group: "E", stage: 2, value: 90}, 
-            {group: "F", stage: 1, value: 50}, 
-            {group: "F", stage: 2, value: 50}, 
-            {group: "G", stage: 1, value: 70}, 
-            {group: "G", stage: 2, value: 90}, 
-            {group: "H", stage: 1, value: 10}, 
-            {group: "H", stage: 2, value: 20}, 
+            {group: "A", stage: 1, value: 40, active: 0}, 
+            {group: "A", stage: 2, value: 80, active: 1}, 
+            {group: "B", stage: 1, value: 10, active: 0}, 
+            {group: "B", stage: 2, value: 80, active: 1}, 
+            {group: "C", stage: 1, value: 50, active: 0}, 
+            {group: "C", stage: 2, value: 110, active: 1}, 
+            {group: "D", stage: 1, value: 30, active: 1}, 
+            {group: "D", stage: 2, value: 60, active: 1}, 
+            {group: "E", stage: 1, value: 30, active: 1}, 
+            {group: "E", stage: 2, value: 90, active: 1}, 
+            {group: "F", stage: 1, value: 50, active: 1}, 
+            {group: "F", stage: 2, value: 50, active: 1}, 
+            {group: "G", stage: 1, value: 70, active: 1}, 
+            {group: "G", stage: 2, value: 90, active: 0}, 
+            {group: "H", stage: 1, value: 10, active: 1}, 
+            {group: "H", stage: 2, value: 20, active: 0}, 
 
           ]
 
@@ -86,8 +86,8 @@
                      .rangeRound([chartOutPad, chartHt-chartOutPad])
                      .paddingInner(0.05);
       
-      var yAxis = d3.axisLeft()
-                    .scale(yScale)
+//      var yAxis = d3.axisLeft()
+//                    .scale(yScale)
 
       var xScale = d3.scaleLinear()
                      .domain([0,
@@ -118,10 +118,12 @@
          })
          .attr("fill", "#AAF0D1");
 
-      svg.selectAll("text")
+
+      svg.selectAll("text.value")
          .data(dataToDisplay, key)
          .enter()
          .append("text")
+	 .attr("class", "value")
          .text(function(d) {
            return(d.value)
          })
@@ -133,11 +135,31 @@
          })
          .attr("font-family", "sans-serif")
          .attr("font-size", "16px");
+
+
+      svg.selectAll("text.title")
+         .data(dataToDisplay, key)
+         .enter()
+         .append("text")
+	 .attr("class", "title")
+         .text(function(d) {
+           return(d.group)
+         })
+         .attr("y", function(d) {
+           return(yScale(d.group) + (yScale.bandwidth()/1.5) )
+         })
+         .attr("x", 0)
+         .attr("font-family", "sans-serif")
+         .attr("font-size", "16px")
+	 .attr("fill", function(d) {
+	    return(d.active == 1 ? "black" : "red")
+	}); 
+
          
-      svg.append("g")
-         .attr("class", "axisY")
-         .attr("transform", "translate(" + chartOutPad + ", 0)")
-         .call(yAxis)
+//      svg.append("g")
+//         .attr("class", "axisY")
+//         .attr("transform", "translate(" + chartOutPad + ", 0)")
+//         .call(yAxis)
 
       svg.append("g")
          .attr("class", "axisX")
@@ -156,11 +178,11 @@
                        return d.group
                      }))
         
-        svg.select(".axisY")
-           .transition()
-           .duration(2000)
+//        svg.select(".axisY")
+//           .transition()
+//           .duration(2000)
 //           .ease(d3.easeLinear)
-           .call(yAxis)
+//           .call(yAxis)
       
         xScale.domain([0,
                          d3.max(dataToDisplay, function(d) {return d.value; })
@@ -185,7 +207,7 @@
              return xScale(d.value)
          })
 
-         svg.selectAll("text")
+         svg.selectAll("text.value")
          .data(dataToDisplay, key)
          .transition()
          .duration(2000)
@@ -201,6 +223,21 @@
          .attr("font-family", "sans-serif")
          .attr("font-size", "16px");
 
+
+
+      svg.selectAll("text.title")
+         .data(dataToDisplay, key)
+         .transition()
+         .duration(2000)
+         .text(function(d) {
+           return(d.group)
+         })
+         .attr("y", function(d) {
+           return(yScale(d.group) + (yScale.bandwidth()/1.5) )
+         })
+	 .attr("fill", function(d) {
+	    return(d.active == 1 ? "black" : "red")
+	}); 
 
 
       }
