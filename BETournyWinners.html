@@ -1077,6 +1077,7 @@
       var chartLeftAxis = 150
       var chartOutPad = 20
       var startingYear = 1979
+      var isPlaying = false;
 
       var dataToDisplay = filterData(data,1979)
 
@@ -1157,6 +1158,11 @@
          .attr("x", 5)
          .attr("font-family", "sans-serif")
          .attr("font-size", "16px")
+
+//      var togglePlay = function(isPlaying){
+//	if(!isPlaying){
+//	  isPlaying = true
+//	}
          
       var updateChart = function(){
 
@@ -1204,19 +1210,27 @@
                 .attr("height", yScale.bandwidth())
                 .attr("fill", "#C0C0C0")
 //                .attr("fill", function(d) {
-//                     return (schoolColors[d.School])
+//	 	       if(d.WonTournament){
+//	                 return (schoolColors[d.School])
+//		       } else {
+//			 return("#C0C0C0")
+//		       }
 //                 })
 				.merge(bars)	//Update…
 				.transition()
 				.duration(2000)
-//                .on("start", function(d) {
-//                    d3.select(this)
-//                      .transition()
-//                      .duration(250)
-//                      .attr("fill", function(d) {
-//                        return (schoolColors[d.School])
-//                      });
-//                })
+                .on("start", function(d) {
+                    d3.select(this)
+                      .transition()
+                      .duration(2000)
+                .attr("fill", function(d) {
+	 	       if(d.WonTournament){
+	                 return (schoolColors[d.School])
+		       } else {
+			 return("#C0C0C0")
+		       }
+                 })
+
                 .attr("x", xScale(0) + chartLeftAxis)
 				.attr("y", function(d){
                     return(yScale(d.School))
@@ -1225,13 +1239,16 @@
                     return(d.ChampionshipTotal == 0 ? 5 : xScale(d.ChampionshipTotal))
                     })
                 .attr("height", yScale.bandwidth())
+                })
 //                .on("end", function() {
 //                    d3.select(this)
 //                      .transition()
 //                      .duration(250)
 //                      .attr("fill", "#C0C0C0")
-//                    }) 
-
+//                    }); 
+//        .on('end', function () {
+//            d3.select(this).attrs({ fill: 'yellow' });
+//        });
 
 
             //Exit…
