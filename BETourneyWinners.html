@@ -1145,6 +1145,8 @@
       var startingYear = 1979
       var displayYear = 1979
       var isPlaying = false;
+      var timeToNextYear = 2000;
+      var timeForAnimation = 1500;
 
       var dataToDisplay = filterData(data,startingYear)
 
@@ -1170,7 +1172,7 @@
         } else if (!isPlaying){
           document.getElementById("Inc").innerHTML = "Pause"
           isPlaying = true; 
-          intervalID = window.setInterval(incYearAndUpdate, 3000);
+          intervalID = window.setInterval(incYearAndUpdate, timeToNextYear);
   	    } else {
           document.getElementById("Inc").innerHTML = "Resume"
           isPlaying = false;
@@ -1276,7 +1278,7 @@
 
         svg.select(".axisX")
            .transition()
-           .duration(2000)
+           .duration(timeForAnimation)
 //           .ease(d3.easeLinear)
            .call(xAxis)
 
@@ -1297,11 +1299,11 @@
         .attr("fill", "#C0C0C0")
  				.merge(bars)	//Update…
 				.transition()
-				.duration(2000)
+				.duration(timeForAnimation)
         .on("start", function(d) {
              d3.select(this)
                .transition()
-               .duration(2000)
+               .duration(timeForAnimation)
                .attr("fill", function(d) {
 	 	             if(d.WonTournament & d.ActiveInConf){
 	                return (schoolColors[d.School])
@@ -1323,7 +1325,7 @@
             //Exit…
     bars.exit()
         .transition()
-        .duration(2000)
+        .duration(timeForAnimation)
         .attr("y", chartHt + yScale.bandwidth())
         .remove();
 
@@ -1345,7 +1347,7 @@
                })
 				  .merge(totals)	//Update…
 				  .transition()
-				  .duration(2000)
+				  .duration(timeForAnimation)
           .attr("x", function(d) {
                  return(xScale(d.ChampionshipTotal) + 10 + chartLeftAxis)
                 })
@@ -1360,7 +1362,7 @@
 
     totals.exit()
     		  .transition()
-				  .duration(2000)
+				  .duration(timeForAnimation)
 				  .attr("y", chartHt + yScale.bandwidth())
 				  .remove();
 
@@ -1381,7 +1383,7 @@
                 })
   				.merge(labels)	//Update…
 	  			.transition()
-		  		.duration(2000)
+		  		.duration(timeForAnimation)
 			  	.attr("y", function(d) {
                     return(yScale(d.School) + (yScale.bandwidth()/1.5) )
                 })
@@ -1397,7 +1399,7 @@
 
     labels.exit()
     		  .transition()
-				  .duration(2000)
+				  .duration(timeForAnimation)
 				  .attr("y", chartHt + yScale.bandwidth())
 				  .remove();
       }
