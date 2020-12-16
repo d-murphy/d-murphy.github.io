@@ -19,7 +19,14 @@
 
         #Inc {
           font-size: 14px;
-          font-style: italic;
+          text-align: center;
+          background-color: white;
+          color: black;
+          border: 2px solid grey; /* Green */
+          width: 120px;
+          padding-top: 10px;
+          padding-bottom: 10px;
+          border-radius: 10px;
         }
 
         #subHeader {
@@ -77,7 +84,7 @@
             <h2>Big East Tournament Champions - Men's Basketball</h2>
             <div id="subHeader">
               <div id="yearsInHeader"><b>1980 - 2019</b></div>
-              <div id="Inc">Start Animation</div>                
+              <div id="Inc">Start</div>                
             </div>
           </div>
     </div>
@@ -1046,7 +1053,7 @@
         }
 
       var yearData = [
-        { Year: '1979', Winner: '', Score: '', RunnerUp: '', MVP: '', Location: '', SpecialMessage: 'Conference formed with 7 teams.<br/><br/>Click <b>\'Start Animation\'</b> to view winners through the years.'},  
+        { Year: '1979', Winner: '', Score: '', RunnerUp: '', MVP: '', Location: '', SpecialMessage: 'Conference formed with 7 teams.<br/><br/>Click <b>\'Start\'</b> to view winners through the years.'},  
         { Year: '1980', Winner: 'Georgetown', Score: '87–81', RunnerUp: 'Syracuse', MVP: 'Craig Shelton, GU', Location: 'Providence Civic Center (Providence, RI)', SpecialMessage: '' }, 
         { Year: '1981', Winner: 'Syracuse', Score: '83–80', RunnerUp: 'Villanova', MVP: 'Leo Rautins, SU', Location: 'Carrier Dome (Syracuse, NY)', SpecialMessage: '' }, 
         { Year: '1982', Winner: 'Georgetown', Score: '72–54', RunnerUp: 'Villanova', MVP: 'Eric Floyd, GU', Location: 'Hartford Civic Center (Hartford, CT)', SpecialMessage: '' }, 
@@ -1135,21 +1142,31 @@
         return d3.descending(a.ChampionshipTotal, b.ChampionshipTotal)
       })
 
-      var togglePlay = function(isPlaying){
-//        if(!isPlaying){
-//          isPlaying = true; 
-//          displayYear = displayYear + 1;
-//          for(var i=0; i++; i<3){
-//
-//          }
-//        }
-          var timer = setInterval(updateChart, 3000);
-	    }
-      var pause = function(){
-        console.log("try pause")
-        clearInterval(timer)
+      var incYearAndUpdate = function(){
+        if(displayYear < 2021) {
+          displayYear = displayYear + 1;
+          updateChart(displayYear);
+          updateCaption(displayYear);
+        } else {
+          document.getElementById("Inc").innerHTML = "Reset"          
+        }
       }
 
+      var intervalID = [];
+
+      var togglePlay = function(){
+        if(displayYear>=2021){
+          location.reload();
+        } else if (!isPlaying){
+          document.getElementById("Inc").innerHTML = "Pause"
+          isPlaying = true; 
+          intervalID = window.setInterval(incYearAndUpdate, 3000);
+  	    } else {
+          document.getElementById("Inc").innerHTML = "Resume"
+          isPlaying = false;
+          window.clearInterval(intervalID);          
+        }
+      }
 
       var yScale = d3.scaleBand()
 //                     .domain(d3.range(dataToDisplay.length))     // used to create domain [0,1,2,...]
@@ -1224,7 +1241,7 @@
       updateCaption(displayYear);
 
 
-      var updateChart = function(){
+      var updateChart = function(displayYear){
 
         if(displayYear == 1979){
             svg.append("g")
@@ -1232,10 +1249,6 @@
                .attr("transform", "translate(" + chartLeftAxis + ",0)")
                .call(xAxis)
         }
-
-        displayYear = displayYear + 1
-
-        updateCaption(displayYear);
 
         var dataToDisplay = filterData(data,displayYear)
 
@@ -1280,19 +1293,12 @@
                .transition()
                .duration(2000)
                .attr("fill", function(d) {
-	 	             if(d.WonTournament){
+	 	             if(d.WonTournament & d.ActiveInConf){
 	                return (schoolColors[d.School])
 		            } else {
 			            return("#C0C0C0")
 		            }
                })
-//               .style("opacity", function(d) {
-//                 if(d.ActiveInConf==0 & d.Year == 2021){
-//                   return(0.2)
-//                 } else {
-//                   return(1.0)
-//                 }
-//               })
             .attr("x", xScale(0) + chartLeftAxis)
 				    .attr("y", function(d){
                   return(yScale(d.School))
@@ -1387,9 +1393,7 @@
       }
 
     d3.select("#Inc")
-      .on("click", togglePlay(isPlaying) )
-    d3.select("#Pause")
-      .on("click", pause)
+      .on("click", togglePlay )
 
       </script>
     </body>
