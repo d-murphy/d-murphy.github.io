@@ -1,0 +1,74 @@
+body {
+    background-color: #EEE;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  #container {
+    display:  grid;
+    justify-content: center;  
+    grid-template-columns: 400px 400px 400px;
+    grid-template-rows:  60px 300px 300px;
+    gap: 10px;
+    grid-template-areas: 
+      "divheader divheader divheader"
+      "div1 div2 div3"
+      "div4 div4 div4"
+  }
+  
+  #divheader {
+      background-color: white;
+      grid-area: divheader;
+  }
+
+  #div1 {
+    background-color: lightgrey;
+    grid-area: div1;
+  }
+
+  #chart1, #chart2, #chart3, #chart4 {
+   background-color: white; 
+    margin: 3px;
+  }
+  
+  #div2 {
+    background-color: lightgrey;
+    grid-area: div2;
+  }
+  
+  #div3 {
+    background-color: lightgrey;
+    grid-area: div3;
+  }
+  
+  #div4 {
+    background-color: lightgrey;
+    grid-area: div4;
+  /*  justify-self: stretch; */
+  }
+
+  #chart1tt, #chart2tt, #chart3tt, #chart4tt {
+    position: absolute;
+    text-align: center;
+    width: 120px;
+    height: auto;
+    padding: 10px;
+    font: 12px;
+    line-height: 1.4em;
+    background-color: white;
+    border-style: solid;
+    opacity: .95;
+    border-radius: 8px;
+    box-shadow: 2px 2px 4px rgba(0,0,0,.4);
+    pointer-events: none; ;
+  }
+
+  #chart2tt {
+    width: 160px;
+  }
+
+
+  #chart1tt.hidden, #chart2tt.hidden, 
+  #chart3tt.hidden, #chart4tt.hidden {
+    display: none;
+  }
+

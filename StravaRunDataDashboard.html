@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Strava Run Data Dashboard</title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/6.2.0/d3.min.js"></script>
+    <link rel="stylesheet" href="./runDashboardSupport/chartExplore.css">
+  </head>
+  <body>
+    <script type="text/javascript" src="./runDashboardSupport/runData.js"></script> 
+    <script type="text/javascript" src="./runDashboardSupport/createDatasets.js"></script>
+      <div id="container">
+        <div id="divheader">
+          <h3>Run Data Dashboard</h3>
+          <p>Fix decimal time in chart 3 mouseover;  Add axis titles on chart 2;  </p>
+        </div>
+        <div id="div1">
+            <svg width=394 height=294 id="chart1"></svg>   
+            <div id="chart1tt" class="hidden"></div>     
+        </div>
+        <div id="div2">
+          <svg width=394 height=294 id="chart2"></svg>   
+          <div id="chart2tt" class="hidden"></div>     
+        </div>
+        <div id="div3">
+          <svg width=394 height=294 id="chart3"></svg>   
+          <div id="chart3tt" class="hidden"></div>     
+        </div>
+        <div id="div4">
+          <svg width=1214 height=294 id="chart4"></svg>
+          <div id="chart4tt" class="hidden"></div>     
+        </div>
+      </div>
+    <script type="text/javascript" src="./runDashboardSupport/drawChart1.js"></script>
+    <script type="text/javascript" src="./runDashboardSupport/drawChart2.js"></script>
+    <script type="text/javascript" src="./runDashboardSupport/drawChart3.js"></script>
+    <script type="text/javascript" src="./runDashboardSupport/drawChart4.js"></script>
+    </body>
+</html>
+
