@@ -52,7 +52,7 @@ chart4
     .attr('width', xScaleC4.bandwidth() )
     .attr('fill', d => colorScale(d.mileage))
   .on('mouseover', function(event, d) {
-    var tt4X = event.x - 70
+    var tt4X = event.x - 60 - 10  // 1/2 div size + padding
     var tt4Y = event.pageY - (d.mileage>0 ? 110 : 50)
     d3.select("#chart4tt")
       .style("left", tt4X + "px")

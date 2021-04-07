@@ -43,7 +43,7 @@ svg3.append("rect")
     var tt3Y = yVals[xPosInChart - xMin]
     var tt3X = event.x
     d3.select("#chart3tt")
-    .style("left", tt3X - 60 + "px")
+    .style("left", tt3X - 60 - 10+ "px")  // 1/2 div size + padding
     .style("top", yScaleC3(tt3Y)+20 + "px")
     .html(`<b>${monthLUT[xPosInChart]}</b></br>Average Mile: ${yValsToShow[xPosInChart - xMin]}`)
 })

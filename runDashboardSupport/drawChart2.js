@@ -39,7 +39,7 @@ chart2
     .style("fill", "#69b3a2")
 
   .on('mouseover', function(event, d) {
-    var tt2X = event.x - 80
+    var tt2X = event.x - 80 - 10  // 1/2 div size + padding
     var tt2Y = yScaleC2(d.average) + margin.bottom - 35
     d3.select("#chart2tt")
       .style("left", tt2X + "px")
