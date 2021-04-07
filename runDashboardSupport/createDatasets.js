@@ -7,22 +7,14 @@ monthlyTotals = runData.
                }
     })
     .map(function createSortAndDisplay (run) {
-        return {mileage: run.mileage, 
-                month: run.month,
-                year: run.year,
-                time: run.time,
+        return {...run,
                 monthSort: ((run.year-120)*12 + run.month),
                 monthDisplay: (1900 + run.year) + " - " + run.month
             }
     })
     .reduce(function sumMonths (accumulator, run) {
       if (!accumulator[run.monthDisplay]) {
-        accumulator[run.monthDisplay] = { mileage: run.mileage, 
-                                          month: run.month,
-                                          year: run.year,
-                                          time: run.time,
-                                          monthSort: run.monthSort,
-                                          monthDisplay: run.monthDisplay,
+        accumulator[run.monthDisplay] = { ...run,
                                           numRuns: 1
                                         };
       }
@@ -34,40 +26,26 @@ monthlyTotals = runData.
 monthlyTotals = Object.values(monthlyTotals);
 monthlyTotals = monthlyTotals
     .map(function calcAverage (month) {
-      return { mileage: month.mileage, 
-                month: month.month,
-                year: month.year,
-                time: month.time,
-                monthSort: month.monthSort,
-                monthDisplay: month.monthDisplay,
-                numRuns: month.numRuns,
+      return { ...month, 
                 avgMile: month.time / month.mileage / 60
               }
     })
     .map(function getAvgMileString (month){
-
       avgMileMin = Math.floor(month.avgMile);
       avgMileSecRaw = month.avgMile - avgMileMin
       avgMileSecRaw = Math.round(avgMileSecRaw * 60 )
       avgMileSec = avgMileSecRaw == 0 ? "00" : 
                     avgMileSecRaw < 10 ? "0" + avgMileSecRaw : avgMileSecRaw
-
-      return { mileage: month.mileage, 
-        month: month.month,
-        year: month.year,
-        time: month.time,
-        monthSort: month.monthSort,
-        monthDisplay: month.monthDisplay,
-        numRuns: month.numRuns,
-        avgMile: month.avgMile,
-        avgMileStr: `${avgMileMin}:${avgMileSec}`
+      return { 
+        ...month,
+        avgMileStr: `${avgMileMin}:${avgMileSec}`        
       }
     })
+
 monthlyTotals = monthlyTotals.sort((a,b) => a.monthSort - b.monthSort);
 
 var start = new Date(2020,5,30);
 var oneDay = 1000 * 60 * 60 * 24;
-
 
 runsTimeAndDistance = runData
     .map(function selectTimeAndDistance(run) {
@@ -79,28 +57,18 @@ runsTimeAndDistance = runData
               }
     })
     .map(function calcAverageAndDayNum(run) {
-      return { time: run.time, 
-               timeMinsString: run.timeMinsString, 
-               timeMinsFloat: run.timeMinsFloat ,
-               mileage: parseFloat(run.mileage), 
-               date: run.date, 
+      return { ...run, 
                average: run.timeMinsFloat / run.mileage,
                dayNum: Math.floor( (new Date(run.date) - start) / oneDay) 
        }
     })
     .map(function stringifyAverageAndCalcWeekNum(run) {
-      return { time: run.time, 
-               timeMinsString: run.timeMinsString, 
-               timeMinsFloat: run.timeMinsFloat ,
-               mileage: parseFloat(run.mileage), 
-               date: run.date, 
-               average: run.average,
+      return { ...run, 
                averageStr: `${Math.floor(run.average)}:${
                  Math.round(run.average % Math.floor(run.average) * 60)  < 10 ? 
                  "0" + Math.round(run.average % Math.floor(run.average) * 60) : 
                  Math.round(run.average % Math.floor(run.average) * 60) 
                  }`, 
-               dayNum: run.dayNum, 
                weekNum: Math.floor((run.dayNum +2) / 7),
                weekPos: (run.dayNum+2) % 7
        }
@@ -108,16 +76,7 @@ runsTimeAndDistance = runData
 
 runLUT = runsTimeAndDistance.reduce(function createLUT(accumulator, run) {
   if (!accumulator[run.dayNum]) {
-      accumulator[run.dayNum] = { time: run.time, 
-                                  timeMinsString: run.timeMinsString, 
-                                  timeMinsFloat: run.timeMinsFloat ,
-                                  mileage: run.mileage, 
-                                  date: run.date, 
-                                  average: run.average,
-                                  averageStr: run.averageStr, 
-                                  dayNum: run.dayNum, 
-                                  weekNum: run.weekNum,
-                                  weekPos: run.weekPos
+      accumulator[run.dayNum] = { ...run
                                 }
     }
   return accumulator
