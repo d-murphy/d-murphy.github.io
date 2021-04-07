@@ -53,8 +53,8 @@ chart1
     .attr('width', xScale2.bandwidth() )
     .attr('fill', (d) => d.key=='numRuns' ? "#000" : "#888")
   .on('mouseover', function(event, d) {
-    var tt1X = event.x - 60
-    var tt1Y = yScale(d.value.value) + margin.bottom 
+    var tt1X = event.x - 60 - 10
+    var tt1Y = yScale(d.value.value) + margin.top 
     d3.select("#chart1tt")
       .style("left", tt1X + "px")
       .style("top", tt1Y + "px")

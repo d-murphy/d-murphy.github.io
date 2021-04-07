@@ -5,8 +5,8 @@ monthlyTotals = runData.
                  year: new Date(run.start_time).getYear(),
                  time: parseFloat(run.moving_time_raw)
                }
-    }).
-    map(function createSortAndDisplay (run) {
+    })
+    .map(function createSortAndDisplay (run) {
         return {mileage: run.mileage, 
                 month: run.month,
                 year: run.year,
@@ -14,8 +14,8 @@ monthlyTotals = runData.
                 monthSort: ((run.year-120)*12 + run.month),
                 monthDisplay: (1900 + run.year) + " - " + run.month
             }
-    }).
-    reduce(function sumMonths (accumulator, run) {
+    })
+    .reduce(function sumMonths (accumulator, run) {
       if (!accumulator[run.monthDisplay]) {
         accumulator[run.monthDisplay] = { mileage: run.mileage, 
                                           month: run.month,
@@ -32,17 +32,36 @@ monthlyTotals = runData.
       return accumulator;
     }, {})
 monthlyTotals = Object.values(monthlyTotals);
-monthlyTotals = monthlyTotals.
-    map(function calcAverage (month) {
-        return { mileage: month.mileage, 
-                 month: month.month,
-                 year: month.year,
-                 time: month.time,
-                 monthSort: month.monthSort,
-                 monthDisplay: month.monthDisplay,
-                 numRuns: month.numRuns,
-                 avgMile: month.time / month.mileage / 60
-               }
+monthlyTotals = monthlyTotals
+    .map(function calcAverage (month) {
+      return { mileage: month.mileage, 
+                month: month.month,
+                year: month.year,
+                time: month.time,
+                monthSort: month.monthSort,
+                monthDisplay: month.monthDisplay,
+                numRuns: month.numRuns,
+                avgMile: month.time / month.mileage / 60
+              }
+    })
+    .map(function getAvgMileString (month){
+
+      avgMileMin = Math.floor(month.avgMile);
+      avgMileSecRaw = month.avgMile - avgMileMin
+      avgMileSecRaw = Math.round(avgMileSecRaw * 60 )
+      avgMileSec = avgMileSecRaw == 0 ? "00" : 
+                    avgMileSecRaw < 10 ? "0" + avgMileSecRaw : avgMileSecRaw
+
+      return { mileage: month.mileage, 
+        month: month.month,
+        year: month.year,
+        time: month.time,
+        monthSort: month.monthSort,
+        monthDisplay: month.monthDisplay,
+        numRuns: month.numRuns,
+        avgMile: month.avgMile,
+        avgMileStr: `${avgMileMin}:${avgMileSec}`
+      }
     })
 monthlyTotals = monthlyTotals.sort((a,b) => a.monthSort - b.monthSort);
 

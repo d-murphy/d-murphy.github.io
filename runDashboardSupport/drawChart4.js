@@ -52,15 +52,16 @@ chart4
     .attr('width', xScaleC4.bandwidth() )
     .attr('fill', d => colorScale(d.mileage))
   .on('mouseover', function(event, d) {
-    var tt4X = event.x - 60
-    var tt4Y = event.pageY - (d.mileage>0 ? 80 : 50)
-    console.log(event)
+    var tt4X = event.x - 70
+    var tt4Y = event.pageY - (d.mileage>0 ? 110 : 50)
     d3.select("#chart4tt")
       .style("left", tt4X + "px")
       .style("top", tt4Y + "px")
       .html(d.mileage == 0 ? `0 miles` : 
-            `<b>${d.mileage} miles</b> on
-             ${new Date(d.date).getMonth()+1}/${new Date(d.date).getDate()}/${new Date(d.date).getFullYear()}`)
+            `<b>${new Date(d.date).getMonth()+1}/${new Date(d.date).getDate()}/${new Date(d.date).getFullYear()} 
+            ${new Date(d.date).getHours()}:${new Date(d.date).getMinutes() < 10 ? 
+            "0" + new Date(d.date).getMinutes() : new Date(d.date).getMinutes() }</b></br>
+            Mileage: ${d.mileage}</br>Avg Mile: ${d.averageStr}</br>(Total: ${d.timeMinsString})`)
       .classed("hidden", false)
   })
   .on("mouseout", function() {
@@ -72,3 +73,4 @@ chart4
     .attr('y', -.02*heightC4)
     .attr('text-anchor', 'middle')
     .text(`Timeline of ${Object.keys(runLUT).length} Runs`)
+

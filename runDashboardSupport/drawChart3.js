@@ -13,7 +13,7 @@ const yScaleC3 = d3.scaleLinear()
 
 chart3.append('g')
   .call(d3.axisLeft(yScaleC3)
-    .ticks(4)
+    .ticks(2)
   );
 
 const xScaleC3 = d3.scaleLinear()
@@ -23,9 +23,10 @@ const xScaleC3 = d3.scaleLinear()
 
 chart3.append('g')
   .attr('transform', `translate(0, ${height})`)
-  .call(d3.axisBottom(xScaleC3))
+  .call(d3.axisBottom(xScaleC3).tickFormat((d) => monthLUT[d]));
 
 yVals = monthlyTotals.map(d => d.avgMile)
+yValsToShow = monthlyTotals.map(d => d.avgMileStr)
 xMin = d3.min(monthlyTotals.map(d => d.monthSort))
   
 // a blank rect to catch pointer events
@@ -44,7 +45,7 @@ svg3.append("rect")
     d3.select("#chart3tt")
     .style("left", tt3X - 60 + "px")
     .style("top", yScaleC3(tt3Y)+20 + "px")
-    .html(`<b>${monthLUT[xPosInChart]}</b></br>Average Mile: ${Math.round(yVals[xPosInChart - xMin]*100)/100}`)
+    .html(`<b>${monthLUT[xPosInChart]}</b></br>Average Mile: ${yValsToShow[xPosInChart - xMin]}`)
 })
 
 chart3
@@ -63,3 +64,13 @@ chart3.append('text')
   .attr('y', -.05*height)
   .attr('text-anchor', 'middle')
   .text('Average Mile by Month')
+
+chart3.append("text")
+  .attr("transform", "rotate(90)")
+  .attr("class", "y label")
+  .attr("text-anchor", "start")
+  .attr("y", -margin.left+12)
+  .style("font-size", "10px")
+  .attr("dy", "2em")
+  .text("Avg Mile Time")
+
